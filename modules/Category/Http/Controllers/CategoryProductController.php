@@ -3,15 +3,24 @@
 namespace Modules\Category\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Request;
+use Modules\Page\Http\Controllers\CommonController;
 use Modules\Product\Entities\Product;
 use Modules\Category\Entities\Category;
 use Modules\Product\Filters\ProductFilter;
 use Modules\Product\Http\Controllers\ProductSearch;
+use Illuminate\Foundation\Application;
 
-class CategoryProductController
+class CategoryProductController extends CommonController
 {
     use ProductSearch;
 
+    public function __construct(Application $app, Request $request)
+    {
+
+        parent::__construct($app, $request);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,6 +43,7 @@ class CategoryProductController
         return view('storefront::public.products.index', [
             'categoryName' => $category->name,
             'categoryBanner' => $category->banner->path,
+            'data'          => $this->data
         ]);
     }
 }

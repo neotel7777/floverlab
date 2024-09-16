@@ -57,6 +57,21 @@ export default {
         inCompareList() {
             return store.inCompareList(this.product.id);
         },
+        id(){
+            return this.product.id;
+        },
+        price() {
+            return this.product.price;
+        },
+        price_formated() {
+            return this.product.price + "MDL";
+        },
+        percent() {
+            return parseInt((this.product.price - this.product.special_price)/this.product.special_price) * 100  + "%";
+        },
+        special_price_formated(){
+            return this.product.special_price + "MDL";
+        }
     },
 
     methods: {

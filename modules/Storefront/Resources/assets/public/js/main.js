@@ -4,8 +4,8 @@ import "./storefront";
 import Vue from "vue";
 import store from "./store";
 import { notify, trans, chunk } from "./functions";
-import VueToast from "vue-toast-notification";
-import vClickOutside from "v-click-outside";
+//import VueToast from "vue-toast-notification";
+//import vClickOutside from "v-click-outside";
 import HeaderSearch from "./components/layout/HeaderSearch.vue";
 import ProductRating from "./components/ProductRating.vue";
 import LandscapeProducts from "./components/LandscapeProducts.vue";
@@ -33,6 +33,7 @@ import CompareIndex from "./components/compare/Index";
 import MyWishlist from "./components/account/wishlist/Index";
 import MyReviews from "./components/account/reviews/Index";
 import MyAddresses from "./components/account/addresses/Index";
+import SaleCard from "./components/SaleCard.vue";
 
 window.Vue = Vue;
 
@@ -62,6 +63,7 @@ Vue.component("top-brands", TopBrands);
 Vue.component("flash-sale-and-vertical-products", () =>
     import("./components/home/FlashSaleAndVerticalProducts.vue")
 );
+Vue.component("sale-card",SaleCard)
 Vue.component("banner-two-column", BannerTwoColumn);
 Vue.component("product-grid", ProductGrid);
 Vue.component("banner-three-column", BannerThreeColumn);

@@ -30,7 +30,7 @@
     @endif
 
     @if (setting('storefront_product_grid_section_enabled'))
-        <product-grid :data="{{ json_encode($productGrid) }}"></product-grid>
+        @include('storefront::public.home.sections.catalog')
     @endif
 
     @if (setting('storefront_three_column_banners_enabled'))

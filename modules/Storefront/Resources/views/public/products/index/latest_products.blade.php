@@ -5,7 +5,7 @@
         </div>
 
         <div class="vertical-products-slider" ref="latestProducts">
-            @foreach ($latestProducts->chunk(5) as $latestProductChunks)
+            @foreach ($latestProducts->chunk(3) as $latestProductChunks)
                 <div class="vertical-products-slide">
                     @foreach ($latestProductChunks as $latestProduct)
                         <product-card-vertical :product="{{ json_encode($latestProduct) }}"></product-card-vertical>
