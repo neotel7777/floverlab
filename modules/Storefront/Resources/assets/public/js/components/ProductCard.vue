@@ -1,5 +1,5 @@
 <template>
-    <div class="product-card dbvfdggv">
+    <div class="product-card">
         <div class="product-card-top">
             <a :href="productUrl" class="product-image">
                 <img

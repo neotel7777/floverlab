@@ -1,0 +1,5 @@
+.offcanvas {
+    visibility: visible!important;
+    flex-direction: row!important;
+    position: relative!important;
+}

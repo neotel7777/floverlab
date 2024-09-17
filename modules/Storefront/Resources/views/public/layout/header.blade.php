@@ -1,4 +1,4 @@
-<section class="sectionWrap header">
+<section class="sectionWrap header header-wrap">
     <div class="logoWrap">
         <div class="Logo">
         <a href="{{ route('home') }}" class="header-logo">

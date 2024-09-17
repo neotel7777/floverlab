@@ -33,7 +33,7 @@ export default class {
             } else {
                 $(".fullscreen-mode-open .fullscreen-two").removeClass("enter-full-screen");
                 $(".fullscreen-mode-open .fullscreen-one").addClass("exit-full-screen");
-                
+
                 document.exitFullscreen().catch((err) => {
                     alert(
                         `Error attempting to disable full-screen mode: ${err.message} (${err.name})`
@@ -196,11 +196,13 @@ export default class {
     }
 
     tooltip() {
-        $('[data-toggle="tooltip"]')
-            .tooltip({ trigger: "hover" })
-            .on("click", (e) => {
-                $(e.currentTarget).tooltip("hide");
-            });
+        if($('[data-toggle="tooltip"]').length > 0) {
+            $('[data-toggle="tooltip"]')
+                .tooltip({trigger: "hover"})
+                .on("click", (e) => {
+                    $(e.currentTarget).tooltip("hide");
+                });
+        }
     }
 
     shortcuts() {

@@ -14,9 +14,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+        <link href="{{ v(asset('storage/css/admin.css')) }}"  rel="stylesheet">
+        <link href="{{ v(asset('storage/css/bootstrap.3.4.1.css')) }}"  rel="stylesheet">
 
-        <script src="{{ v(asset('build/assets/jquery.min.js')) }}"></script>
-        <script src="{{ v(asset('build/assets/selectize.min.js')) }}"></script>
+        <script src="{{ v(asset('storage/js/jquery.min.js')) }}"></script>
+        <script src="{{ v(asset('storage/js/bootstrap.js')) }}"></script>
+        <script src="{{ v(asset('storage/js/jstree.min.js')) }}"></script>
+        <script src="{{ v(asset('storage/js/selectize.min.js')) }}"></script>
+
 
         @vite([
             'modules/Admin/Resources/assets/sass/main.scss',
@@ -34,7 +39,7 @@
 
         @include('admin::partials.sidebar')
 
-        <div class="wrapper">
+        <div class="wrapper" data-toggle='tooltip'>
             <div class="content-wrapper">
                 @include('admin::partials.top_nav')
 

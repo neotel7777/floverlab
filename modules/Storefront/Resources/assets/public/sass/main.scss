@@ -3,15 +3,15 @@ $grid-columns: 18;
 // Vendors
 @import "bootstrap/scss/bootstrap";
 /*rtl:begin:ignore*/
-//@import "line-awesome/dist/line-awesome/scss/line-awesome";
+@import "line-awesome/dist/line-awesome/scss/line-awesome";
 @import "animate.css/animate";
-//@import "jquery-nice-select/scss/nice-select";
-//@import "drift-zoom/dist/drift-basic";
-//@import "nouislider/dist/nouislider";
-//@import "flatpickr/dist/flatpickr";
-//@import "glightbox/dist/css/glightbox";
+@import "jquery-nice-select/scss/nice-select";
+@import "drift-zoom/dist/drift-basic";
+@import "nouislider/dist/nouislider";
+@import "flatpickr/dist/flatpickr";
+@import "glightbox/dist/css/glightbox";
 /*rtl:end:ignore*/
-//@import "slick-carousel/slick/slick";
+@import "slick-carousel/slick/slick";
 
 // Utilities
 @import "utils/_variables";

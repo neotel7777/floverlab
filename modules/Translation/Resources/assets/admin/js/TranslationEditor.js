@@ -1,4 +1,4 @@
-import "../../../../node_modules/x-editable/dist/bootstrap3-editable/js/bootstrap-editable";
+import "x-editable/dist/bootstrap3-editable/js/bootstrap-editable";
 
 export default class {
     constructor() {

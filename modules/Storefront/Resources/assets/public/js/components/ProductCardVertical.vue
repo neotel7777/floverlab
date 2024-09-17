@@ -13,7 +13,7 @@
                 <h6>{{ product.name }}</h6>
             </a>
 
-            <div class="product-price" v-html="item.formatted_price"></div>
+            <div class="product-price" v-html="price_formated"></div>
 
             <product-rating
                 :ratingPercent="product.rating_percent"

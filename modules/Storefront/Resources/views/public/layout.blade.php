@@ -21,12 +21,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="{{ v(asset('build/assets/mystyles.css')) }}" rel="stylesheet">
+    <link href="{{ v(asset('storage/css/styles.css')) }}" rel="stylesheet">
 
-    <script src="{{ v(asset('build/assets/jquery.min.js')) }}"></script>
-    <script src="{{ v(asset('build/assets/bootstrap.min.js')) }}"></script>
-    <script src="{{ v(asset('build/assets/slick.min.js')) }}"></script>
-    <script src="{{ v(asset('build/assets/myScripts.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/jquery.min.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/bootstrap.min.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/slick.min.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/scripts.js')) }}"></script>
 
     @vite([
         'modules/Storefront/Resources/assets/public/sass/main.scss',

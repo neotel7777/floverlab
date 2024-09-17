@@ -1,4 +1,5 @@
 import store from "../store";
+import {formatNumber} from "chart.js/helpers";
 
 export default {
     data() {
@@ -60,17 +61,20 @@ export default {
         id(){
             return this.product.id;
         },
+        name() {
+          return this.product.title;
+        },
         price() {
-            return this.product.price;
+            return this.product.price_;
         },
         price_formated() {
-            return this.product.price + "MDL";
+            return this.product.price_ + "MDL";
         },
         percent() {
-            return parseInt((this.product.price - this.product.special_price)/this.product.special_price) * 100  + "%";
+            return parseInt((this.product.price_ - this.product.special_price_)/this.product.special_price_) * 100  + "%";
         },
         special_price_formated(){
-            return this.product.special_price + "MDL";
+            return this.product.special_price_ + "MDL";
         }
     },
 

@@ -1,7 +1,7 @@
 import tinymce from "tinymce";
 
 export default function (options = {}) {
-    tinymce.baseURL = `${FleetCart.baseUrl}/build/assets/tinymce`;
+    tinymce.baseURL = `${FleetCart.baseUrl}/storage/js/tinymce`;
 
     tinymce.init({
         selector: ".wysiwyg",

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import countdown from 'countdown';
+import * as countdown from 'countdown';
 
 export default {
     props: ["endDate"],

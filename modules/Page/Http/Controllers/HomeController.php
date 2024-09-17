@@ -47,16 +47,19 @@ class HomeController extends CommonController
         }
         $sales = $productClass::where('special_price',"!=",Null)->where("price","<>","special_price")->get();
         foreach ($sales as &$sale){
-            $sale->media = $productClass->getMediaForProduct($sale->id);
-            $sale->baseImage = $sale->media[0];
-            $sale->url = route('products.show',$sale->slug);
+            $sale->media            = $productClass->getMediaForProduct($sale->id);
+            $sale->baseImage        = $sale->media[0];
+            $sale->url              = route('products.show',$sale->slug);
+            $sale->rating_percent   = 0;
+            $sale->title            = $sale->translations[0]->name;
+            $sale->price_            = number_format($sale->price->amount(),2,".");
+            $sale->special_price_    = number_format($sale->special_price->amount(),2,".");
         }
         //dd($sales);
 
         $category_menu = new MegaMenu(2);
         $category_menu = $category_menu->menus();
         $this->data['feature_slider']       = $features;
-        $this->data['features']             = $features;
         $this->data['sale_products']        = $sales;
         $this->data['category_menu']        = $category_menu;
         $this->data['search']               = (request('search'))?request('search'):"";

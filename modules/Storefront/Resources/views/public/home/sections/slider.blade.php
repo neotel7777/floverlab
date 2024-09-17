@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 @if ($data['sale_products']->isNotEmpty())
-                    @foreach ($data['sale_products']->chunk(3) as $sale_products)
+                    @foreach ($data['sale_products']->chunk(2) as $sale_products)
                         <div class="flash_product_slider ">
                             @foreach ($sale_products as $product)
                                 <sale-card :product="{{ json_encode($product) }}"></sale-card>
