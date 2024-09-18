@@ -1,7 +1,7 @@
 <section class="home-section-wrap">
     <div class="sectionWrap">
         <div class="row">
-            <div class="home-section-inner">
+            <div class="home-section-inner flex-row-start-start">
                 <div class="home-slider-wrap">
                     <div
                         class="home-slider overflow-hidden"
@@ -23,7 +23,7 @@
                                 <div class="slide-content {{ $slide->isAlignedLeft() ? 'align-left' : 'align-right' }}">
                                     <div class="captions">
                                         <span
-                                            class="caption caption-1"
+                                            class="caption caption-1 font-30-36-500"
                                             data-animation-in3="{{ data_get($slide->options, 'caption_1.effect', 'fadeInRight') }}"
                                             data-delay-in3="{{ data_get($slide->options, 'caption_1.delay', '0') }}"
                                         >
@@ -31,7 +31,7 @@
                                         </span>
 
                                         <span
-                                            class="caption caption-2"
+                                            class="caption caption-2 font-18-20-normal color-black"
                                             data-animation-in3="{{ data_get($slide->options, 'caption_2.effect', 'fadeInRight') }}"
                                             data-delay-in3="{{ data_get($slide->options, 'caption_2.delay', '0.3') }}"
                                         >
@@ -55,14 +55,25 @@
                         @endforeach
                     </div>
                 </div>
+
                 @if ($data['sale_products']->isNotEmpty())
-                    @foreach ($data['sale_products']->chunk(2) as $sale_products)
-                        <div class="flash_product_slider ">
-                            @foreach ($sale_products as $product)
-                                <sale-card :product="{{ json_encode($product) }}"></sale-card>
-                            @endforeach
-                        </div>
-                    @endforeach
+                    <SaleProductsHome :productChunks="{{ json_encode($data['sale_products']) }}"></SaleProductsHome>
+{{--                    <div class="vertical-products flex-column">--}}
+{{--                        <div class="sale_block flex-row-start-center">--}}
+{{--                            {{trans('storefront::layout.Flovers_and_sale')}}--}}
+{{--                            <div class="sale_day_tooltip js_tooltip" data-toggle="tooltip" title="{{trans('storefront::layout.Flovers_and_sale_hint')}}">--}}
+{{--                                <img src="/storage/media/tooltip_icon.svg"><div class="tooltip_text"></div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="vertical-products-slider">--}}
+{{--                        @foreach ($data['sale_products']->chunk(2) as $sale_products)--}}
+{{--                            <div class="vertical-products-slide">--}}
+{{--                                @foreach ($sale_products as $product)--}}
+{{--                                    <sale-card :product="{{ json_encode($product) }}"></sale-card>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+{{--                       @endforeach--}}
+{{--                    </div>--}}
                 @endif
             </div>
         </div>

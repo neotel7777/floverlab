@@ -4,7 +4,7 @@
             <div class="home-feature features">
                 <div class="home-slider-wrap">
                     <div
-                        class="feature-list overflow-hidden"
+                        class="feature-list "
                         data-speed="{{ $slider->speed }}"
                         data-autoplay="{{ $slider->autoplay ? 'true' : 'false' }}"
                         data-autoplay-speed="{{ $slider->autoplay_speed }}"
@@ -15,9 +15,9 @@
                         data-slidesToScroll="1"
                     >
                         @foreach ($slider->slides as $slide)
-                            <div class="feature">
+                            <div class="feature flex-row-start-center gap-5">
                                 <img src="{{ $slide->file->path }}" class="slider-imagea">
-                                <div class="feature_content">
+                                <div class="feature_content flex-row-center-center font-14-16-normal color-black">
                                     {!! $slide->caption_1 !!}
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
         :class="flashSaleEnabled ? 'col-xl-4 col-lg-6' : 'col-xl-6 col-lg-6'"
         v-if="hasAnyProduct"
     >
-        <div class="vertical-products">
+        <div class="vertical-products flex-column">
             <div class="vertical-products-header">
                 <h4 class="section-title">{{ title }}</h4>
             </div>

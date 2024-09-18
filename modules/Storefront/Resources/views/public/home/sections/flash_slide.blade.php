@@ -1,5 +1,5 @@
-<div class="flash_sale_slade_block">
-    <div class="title_block">
+<div class="flash_sale_slade_block flex-column-start-start">
+    <div class="sale_block flex-row-start-center">
         {{trans('storefront::layout.Flovers_and_sale')}}
         <div class="sale_day_tooltip js_tooltip" >
             <img src="/storage/media/tooltip_icon.svg"><div class="tooltip_text">{{trans('storefront::layout.Flovers_and_sale_hint')}}</div>

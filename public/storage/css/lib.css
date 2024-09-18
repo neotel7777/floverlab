@@ -10,7 +10,7 @@
     align-items: center;
 }
 .flex-row-start-center {
-    display: flex;
+    display: flex!important;
     flex-direction: row;
     justify-content: start;
     align-items: center;
@@ -199,6 +199,22 @@
     font-weight: bold;
 }
 
+.font-18-20-normal {
+    font-size: 18px!important;
+    line-height: 20px;
+    font-weight: normal;
+}
+.font-18-20-500 {
+    font-size: 18px!important;
+    line-height: 20px;
+    font-weight: 500;
+}
+.font-18-20-bold {
+    font-size: 18px!important;
+    line-height: 20px;
+    font-weight: bold;
+}
+
 .font-24-26-normal {
     font-size: 24px;
     line-height: 26px;
@@ -218,6 +234,22 @@
 .font-20-26-normal {
     font-size: 20px;
     line-height: 26px;
+    font-weight: normal;
+}
+
+.font-30-36-500 {
+    font-size: 30px!important;
+    line-height: 36px!important;
+    font-weight: 500;
+}
+.font-30-36-bold {
+    font-size: 30px!important;
+    line-height: 36px!important;
+    font-weight: bold;
+}
+.font-30-36-normal {
+    font-size: 30px!important;
+    line-height: 36px!important;
     font-weight: normal;
 }
 
