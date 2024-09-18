@@ -110,6 +110,12 @@
     justify-content: start;
     align-items: start;
 }
+.flex-row-start-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+}
 
 /* Font styles*/
 
@@ -198,6 +204,24 @@
     line-height: 26px;
     font-weight: normal;
 }
+
+.font-20-26-500 {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 500;
+}
+.font-20-26-bold {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: bold;
+}
+.font-20-26-normal {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: normal;
+}
+
+
 .font-24-26-500 {
     font-size: 24px;
     line-height: 26px;
@@ -207,6 +231,11 @@
     font-size: 24px;
     line-height: 26px;
     font-weight: bold;
+}
+.font-12-11-normal {
+    font-size: 12px;
+    line-height: 11px;
+    font-weight: normal;
 }
 /* Color styles */
 .color-white {
@@ -257,4 +286,34 @@
 }
 .color-neutral {
     color: #999999;
+}
+
+.color-neutral-500 {
+    color: #B8BDC0;
+}
+.color-light {
+    color: #F7F5F7;
+}
+.bk-color-light {
+    background-color: #F7F5F7;
+}
+.color-menu {
+    color: #000000;
+}
+.color-menu:hover {
+    color: #499777;
+}
+.bk-color-green-grey {
+    background-color: #4E645C;
+}
+
+
+.gap-20{
+    gap: 20px;
+}
+.gap-10 {
+    gap: 20px;
+}
+.gap-5 {
+    gap: 20px;
 }

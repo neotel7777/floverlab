@@ -67,12 +67,12 @@
                 </div>
             </div>
         </div>
-        <div class="DeliveryCity">
-            <div class="devWrapper">
+        <div class="DeliveryCity ">
+            <div class="devWrapper gap-20 flex-row-start-center">
                 <img src="/storage/media/SityDeliverIcon.png">
-                <div class="devDescription">
-                    <div class="title">{{trans("order::delivery.delivery_sity")}}</div>
-                    <div class="city">{{trans("order::delivery.default_sity")}}</div>
+                <div class="devDescription flex-column-start-start">
+                    <div class="title font-14-16-normal color-neutral-500">{{trans("order::delivery.delivery_sity")}}</div>
+                    <div class="city font-16-20-normal color-white">{{trans("order::delivery.default_sity")}}</div>
                 </div>
             </div>
         </div>
@@ -85,12 +85,12 @@
         >
         </header-search>
         <div class="connectWrap">
-            <div class="connectPhone">
-                <div class="infoWrapPhone">
-                    <div class="title">
+            <div class="connectPhone  flex-row-start-end">
+                <div class="infoWrapPhone flex-column-start-start">
+                    <div class="title font-14-16-normal color-neutral-500">
                         {{trans('storefront::contact.call_us')}}
                     </div>
-                    <div class="phone" >{{setting('store_phone')}}</div>
+                    <div class="phone  font-16-20-normal color-white" >{{setting('store_phone')}}</div>
                 </div>
                 <img src="/storage/media/drop_down.png">
             </div>
@@ -154,41 +154,47 @@
                 </div>
             </div>
         </div>
-        <div class="infoWrap">
+        <div class="infoWrap flex-row-between-center">
             <a href="{{ route('account.wishlist.index') }}" class="header-column-right-item header-wishlist">
                 <div class="icon-wrap">
                     <img src="/storage/media/heart-icon.png">
-                    <div class="count" v-text="wishlistCount">{{ count($wishlist) }}</div>
+                    <div class="count bk-color-green color-white flex-column-center-center font-12-11-normal" v-text="wishlistCount">{{ count($wishlist) }}</div>
                 </div>
 
             </a>
             <div class="header-column-right-item header-cart">
                 <div class="icon-wrap">
                     <img src="/storage/media/cart-icon.png">
-                    <div class="count" v-text="cart.quantity">{{ $cart->toArray()['quantity'] }}</div>
+                    <div class="count  bk-color-green color-white flex-column-center-center font-12-11-normal" v-text="cart.quantity">{{ $cart->toArray()['quantity'] }}</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<div class="burgerCatalogMenu" style="display: none">
-    <div class="sectionWrap">
-        <div class="mainCatalogMenu">
-            <ul class="mainMenu">
+<div class="overlay burgerOverlay" style="display: none"></div>
+<div class="burgerCatalogMenu bk-color-light" style="display: none">
+    <div class="sectionWrap flex-row-start-start  bk-color-white">
+        <div class="mainCatalogMenu bk-color-light">
+            <ul class="mainMenu flex-column">
                 @foreach($data['burger_menu'] as $category)
-                <li class="menu-item" data-group="{{$category->slug}}_{{$category->id}}">
-                    <a href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$data['locale'])}}</a>
+                <li class="menu-item flex-row-start-center" data-group="{{$category->slug}}_{{$category->id}}">
+                    <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$data['locale'])}}</a>
                 </li>
                 @endforeach
             </ul>
         </div>
-        <div class="submenuWrap">
+        <div class="submenuWrap bk-color-white">
             @foreach($data['burger_menu'] as $category)
-                @if(!empty($category->items))
+                @if(count($category->items) > 0)
                     <ul class="subMenu" id="{{$category->slug}}_{{$category->id}}">
+
+                            <li class="submenu-item flex-row-start-center">
+                                <a class="color-menu font-20-26-500" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$data['locale'])}}</a>
+                            </li>
+
                         @foreach($category->items as $subcategory)
-                            <li class="submenu-item">
-                                <a href="{{ route("categories.products.index",$subcategory->slug) }}">{{getTranslation($subcategory,'name',$data['locale'])}}</a>
+                            <li class="submenu-item flex-row-start-center">
+                                <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$subcategory->slug) }}">{{getTranslation($subcategory,'name',$data['locale'])}}</a>
                             </li>
                         @endforeach
                     </ul>

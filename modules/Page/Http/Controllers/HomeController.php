@@ -59,6 +59,7 @@ class HomeController extends CommonController
 
         $category_menu = new MegaMenu(2);
         $category_menu = $category_menu->menus();
+
         $this->data['feature_slider']       = $features;
         $this->data['sale_products']        = $sales;
         $this->data['category_menu']        = $category_menu;

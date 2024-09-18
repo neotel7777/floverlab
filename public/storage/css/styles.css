@@ -1,13 +1,12 @@
 .wrapper {
     width: 100vw;
-    gap: 40px;
     margin: 0;
 
 }
 .sectionWrap, .searchWrap {
     width: 100%;
     max-width: 1280px;
-    margin: 0 auto
+    margin: 5px auto 0 auto;
 
 }
 
@@ -33,14 +32,12 @@
     border-radius: 16px;
     padding: 15px;
     width: 290px;
-    z-index: 100;
+    z-index: 1000;
+    display: none;
 }
 
 .popwrap>div {
     width: 100%;
-}
-.phoneblock {
-    margin-bottom: 20px;
 }
 .popupContact .subtitle {
     margin-bottom: 20px;
@@ -92,4 +89,101 @@
 .header-search-wrap-parent {
     max-width: 504px!important;
     width: auto;
+}
+
+.connectPhone img {
+    bottom: 6px;
+    position: relative;
+    left: 5px;
+}
+.connectPhone {
+    cursor: pointer
+}
+.infoWrap {
+    width: 100px;
+}
+.infoWrap .icon-wrap .count {
+    position: absolute;
+    top: -9px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px #FFFFFF solid;
+
+}
+.icon-wrap {
+    position: relative;
+}
+.header-search-wrap,.header-search .header-search-lg,
+.header-search .header-search-lg.header-search-lg-background,
+.header-search .header-search-lg input{
+    background-color: #4E645C!important;
+}
+.submenuWrap {
+    width: calc(100% - 280px);
+}
+.mainCatalogMenu {
+    width: 280px;
+}
+
+.mainMenu {
+}
+.mainMenu li {
+    height: 47px;
+    margin: 5px 0;
+    position: relative;
+
+}
+.mainMenu li:hover, .mainMenu li.active {
+    background-color: #FFFFFF;
+    border-right: 5px #499777 solid;
+}
+.mainMenu li.active:before {
+    content: "";
+    width: 50vw;
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    right: 100%;
+}
+
+.burgerCatalogMenu {
+    height: auto;
+    top:-5px;
+    position: relative;
+    border-radius: 0 0 40px 40px;
+    z-index: 200;
+    max-height: calc(100% - 140px);
+
+}
+.burgerCatalogMenu .sectionWrap {
+    margin-top: 0;
+}
+.fixed {
+    position: fixed;
+}
+.sectionWrap.header,.sectionWrap.headerSearch {
+    z-index: 200;
+}
+.burgerOverlay {
+    opacity: 0.5!important;
+    visibility: visible!important;
+}
+.mainCatalogMenu {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.submenuWrap {
+    padding: 30px;
+    background-color: #ffffff;
+    height: 100%;
+}
+.submenuWrap .subMenu {
+    display: none;
+}
+.submenuWrap .subMenu li {
+    height: 37px;
+    min-width: 200px;
 }
