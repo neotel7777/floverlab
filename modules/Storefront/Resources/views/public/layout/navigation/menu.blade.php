@@ -1,5 +1,5 @@
 <li class="{{ mega_menu_classes($menu, $type) }}">
-    <a href="{{ $menu->url() }}" class="nav-link menu-item" target="{{ $menu->target() }}" data-text="{{ $menu->name() }}">
+    <a href="{{ $menu->url() }}" class="nav-link menu-item font-14-16-normal color-grey" target="{{ $menu->target() }}" data-text="{{ $menu->name() }}">
         @if ($type === 'category_menu' && $menu->hasIcon())
             <span class="menu-item-icon">
                 <i class="{{ $menu->icon() }}"></i>

@@ -21,10 +21,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="{{ v(asset('storage/css/lib.css')) }}" rel="stylesheet">
     <link href="{{ v(asset('storage/css/styles.css')) }}" rel="stylesheet">
 
     <script src="{{ v(asset('storage/js/jquery.min.js')) }}"></script>
-    <script src="{{ v(asset('storage/js/bootstrap.min.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/bootstrap.js')) }}"></script>
     <script src="{{ v(asset('storage/js/slick.min.js')) }}"></script>
     <script src="{{ v(asset('storage/js/scripts.js')) }}"></script>
 
@@ -95,7 +96,7 @@
         --color-primary-transparent-lite-2: {{ tinycolor($themeColor->toString())->setAlpha(0.12)->toString() }};
     "
 >
-    <div class="wrapper" id="app">
+    <div class="wrapper flex-column" id="app">
 
         @include('storefront::public.layout.header')
         @include('storefront::public.layout.breadcrumb')

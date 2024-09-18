@@ -1,5 +1,5 @@
 <section class="sectionWrap header header-wrap">
-    <div class="logoWrap">
+    <div class="logoWrap flex-row-between-center">
         <div class="Logo">
         <a href="{{ route('home') }}" class="header-logo">
 
@@ -13,7 +13,7 @@
         <div class="menuWrap">
             @include('storefront::public.layout.navigation.top_menu', ['menus'=>$data['menu'],'type' => 'primary_menu'])
         </div>
-        <ul class="serviceWrap">
+        <ul class="serviceWrap flex-row-between-center">
                 <li>
                     <i class="locale_flag"><img src="{{ $data['current_locale']['icon'] }}"></i>
 
@@ -28,7 +28,7 @@
                 <li>
                     <div class="stateWrap">
                         <img src="/storage/media/clock-icon.png">
-                        <span class="title">{{trans('order::orders.order_status')}}</span>
+                        <span class="title font-14-16-normal color-black">{{trans('order::orders.order_status')}}</span>
                     </div>
                 </li>
                 @auth
@@ -40,7 +40,7 @@
                     </li>
                 @else
                     <li>
-                        <a href="{{ route('login') }}">
+                        <a class='color-black font-14-16-normal' href="{{ route('login') }}">
                             <i class="las la-sign-in-alt"></i>
                             {{ trans('storefront::layout.login') }}
                         </a>
@@ -49,20 +49,20 @@
         </ul>
     </div>
 </section>
-<section class="sectionWrap headerSearch">
-    <div class="searchWrap">
-        <div class="catalogMenu">
-            <div class="catalog_button" data-state="closed">
-                <div class="burger">
-                    <p></p>
-                    <p></p>
-                    <p></p>
+<section class="sectionWrap headerSearch bk-color-dark-green">
+    <div class="searchWrap flex-row-between-center ">
+        <div class="catalogMenu bk-color-white">
+            <div class="catalog_button flex-row-start-center" data-state="closed">
+                <div class="burger hor flex-column-center-center">
+                    <p class="bk-color-dark-green burger_hor"></p>
+                    <p class="bk-color-dark-green burger_hor"></p>
+                    <p class="bk-color-dark-green burger_hor"></p>
                 </div>
-                <div class="burger Active">
-                    <p></p>
-                    <p></p>
+                <div class="burger Active  flex-column-center-center">
+                    <p class="bk-color-dark-green burger_degl"></p>
+                    <p class="bk-color-dark-green burger_degr"></p>
                 </div>
-                <div class="catalogTitle">
+                <div class="catalogTitle font-12-14-500 color-black">
                     {{trans("category::categories.catalog")}}
                 </div>
             </div>
@@ -76,14 +76,14 @@
                 </div>
             </div>
         </div>
-        <div class="searchingWrap">
-                <form class="searchBlock">
-                    <button type="submit">
-                        <img src="/storage/media/search.png">
-                    </button>
-                    <input name="search" type="text" value="{{ $data['search'] }}" placeholder="{{trans("storefront::products.search_results_for")}}">
-                </form>
-        </div>
+        <header-search
+            :categories="{{ $categories }}"
+            :most-searched-keywords="{{ $mostSearchedKeywords }}"
+            is-most-searched-keywords-enabled="{{ setting('storefront_most_searched_keywords_enabled') }}"
+            initial-query="{{ request('query') }}"
+            initial-category="{{ request('category') }}"
+        >
+        </header-search>
         <div class="connectWrap">
             <div class="connectPhone">
                 <div class="infoWrapPhone">
@@ -94,34 +94,34 @@
                 </div>
                 <img src="/storage/media/drop_down.png">
             </div>
-            <div class="popupContact">
-                <div class="popwrap">
-                    <div class="phoneblock">
-                        <div class="title">{{trans('storefront::contact.call_us')}}</div>
-                        <a class="data" href="tel:{{clearPhone(setting('store_phone'))}}">{{setting('store_phone')}}</a>
+            <div class="popupContact bk-color-white">
+                <div class="popwrap flex-column-start-start">
+                    <div class="phoneblock flex-column-start-start">
+                        <div class="title font-14-16-normal color-neutral">{{trans('storefront::contact.call_us')}}</div>
+                        <a class="data font-16-20-500 color-black" href="tel:{{clearPhone(setting('store_phone'))}}">{{setting('store_phone')}}</a>
                     </div>
-                    <div class="subtitle">{{trans('storefront::layout.Write_at_chat')}}</div>
+                    <div class="subtitle font-16-20-normal color-ligth-grey">{{trans('storefront::layout.Write_at_chat')}}</div>
                     @if(setting('storefront_whatsapp_link')!='')
-                    <div class="socialBlock">
+                    <div class="socialBlock flex-row-start-center">
                         <img src="/storage/media/whatsapp-icon.svg">
-                        <div class="socialInfo">
-                            <div class="title">
+                        <div class="socialInfo flex-column-start-start">
+                            <div class="title font-14-16-normal color-grey">
                                 {{trans('storefront::layout.whatsapp')}}
                             </div>
-                            <a class="data" href="{{setting('storefront_whatsapp_link')}}">
+                            <a class="data font-16-20-normal color-black" href="{{setting('storefront_whatsapp_link')}}">
                                 {{setting('store_phone')}}
                             </a>
                         </div>
                     </div>
                     @endif
                     @if(setting('storefront_viber_link')!='')
-                    <div class="socialBlock">
+                    <div class="socialBlock flex-row-start-center">
                         <img src="/storage/media/viber-icon.svg">
-                        <div class="socialInfo">
-                            <div class="title">
+                        <div class="socialInfo flex-column-start-start">
+                            <div class="title font-14-16-normal color-grey">
                                 {{trans('storefront::layout.viber')}}
                             </div>
-                            <a class="data" href="{{setting('storefront_viber_link')}}">
+                            <a class="data font-16-20-normal color-black" href="{{setting('storefront_viber_link')}}">
                                 {{setting('store_phone')}}
                             </a>
 
@@ -129,28 +129,28 @@
                     </div>
                     @endif
                     @if(setting('storefront_telegram_link')!='')
-                    <div class="socialBlock">
+                    <div class="socialBlock flex-row-start-center">
                         <img src="/storage/media/telegram-icon.svg">
-                        <div class="socialInfo">
-                            <div class="title">
+                        <div class="socialInfo flex-column-start-start">
+                            <div class="title font-14-16-normal color-grey">
                                 {{trans('storefront::layout.telegram')}}
                             </div>
-                            <a class="data" href="tg://resolve?domain={{setting('storefront_telegram_link')}}">
+                            <a class="data font-16-20-normal color-black" href="tg://resolve?domain={{setting('storefront_telegram_link')}}">
                                 {{setting('storefront_telegram_link')}}
                             </a>
                         </div>
                     </div>
                     @endif
-                    <div class="socialBlock">
+                    <div class="socialBlock flex-row-start-center">
                         <img src="/storage/media/call-icon.svg">
-                        <div class="socialInfo">
-                            <div class="bigtitle">
+                        <div class="socialInfo flex-column-start-start">
+                            <div class="bigtitle font-16-20-500 color-black">
                                 {{trans('storefront::attributes.storefront_call_back')}}
                             </div>
                         </div>
                     </div>
-                    <div class="subtitle">{{trans('storefront::layout.adress')}}</div>
-                    <div class="adressBlock">{{setting('store_address_1')}}, {{$data['shop_country']}} {{$data['shop_city']}}</div>
+                    <div class="subtitle  font-16-20-normal color-ligth-grey">{{trans('storefront::layout.adress')}}</div>
+                    <div class="adressBlock font-16-20-500 color-black">{{setting('store_address_1')}}, {{$data['shop_country']}} {{$data['shop_city']}}</div>
                 </div>
             </div>
         </div>
