@@ -32,6 +32,8 @@ $(document).ready(function (){
         $(".subMenu").hide();
         $("#" + ind).show();
     });
-
+    $('[data-toggle="tooltip"]').tooltip({
+        placement: 'top'
+    })
 
 })

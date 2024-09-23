@@ -23,7 +23,8 @@ trait ProductSearch
     public function searchProducts(Product $model, ProductFilter $productFilter)
     {
         $productIds = [];
-
+        $categories_home = [];
+        $attributes = [];
         if (request()->filled('query')) {
             $model = $model->search(request('query'));
             $productIds = $model->keys();
@@ -33,18 +34,42 @@ trait ProductSearch
 
         if (request()->filled('category')) {
             $productIds = (clone $query)->select('products.id')->resetOrders()->pluck('id');
+            $attributes = $this->getAttributes($productIds);
+        } else {
+            if (request()->get('page') =="home") {
+                $categories_home = Category::atHome($productFilter);
+                $ids = $this->getCategoryProductsIds($categories_home);
+                $attributes = $this->getHomeAttributes($ids);
+            }
         }
 
         $products = $query->paginate(request('perPage', 30));
+
+        foreach ($products as $key=> $product){
+            $item = Product::getProductsById($product->id);
+            $product->medias = $item->files;
+            $products[$key] = $product;
+        }
 
         event(new ShowingProductList($products));
 
         return response()->json([
             'products' => $products,
-            'attributes' => $this->getAttributes($productIds),
+            'categories_home' => $categories_home,
+            'attributes' => $attributes//$this->getAttributes($productIds),
+
         ]);
     }
-
+    private function getCategoryProductsIds($categories){
+        $ids = [];
+        if(empty($categories)) return [];
+        foreach ($categories as $category){
+            foreach($category['products'] as $product){
+                $ids[$product->id] = $product->id;
+            }
+        }
+        return $ids;
+    }
 
     private function getAttributes($productIds)
     {
@@ -57,6 +82,14 @@ trait ProductSearch
             ->whereHas('categories', function ($query) use ($productIds) {
                 $query->whereIn('id', $this->getProductsCategoryIds($productIds));
             })
+            ->get();
+    }
+    private function getHomeAttributes($productIds)
+    {
+
+        return Attribute::with('values')
+            ->where('is_filterable', true)
+            ->whereIn('id', $productIds)
             ->get();
     }
 

@@ -31,7 +31,19 @@ export default {
         },
 
         hasAnyMedia() {
-            return this.item.media.length !== 0;
+            return this.item.medias.length !== 0;
+        },
+
+        isOneMedia() {
+            return this.item.medias.length === 1;
+        },
+        hasSpecialPrice(){
+           return  (this.product.special_price.amount !==0
+               && this.product.special_price.amount !== this.product.price.amount)
+        },
+
+        getMedia(){
+          return this.item.medias ;
         },
 
         hasBaseImage() {
@@ -65,16 +77,16 @@ export default {
           return this.product.title;
         },
         price() {
-            return this.product.price_;
+            return this.product.price;
         },
         price_formated() {
-            return this.product.price_ + "MDL";
+            return store.round(this.product.price.amount) + " " + this.product.price.currency;
         },
         percent() {
-            return parseInt((this.product.price_ - this.product.special_price_)/this.product.special_price_) * 100  + "%";
+            return store.round(((this.product.price.amount - this.product.special_price.amount)/this.product.special_price.amount) * 100 ) + "%";
         },
         special_price_formated(){
-            return this.product.special_price_ + "MDL";
+            return store.round(this.product.special_price.amount) + " " + this.product.special_price.currency;
         }
     },
 
@@ -85,6 +97,9 @@ export default {
 
         syncCompareList() {
             store.syncCompareList(this.product.id);
+        },
+        round(num){
+            store.round(num);
         },
 
         addToCart() {

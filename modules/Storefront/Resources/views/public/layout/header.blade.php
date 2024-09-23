@@ -53,12 +53,12 @@
     <div class="searchWrap flex-row-between-center ">
         <div class="catalogMenu bk-color-white">
             <div class="catalog_button flex-row-start-center" data-state="closed">
-                <div class="burger hor flex-column-center-center">
+                <div class="burger hor ">
                     <p class="bk-color-dark-green burger_hor"></p>
                     <p class="bk-color-dark-green burger_hor"></p>
                     <p class="bk-color-dark-green burger_hor"></p>
                 </div>
-                <div class="burger Active  flex-column-center-center">
+                <div class="burger Active  ">
                     <p class="bk-color-dark-green burger_degl"></p>
                     <p class="bk-color-dark-green burger_degr"></p>
                 </div>

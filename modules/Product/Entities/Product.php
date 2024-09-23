@@ -24,6 +24,7 @@ use Modules\Product\Entities\Concerns\ModelAccessors;
 use Modules\Product\Entities\Concerns\HasSpecialPrice;
 use Modules\Product\Entities\Concerns\EloquentRelations;
 use Modules\Media\Entities\EntityFiles;
+use Modules\Review\Entities\Review;
 
 class Product extends Model implements Sitemapable
 {
@@ -161,7 +162,12 @@ class Product extends Model implements Sitemapable
             });
         });
     }
-
+    public static function getProductsById($id)
+    {
+        return static::with(['files','reviewsList'])
+             ->where('id',$id)
+            ->first();
+    }
 
     /**
      * Get table data for the resource
@@ -297,5 +303,10 @@ class Product extends Model implements Sitemapable
             $files[] = $file->files;
         }
         return $files;
+    }
+
+    public function reviewsList()
+    {
+        return $this->hasMany(Review::class);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Modules\Category\Entities;
 
+use Laravel\Scout\Scout;
+use Modules\Review\Entities\Review;
+use Modules\Support\Search\Builder;
 use TypiCMS\NestableTrait;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Carbon;
@@ -13,6 +16,7 @@ use Modules\Product\Entities\Product;
 use Modules\Support\Eloquent\Sluggable;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Modules\Support\Eloquent\Translatable;
+use Modules\Product\Filters\ProductFilter;
 
 class Category extends Model implements Sitemapable
 {
@@ -30,7 +34,7 @@ class Category extends Model implements Sitemapable
      *
      * @var array
      */
-    protected $fillable = ['parent_id', 'slug', 'position', 'is_searchable', 'is_active'];
+    protected $fillable = ['parent_id', 'slug', 'position', 'is_searchable', 'is_active', 'at_home'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -122,6 +126,44 @@ class Category extends Model implements Sitemapable
             });
     }
 
+    public static function atHome($filter)
+    {
+
+        $result =  static::where('at_home', true)
+                    ->get()
+                    ->map(function ($category) {
+
+                        return [
+                            'id'    => $category->id,
+                            'slug'  => $category->slug,
+                            'name'  => $category->name
+                        ];
+                    });
+        foreach ($result as $key=>$category){
+            $productClass = new Product();
+            $query      = $productClass->filter($filter);
+            $resproducts = $query->whereRaw("products.id in (select product_id from product_categories where category_id = {$category['id']})")->paginate(request('perPage', 30));
+
+            $products = [];
+            foreach ($resproducts as $productold){
+
+                $product = Product::getProductsById($productold->id);
+
+                $product->reviews = $product->reviewsList->toArray();
+                $product->raitings = Review::countAndAvgRating($product);
+                $product->rating_percents = ($product->raitings->avg_rating) ? ($product->raitings->avg_rating / 5) * 100 : 0;
+                $product->reviews_count = ($product->raitings->count) ? $product->raitings->count : 0;
+                $product->medias = $product->files;
+
+                $product->baseImage = getBaseImage($product->files);
+
+                $products[] = $product;
+            }
+            $category['products'] = $products;
+            $result[$key] = $category;
+        }
+        return $result;
+    }
 
     /**
      * Perform any actions required after the model boots.

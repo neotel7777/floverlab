@@ -23,9 +23,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="{{ v(asset('storage/css/lib.css')) }}" rel="stylesheet">
     <link href="{{ v(asset('storage/css/styles.css')) }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="{{ v(asset('storage/js/jquery.min.js')) }}"></script>
-    <script src="{{ v(asset('storage/js/bootstrap.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/bootstrap.min.js')) }}"></script>
     <script src="{{ v(asset('storage/js/slick.min.js')) }}"></script>
     <script src="{{ v(asset('storage/js/scripts.js')) }}"></script>
 
@@ -73,6 +73,9 @@
                 'storefront::product_card.seconds': '{{ trans('storefront::product_card.seconds') }}',
                 'storefront::blog.blog_posts.view_all': '{{ trans('storefront::blog.blog_posts.view_all') }}',
                 'storefront::blog.blog_posts.read_more': '{{ trans('storefront::blog.blog_posts.read_more') }}',
+                'storefront::layout.Flovers_and_sale': '{{ trans('storefront::layout.Flovers_and_sale') }}',
+                'storefront::layout.Flovers_and_sale_hint': '{{ trans('storefront::layout.Flovers_and_sale_hint') }}',
+                'storefront::layout.delivery_gratis': '{{ trans('storefront::layout.delivery_gratis') }}',
             },
         };
     </script>

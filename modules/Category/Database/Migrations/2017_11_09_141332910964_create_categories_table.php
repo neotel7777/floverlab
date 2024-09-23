@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('slug')->unique();
             $table->integer('position')->unsigned()->nullable();
+            $table->boolean('at_home');
             $table->boolean('is_searchable');
             $table->boolean('is_active');
             $table->timestamps();

@@ -115,4 +115,7 @@ export default {
 
         await axios.delete(route("compare.destroy", { productId }));
     },
+    round(num){
+        return parseInt(num) + ".00";
+    }
 };

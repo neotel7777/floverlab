@@ -6,4 +6,5 @@ return [
     'slug' => 'URL',
     'is_searchable' => 'Searchable',
     'is_active' => 'Status',
+    'at_home'   => 'Enable at home page'
 ];

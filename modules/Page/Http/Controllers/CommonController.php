@@ -62,6 +62,7 @@ class CommonController extends Controller
             'shop_country'      => $shop_country_name,
             'shop_city'         => $shop_city,
             'search'            => $request
+
         ];
     }
 

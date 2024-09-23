@@ -26,6 +26,7 @@ class CategoryController extends CommonController
     {
         return view('storefront::public.categories.index', [
             'categories' => Category::all()->nest(),
+            'categories_home' => []
         ]);
     }
 }

@@ -1,5 +1,5 @@
-//import Drift from "drift-zoom";
-//import GLightbox from "glightbox";
+import Drift from "drift-zoom";
+import GLightbox from "glightbox";
 
 let galleryPreviewSlider;
 let galleryThumbnailSlider;

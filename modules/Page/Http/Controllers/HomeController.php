@@ -52,8 +52,6 @@ class HomeController extends CommonController
             $sale->url              = route('products.show',$sale->slug);
             $sale->rating_percent   = 0;
             $sale->title            = $sale->translations[0]->name;
-            $sale->price_            = number_format($sale->price->amount(),2,".");
-            $sale->special_price_    = number_format($sale->special_price->amount(),2,".");
         }
         //dd($sales);
 
@@ -65,13 +63,12 @@ class HomeController extends CommonController
         $this->data['category_menu']        = $category_menu;
         $this->data['search']               = (request('search'))?request('search'):"";
 
-        //dd($this->data);
-
 
         return view('storefront::public.home.index',[
             "data"=>$this->data,
             'minPrice' => $this->minPrice(),
             'maxPrice' => $this->maxPrice(),
+            'home'  => 'home',
         ]);
     }
 

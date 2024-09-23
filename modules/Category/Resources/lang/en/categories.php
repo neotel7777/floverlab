@@ -20,5 +20,6 @@ return [
         'enable_the_category' => 'Enable the category',
         'logo' => 'Logo',
         'banner' => 'Banner',
+        'enable_at_home_page' => "Enable at home page"
     ],
 ];

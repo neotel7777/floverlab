@@ -27,6 +27,7 @@ export default {
         return {
             fetchingProducts: false,
             products: { data: [] },
+            categories_home: [],
             attributeFilters: [],
             brandBanner: this.initialBrandBanner,
             categoryName: this.initialCategoryName,
@@ -172,6 +173,7 @@ export default {
                 );
 
                 this.products = response.data.products;
+                this.categories_home = response.data.categories_home;
 
                 if (options.updateAttributeFilters) {
                     this.attributeFilters = response.data.attributes;

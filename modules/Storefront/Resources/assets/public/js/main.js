@@ -7,6 +7,8 @@ import { notify, trans, chunk } from "./functions";
 import VueToast from "vue-toast-notification";
 import vClickOutside from "v-click-outside";
 import HeaderSearch from "./components/layout/HeaderSearch.vue";
+import HomeCategoriesList from "./components/home/HomeCategoriesList.vue";
+import HomeCategories from "./components/home/HomeCategories.vue";
 import ProductRating from "./components/ProductRating.vue";
 import LandscapeProducts from "./components/LandscapeProducts.vue";
 import DynamicTab from "./components/home/DynamicTab";
@@ -34,6 +36,7 @@ import MyWishlist from "./components/account/wishlist/Index";
 import MyReviews from "./components/account/reviews/Index";
 import MyAddresses from "./components/account/addresses/Index";
 import SaleCard from "./components/SaleCard.vue";
+import SaleProductsHome from "./components/home/SaleProductsHome.vue";
 
 window.Vue = Vue;
 
@@ -53,6 +56,8 @@ Vue.component("newsletter-popup", () =>
 );
 Vue.component("newsletter-subscription", NewsletterSubscription);
 Vue.component("cookie-bar", () => import("./components/layout/CookieBar"));
+Vue.component('home-categories',HomeCategories);
+Vue.component("home-categories-list",HomeCategoriesList);
 Vue.component("landscape-products", LandscapeProducts);
 Vue.component("dynamic-tab", DynamicTab);
 Vue.component("home-features", HomeFeatures);
@@ -63,7 +68,8 @@ Vue.component("top-brands", TopBrands);
 Vue.component("flash-sale-and-vertical-products", () =>
     import("./components/home/FlashSaleAndVerticalProducts.vue")
 );
-Vue.component("sale-card",SaleCard)
+Vue.component("sale-card",SaleCard);
+Vue.component("sale-products-home",SaleProductsHome);
 Vue.component("banner-two-column", BannerTwoColumn);
 Vue.component("product-grid", ProductGrid);
 Vue.component("banner-three-column", BannerThreeColumn);

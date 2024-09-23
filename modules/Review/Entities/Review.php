@@ -87,7 +87,8 @@ class Review extends Model
 
     public function getCreatedAtFormattedAttribute()
     {
-        return $this->created_at->toFormattedDateString();
+
+        return ($this->created_at)?$this->created_at->toFormattedDateString():'';
     }
 
 
