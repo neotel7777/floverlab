@@ -26,7 +26,7 @@
 
                 <div class="product-search-right" v-cloak>
                     <div class="search-result">
-                            <section class="home-categories-wrap">
+                            <section class="home-categories-wrap" v-if="categories_home.length > 0">
                                 <div class="container">
                                     <div class="homeCategoryWrapper flex-column-start-start gap-20">
                                         <home-categories
@@ -37,11 +37,15 @@
                                     </div>
                                 </div>
                             </section>
+                            <div class="empty-message gap-20 flex-column-center-center" v-else>
+                                @include('storefront::public.products.index.empty_results_logo')
+
+                                <h2>{{ trans('storefront::products.no_product_found') }}</h2>
+                            </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-        </div>
     </section>
-</product-index>
+    </product-index>

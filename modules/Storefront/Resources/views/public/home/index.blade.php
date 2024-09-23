@@ -12,10 +12,10 @@
 
     @include('storefront::public.home.sections.catalog')
 
-
+    <reviews-home-list  :reviewsitems='@json($reviewsList)'></reviews-home-list>
 
     @if (setting('storefront_three_column_banners_enabled'))
-        <banner-three-column :data="{{ json_encode($threeColumnBanners) }}"></banner-three-column>
+        <banner-three-column :data='{{ json_encode($threeColumnBanners) }}'></banner-three-column>
     @endif
 
     @if (setting('storefront_product_tabs_2_section_enabled'))

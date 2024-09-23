@@ -139,30 +139,35 @@ class Category extends Model implements Sitemapable
                             'name'  => $category->name
                         ];
                     });
+        $return  = [];
         foreach ($result as $key=>$category){
             $productClass = new Product();
             $query      = $productClass->filter($filter);
             $resproducts = $query->whereRaw("products.id in (select product_id from product_categories where category_id = {$category['id']})")->paginate(request('perPage', 30));
 
-            $products = [];
-            foreach ($resproducts as $productold){
+                $products = [];
+                foreach ($resproducts as $productold) {
 
-                $product = Product::getProductsById($productold->id);
+                    $product = Product::getProductsById($productold->id);
 
-                $product->reviews = $product->reviewsList->toArray();
-                $product->raitings = Review::countAndAvgRating($product);
-                $product->rating_percents = ($product->raitings->avg_rating) ? ($product->raitings->avg_rating / 5) * 100 : 0;
-                $product->reviews_count = ($product->raitings->count) ? $product->raitings->count : 0;
-                $product->medias = $product->files;
+                    $product->reviews = $product->reviewsList->toArray();
+                    $product->raitings = Review::countAndAvgRating($product);
+                    $product->rating_percents = ($product->raitings->avg_rating) ? ($product->raitings->avg_rating / 5) * 100 : 0;
+                    $product->reviews_count = ($product->raitings->count) ? $product->raitings->count : 0;
+                    $product->medias = $product->files;
 
-                $product->baseImage = getBaseImage($product->files);
+                    $product->baseImage = getBaseImage($product->files);
 
-                $products[] = $product;
-            }
+                    $products[] = $product;
+                }
+
             $category['products'] = $products;
-            $result[$key] = $category;
+            if(count($products) >0){
+                $return[$key] = $category;
+            }
         }
-        return $result;
+
+        return $return;
     }
 
     /**

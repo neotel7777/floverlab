@@ -10,6 +10,7 @@ import HeaderSearch from "./components/layout/HeaderSearch.vue";
 import HomeCategoriesList from "./components/home/HomeCategoriesList.vue";
 import HomeCategories from "./components/home/HomeCategories.vue";
 import ProductRating from "./components/ProductRating.vue";
+import ReviewsHomeListSlider from "./components/home/ReviewsHomeListSlider.vue";
 import LandscapeProducts from "./components/LandscapeProducts.vue";
 import DynamicTab from "./components/home/DynamicTab";
 import HomeFeatures from "./components/home/HomeFeatures.vue";
@@ -37,6 +38,7 @@ import MyReviews from "./components/account/reviews/Index";
 import MyAddresses from "./components/account/addresses/Index";
 import SaleCard from "./components/SaleCard.vue";
 import SaleProductsHome from "./components/home/SaleProductsHome.vue";
+import ReviewsHomeList from "./components/home/ReviewsHomeList.vue";
 
 window.Vue = Vue;
 
@@ -55,6 +57,7 @@ Vue.component("newsletter-popup", () =>
     import("./components/layout/NewsletterPopup")
 );
 Vue.component("newsletter-subscription", NewsletterSubscription);
+Vue.component("reviews-home-list", ReviewsHomeList);
 Vue.component("cookie-bar", () => import("./components/layout/CookieBar"));
 Vue.component('home-categories',HomeCategories);
 Vue.component("home-categories-list",HomeCategoriesList);

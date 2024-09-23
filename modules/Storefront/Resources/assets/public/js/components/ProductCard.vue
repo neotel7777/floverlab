@@ -70,17 +70,17 @@
             </a>
 
             <div class="product-prices" v-if="hasSpecialPrice">
-                <div class="product-card_old-price_block flex-row-start-end gap-10 " >
-                    <div class="product-card-price font-24-26-normal color-orange" v-html="special_price_formated"></div>
-                    <div class="product-card-old-price font-14-16-normal color-ligth-grey" v-html="special_price_formated"></div>
+                <div class="product-card_old-price_block flex-row " >
+                    <div class="prices_block flex-row-start-center">
+                        <div class="product-card-price font-24-26-normal color-orange" v-html="special_price_formated"></div>
+                        <div class="product-card-old-price font-14-16-normal color-ligth-grey" v-html="special_price_formated"></div>
+                    </div>
                     <div class="product-card-mini__badge-discount font-14-16-normal color-white bk-color-orange" v-html="percent"></div>
                 </div>
             </div>
             <div  class="product-prices" v-else>
-                <div class="product-card-price  " v-html="price_formated">
-
+                <div class="product-card-price font-24-26-normal color-black " v-html="price_formated">
                 </div>
-
             </div>
         </div>
 

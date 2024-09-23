@@ -3,6 +3,7 @@
 namespace Modules\Review\Entities;
 
 use Illuminate\Http\Request;
+use Modules\Order\Entities\Order;
 use Modules\User\Entities\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +57,19 @@ class Review extends Model
         });
     }
 
+    public static function getHomeReviews()
+    {
+        $reviews = self::with(['product','reviewer'])->where('is_approved', true)->limit(20)->get();
+        $percent = intval((self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating / 5) * 100);
+        return [
+            'allReviews' => count(self::all()),
+            'avgRaitind' =>number_format(self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating,1,".",""),
+            'orders'    => count(Order::all()),
+            'avgPercent' => $percent,
+            'reviews'   => $reviews,
+            'isReviews' => count($reviews) >0,
+        ];
+    }
 
     public function getAvgRatingAttribute($avgRating)
     {
@@ -94,7 +108,7 @@ class Review extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class)->withTrashed();
+        return $this->belongsTo(Product::class)->with('files')->withTrashed();
     }
 
 

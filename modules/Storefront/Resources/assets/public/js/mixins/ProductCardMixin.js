@@ -38,8 +38,8 @@ export default {
             return this.item.medias.length === 1;
         },
         hasSpecialPrice(){
-           return  (this.product.special_price.amount !==0
-               && this.product.special_price.amount !== this.product.price.amount)
+           return  (this.product.special_price !== null && (this.product.special_price.amount !==0
+               && this.product.special_price.amount !== this.product.price.amount))
         },
 
         getMedia(){
@@ -83,10 +83,18 @@ export default {
             return store.round(this.product.price.amount) + " " + this.product.price.currency;
         },
         percent() {
-            return store.round(((this.product.price.amount - this.product.special_price.amount)/this.product.special_price.amount) * 100 ) + "%";
+            if(this.product.special_price!==null) {
+                return store.round(((this.product.price.amount - this.product.special_price.amount) / this.product.special_price.amount) * 100) + "%";
+            } else {
+                return '';
+            }
         },
         special_price_formated(){
-            return store.round(this.product.special_price.amount) + " " + this.product.special_price.currency;
+            if(this.product.special_price!==null) {
+                return store.round(this.product.special_price.amount) + " " + this.product.special_price.currency;
+            } else {
+                return '';
+            }
         }
     },
 

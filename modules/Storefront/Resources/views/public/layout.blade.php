@@ -76,7 +76,15 @@
                 'storefront::layout.Flovers_and_sale': '{{ trans('storefront::layout.Flovers_and_sale') }}',
                 'storefront::layout.Flovers_and_sale_hint': '{{ trans('storefront::layout.Flovers_and_sale_hint') }}',
                 'storefront::layout.delivery_gratis': '{{ trans('storefront::layout.delivery_gratis') }}',
-            },
+                'storefront::review.home_section_title': '{{ trans('storefront::review.home_section_title') }}',
+                'storefront::review.reviews_title': '{{ trans('storefront::review.reviews_title') }}',
+                'storefront::review.total_reviews_total_title': '{{ trans('storefront::review.total_reviews_total_title') }}',
+                'storefront::review.total_raitings_title': '{{ trans('storefront::review.total_raitings_title') }}',
+                'storefront::review.total_orders_title': '{{ trans('storefront::review.total_orders_title') }}',
+                'storefront::review.Leave_Review_button': '{{ trans('storefront::review.Leave_Review_button') }}',
+                'storefront::review.stars_stats_list': '{{ trans('storefront::review.stars_stats_list') }}',
+                'storefront::review.photo_on_site': '{{ trans('storefront::review.photo_on_site') }}',
+        },
         };
     </script>
 

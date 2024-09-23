@@ -42,10 +42,12 @@
             </div>
         </div>
 
-        <div v-for="attribute in attributeFilters" :key="attribute.id" class="filter-section" v-cloak>
-            <h6 v-text="attribute.name"></h6>
+        <div v-for="(attribute, index) in attributeFilters" :key="attribute.id" class="filter-section"
+             :class="(attribute.isActive)?'active':''"
+             @click="attribute.isActive = (attribute.isActive) ? false : true" v-cloak>
+            <h6 v-text="attribute.name" class="font-18-20-normal filterTitle"></h6>
 
-            <div class="filter-checkbox custom-scrollbar">
+            <div class="filter-checkbox custom-scrollbar" >
                 <div v-for="value in attribute.values" :key="value.id" class="form-check">
                     <input
                         type="checkbox"

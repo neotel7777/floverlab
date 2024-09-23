@@ -14,6 +14,7 @@ use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductVariant;
 use Modules\Product\Filters\ProductFilter;
 use Modules\Product\Http\Controllers\ProductSearch;
+use Modules\Review\Entities\Review;
 use Modules\Slider\Entities\Slider;
 use Modules\Storefront\Http\ViewComposers\ProductIndexPageComposer;
 use Modules\Support\Money;
@@ -69,6 +70,7 @@ class HomeController extends CommonController
             'minPrice' => $this->minPrice(),
             'maxPrice' => $this->maxPrice(),
             'home'  => 'home',
+            'reviewsList' => Review::getHomeReviews()
         ]);
     }
 

@@ -58,22 +58,6 @@
 
                 @if ($data['sale_products']->isNotEmpty())
                 <sale-products-home :saleproducts='@json($data['sale_products'])'></sale-products-home>
-{{--                    <div class="sale-products flex-column">--}}
-{{--                        <div class="sale_block flex-row-start-center">--}}
-{{--                            {{trans('storefront::layout.Flovers_and_sale')}}--}}
-{{--                            <div class="sale_day_tooltip js_tooltip" data-toggle="tooltip" title="{{trans('storefront::layout.Flovers_and_sale_hint')}}">--}}
-{{--                                <img src="/storage/media/tooltip_icon.svg"><div class="tooltip_text"></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="sale-products-slider">--}}
-{{--                        @foreach ($data['sale_products']->chunk(2) as $sale_products)--}}
-{{--                            <div class="sale-products-slide">--}}
-{{--                                @foreach ($sale_products as $product)--}}
-{{--                                    <sale-card :product="{{ json_encode($product) }}"></sale-card>--}}
-{{--                                @endforeach--}}
-{{--                            </div>--}}
-{{--                       @endforeach--}}
-{{--                    </div>--}}
                 @endif
             </div>
         </div>

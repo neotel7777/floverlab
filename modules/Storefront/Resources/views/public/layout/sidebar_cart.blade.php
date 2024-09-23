@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="sidebar-cart-bottom" v-if="cartIsNotEmpty">
+        <div class="sidebar-cart-bottom " v-if="cartIsNotEmpty">
             <h5 class="sidebar-cart-subtotal">
                 {{ trans('storefront::layout.subtotal') }}
                 <span v-html="cart.subTotal.inCurrentCurrency.formatted"></span>

@@ -35,5 +35,11 @@ $(document).ready(function (){
     $('[data-toggle="tooltip"]').tooltip({
         placement: 'top'
     })
-
+    $('body').on('click',".filterTitle",function(){
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+    });
 })

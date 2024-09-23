@@ -10,12 +10,11 @@ export default {
     }),
 
     cartIsEmpty() {
-        return isEmpty(this.state.cart.items);
+        return Object.keys(this.state.cart.items).length === 0;//isEmpty(this.state.cart.items);
     },
 
     updateCart(cart) {
         this.state.cart = cart;
-
         this.setCoupon(cart);
     },
 
@@ -116,6 +115,6 @@ export default {
         await axios.delete(route("compare.destroy", { productId }));
     },
     round(num){
-        return parseInt(num) + ".00";
+        return parseInt(num);
     }
 };

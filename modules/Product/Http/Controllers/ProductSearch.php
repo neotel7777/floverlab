@@ -9,6 +9,7 @@ use Modules\Category\Entities\Category;
 use Modules\Attribute\Entities\Attribute;
 use Modules\Product\Filters\ProductFilter;
 use Modules\Product\Events\ShowingProductList;
+use Modules\Review\Entities\Review;
 
 trait ProductSearch
 {
@@ -25,6 +26,7 @@ trait ProductSearch
         $productIds = [];
         $categories_home = [];
         $attributes = [];
+        $reviews = [];
         if (request()->filled('query')) {
             $model = $model->search(request('query'));
             $productIds = $model->keys();
@@ -35,12 +37,17 @@ trait ProductSearch
         if (request()->filled('category')) {
             $productIds = (clone $query)->select('products.id')->resetOrders()->pluck('id');
             $attributes = $this->getAttributes($productIds);
-        } else {
-            if (request()->get('page') =="home") {
-                $categories_home = Category::atHome($productFilter);
-                $ids = $this->getCategoryProductsIds($categories_home);
-                $attributes = $this->getHomeAttributes($ids);
-            }
+        }
+        if (request()->get('page') =="home") {
+            $categories_home = Category::atHome($productFilter);
+            $ids = $this->getCategoryProductsIds($categories_home);
+            $attributes = $this->getHomeAttributes($ids);
+            $reviews = Review::getHomeReviews();
+
+        }
+
+        foreach ($attributes as &$attribute){
+            $attribute->isActive = false;
         }
 
         $products = $query->paginate(request('perPage', 30));
@@ -56,14 +63,17 @@ trait ProductSearch
         return response()->json([
             'products' => $products,
             'categories_home' => $categories_home,
-            'attributes' => $attributes//$this->getAttributes($productIds),
+            'attributes' => $attributes,
+            'reviewsList' => $reviews
 
         ]);
     }
     private function getCategoryProductsIds($categories){
         $ids = [];
+
         if(empty($categories)) return [];
         foreach ($categories as $category){
+            if(empty($category['products'])) continue;
             foreach($category['products'] as $product){
                 $ids[$product->id] = $product->id;
             }

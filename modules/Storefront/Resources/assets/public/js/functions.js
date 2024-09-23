@@ -21,7 +21,7 @@ export function trans(langKey, replace = {}) {
 }
 
 export function isEmpty(value) {
-    return $.isEmptyObject(value);
+    return  $.isEmptyObject(value);
 }
 
 export function chunk(array, size) {

@@ -25,6 +25,8 @@ export default {
 
     data() {
         return {
+            isActiveFilter: [],
+            reviewsList:[],
             fetchingProducts: false,
             products: { data: [] },
             categories_home: [],
@@ -174,6 +176,7 @@ export default {
 
                 this.products = response.data.products;
                 this.categories_home = response.data.categories_home;
+                this.reviewsList = response.data.reviewsList;
 
                 if (options.updateAttributeFilters) {
                     this.attributeFilters = response.data.attributes;
