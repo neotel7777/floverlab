@@ -14,7 +14,7 @@ export default {
         },
 
         ratingPercent() {
-            return (this.reviewsList.length !== 0) ? this.reviewsList[0].avgRaitind : 0 ;
+            return (this.reviewsList.length !== 0) ? this.reviewsList[0].avgPercent : 0 ;
         },
 
         emptyReviews() {

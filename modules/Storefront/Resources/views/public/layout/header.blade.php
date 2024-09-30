@@ -76,14 +76,14 @@
                 </div>
             </div>
         </div>
-        <header-search
+        <header-search-new
             :categories="{{ $categories }}"
             :most-searched-keywords="{{ $mostSearchedKeywords }}"
             is-most-searched-keywords-enabled="{{ setting('storefront_most_searched_keywords_enabled') }}"
             initial-query="{{ request('query') }}"
             initial-category="{{ request('category') }}"
         >
-        </header-search>
+        </header-search-new>
         <div class="connectWrap">
             <div class="connectPhone  flex-row-start-end">
                 <div class="infoWrapPhone flex-column-start-start">

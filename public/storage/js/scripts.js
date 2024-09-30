@@ -42,4 +42,5 @@ $(document).ready(function (){
             $(this).addClass('active');
         }
     });
+    //$(".product-search-left").css('top',$(".product-search-left").offset().top);
 })

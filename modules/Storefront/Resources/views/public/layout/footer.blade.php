@@ -118,7 +118,7 @@
                                 <ul class="list-inline">
                                     @foreach ($footerMenuOne as $menuItem)
                                         <li>
-                                            <a class="font-16-24-normal color-white" href="{{ $menuItem->url() }}" target="{{ $menuItem->target }}">
+                                            <a class="font-16-24-normal color-white" href="{{ localized_url(locale(),$menuItem->url()) }}" target="{{ $menuItem->target }}">
                                                 {{ $menuItem->name }}
                                             </a>
                                         </li>
@@ -136,7 +136,7 @@
                                 <ul class="list-inline">
                                     @foreach ($footerMenuTwo as $menuItem)
                                         <li>
-                                            <a class="font-16-24-normal color-white" href="{{ $menuItem->url() }}" target="{{ $menuItem->target }}">
+                                            <a class="font-16-24-normal color-white" href="{{ localized_url(locale(),$menuItem->url()) }}" target="{{ $menuItem->target }}">
                                                 {{ $menuItem->name }}
                                             </a>
                                         </li>
@@ -153,7 +153,7 @@
                                 <ul class="list-inline">
                                     @foreach ($footerMenuTree as $menuItem)
                                         <li>
-                                            <a class="font-16-24-normal color-white" href="{{ $menuItem->url() }}" target="{{ $menuItem->target }}">
+                                            <a class="font-16-24-normal color-white" href="{{ localized_url(locale(),$menuItem->url()) }}" target="{{ $menuItem->target }}">
                                                 {{ $menuItem->name }}
                                             </a>
                                         </li>

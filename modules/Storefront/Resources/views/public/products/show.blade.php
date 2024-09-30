@@ -72,7 +72,7 @@
 
                     </div>
                 </div>
-            @if(!empty($relatedProducts))
+            @if(count($relatedProducts)>0)
             <div class="relatedProducts sliderProductBlock  flex-column" >
                 <div class="title sliderProductTitle">{{ trans('storefront::product.you_might_also_like') }}</div>
                 <div class="relatedSlider" >
@@ -85,7 +85,7 @@
                 </div>
             </div>
             @endif
-            @if(!empty($viewedProducts))
+            @if(count($viewedProducts)>0)
             <div class="viewedProducts sliderProductBlock flex-column">
                 <div class="title sliderProductTitle">{{ trans('storefront::product.have_you_watched') }}</div>
                 <div class="viewedSlider" ref="viewedSlider">

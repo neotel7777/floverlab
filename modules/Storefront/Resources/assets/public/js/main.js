@@ -41,6 +41,7 @@ import ReviewsHomeList from "./components/home/ReviewsHomeList.vue";
 import ReviewsProductList from "./components/home/ReviewsProductList.vue";
 import BlogPostTags from "./components/BlogPostTags.vue";
 import ProductItemCard from "./components/ProductItemCard.vue";
+import HeaderSearchNew from "./components/layout/HeaderSearchNew.vue";
 
 window.Vue = Vue;
 
@@ -95,6 +96,7 @@ Vue.component("my-wishlist", MyWishlist);
 Vue.component("my-reviews", MyReviews);
 Vue.component("my-addresses", MyAddresses);
 Vue.component('product-item-card',ProductItemCard);
+Vue.component('header-search-new',HeaderSearchNew);
 
 new Vue({
     el: "#app",

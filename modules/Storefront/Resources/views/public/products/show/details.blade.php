@@ -116,34 +116,34 @@
              </div>
              <div class="tabWrap">
                  <div class="tabHeader font-18-24-500 color-black"
-                      :class="tabs.Components ? 'active' : ''"
-                      @click="tabClick('Components')">
+                      :class="tabs.ComponentsList ? 'active' : ''"
+                      @click="tabClick('ComponentsList')">
                      {{ trans('storefront::product.tabsTitles.Components') }}
                  </div>
                  <div class="tabContent"
-                      :class="tabs.Components ? 'active' : ''">
-                     @include('storefront::public.products.show.tab_specification')
+                      :class="tabs.ComponentsList ? 'active' : ''">
+                     ComponentsListF
                  </div>
              </div>
              <div class="tabWrap">
                  <div class="tabHeader font-18-24-500 color-black"
-                      :class="tabs.Pay ? 'active' : ''"
-                      @click="tabClick('Pay')">
+                      :class="tabs.PayPolicy ? 'active' : ''"
+                      @click="tabClick('PayPolicy')">
                      {{ trans('storefront::product.tabsTitles.Pay') }}
                  </div>
                  <div class="tabContent"
-                      :class="tabs.Pay ? 'active' : ''">
+                      :class="tabs.PayPolicy ? 'active' : ''">
                      {{ trans('storefront::product.tabsTitles.Pay') }}
                  </div>
              </div>
              <div class="tabWrap">
                  <div class="tabHeader font-18-24-500 color-black"
-                      :class="tabs.Return ? 'active' : ''"
-                      @click="tabClick(Return)">
+                      :class="tabs.ReturnPolicy ? 'active' : ''"
+                      @click="tabClick('ReturnPolicy')">
                      {{ trans('storefront::product.tabsTitles.Return') }}
                  </div>
                  <div class="tabContent"
-                      :class="tabs.Return ? 'active' : ''">
+                      :class="tabs.ReturnPolicy ? 'active' : ''">
                      {{ trans('storefront::product.tabsTitles.Return') }}
                  </div>
              </div>

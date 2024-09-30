@@ -118,9 +118,17 @@
                     </div>
                 </div>
             </div>
-            <div class="reviewslist" >
-                <reviews-home-list  :reviewsitems='@json($reviewsList)'></reviews-home-list>
-            </div>
+            <reviews-home-list
+                v-for="(reviewsitems, index) in reviewsList"
+                :key="index"
+                :reviewsitems='reviewsitems'>
+
+
+            </reviews-home-list>
+{{--            <div class="reviewslist" >--}}
+{{--                <reviews-home-list    :reviewsitems='@json($reviewsList)'--}}
+{{--                                    ></reviews-home-list>--}}
+{{--            </div>--}}
             <div class="sectionWrap">
                     <blog-posts :data="{{ json_encode($blogPosts) }}"></blog-posts>
             </div>

@@ -44,9 +44,9 @@ export default {
             tabs: {
                 Delivery: false,
                 Reviews: false,
-                Components: false,
-                Pay: false,
-                Return: false,
+                ComponentsList: false,
+                PayPolicy: false,
+                ReturnPolicy: false,
             },
             addingNewReview: false,
             reviewForm: {},
