@@ -24,7 +24,7 @@ export default {
         ProductCardMixin,
     ],
 
-    props: ["product", "variant", "reviewCount", "avgRating"],
+    props: ["product", "variant", "reviewCount", "avgRating","viewed","recomended"],
 
     data() {
         return {
@@ -38,7 +38,16 @@ export default {
             activeTab: "description",
             currentReviewPage: 1,
             fetchingReviews: false,
+            showReviewForm: false,
+            hideEmptyBlock: false,
             reviews: {},
+            tabs: {
+                Delivery: false,
+                Reviews: false,
+                Components: false,
+                Pay: false,
+                Return: false,
+            },
             addingNewReview: false,
             reviewForm: {},
             cartItemForm: {
@@ -70,6 +79,9 @@ export default {
         isAddToCartDisabled() {
             return this.item.is_out_of_stock ?? true;
         },
+        itemInCart(){
+            return store.inCart(this.item.id);
+        }
     },
 
     created() {
@@ -94,6 +106,17 @@ export default {
                 media: [],
                 base_image: [],
             };
+        },
+
+        tabClick(tab) {
+              this.tabs[tab] = (this.tabs[tab]) ? false : true;
+              if(tab === "Reviews" && this.tabs[tab]){
+                  this.$nextTick((e)=>{
+                      $(".reviewsSlider").slick(
+                          this.slickRewOptions()
+                      )
+                  })
+              }
         },
 
         isMobileDevice() {
@@ -142,6 +165,18 @@ export default {
 
         toggleDescriptionContent() {
             this.showDescriptionContent = !this.showDescriptionContent;
+        },
+        slickRewOptions() {
+            return  {
+                rows: 0,
+                dots: false,
+                arrows: true,
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                rtl: window.FleetCart.rtl,
+
+            };
         },
     },
 };

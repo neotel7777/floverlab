@@ -4,7 +4,10 @@ namespace Modules\Storefront\Http\ViewComposers;
 
 use Exception;
 use Illuminate\View\View;
+use Modules\Blog\Entities\BlogPost;
 use Modules\Compare\Compare;
+use Modules\Support\Country;
+use Modules\Support\State;
 use Spatie\SchemaOrg\Schema;
 use Modules\Tag\Entities\Tag;
 use Modules\Cart\Facades\Cart;
@@ -49,6 +52,7 @@ class LayoutComposer
             'compareCount' => $this->compare->count(),
             'favicon' => $this->getFavicon(),
             'logo' => $this->getHeaderLogo(),
+            'footer_logo' => $this->getFooterLogo(),
             'newsletterBgImage' => $this->getNewsletterBgImage(),
             'privacyPageUrl' => $this->getPrivacyPageUrl(),
             'categories' => $this->getCategories(),
@@ -60,15 +64,71 @@ class LayoutComposer
             'compareList' => $this->compare->list(),
             'footerMenuOne' => $this->getFooterMenuOne(),
             'footerMenuTwo' => $this->getFooterMenuTwo(),
+            'footerMenuTree' => $this->getFooterMenuTree(),
             'footerTags' => $this->getFooterTags(),
             'copyrightText' => $this->getCopyrightText(),
             'acceptedPaymentMethodsImage' => $this->getAcceptedPaymentMethodsImage(),
             'schemaMarkup' => $this->getSchemaMarkup(),
+            'burger_menu' => Category::tree(),
+            'countries'    => Country::all(),
+            'shop_country'  => $this->getCoutries(),
+            'shop_city'          => State::name(setting('store_country'),setting('store_state')),
+            'locales'           => $this->getLocales(),
+            'locale'            => locale(),
+            'current_locale'    => $this->getLocales(locale()),
+            'search'            => request('search'),
+            'blogPosts'         => $this->blogPosts(),
         ]);
     }
 
+    private function blogPosts()
+    {
+          $blogPosts = BlogPost::published()->with(['tags','category'])
+                ->latest()
+                ->take(setting('storefront_recent_blogs') ?? 10)
+                ->get();
+            setlocale(LC_TIME,locale());
+            foreach ($blogPosts as $blogPost) {
+                $blogPost->append('user_name');
+                $blogPost->data = strftime('%d %B %G');
+            }
 
-    public function footerTagsCallback($tagIds)
+            return [
+                'title' => setting('storefront_blogs_section_title'),
+                'blogPosts' => $blogPosts,
+            ];
+    }
+    private function getLocales($ind = ''){
+        $locales    = [
+            'en'    =>[
+                'name'  => "ENG",
+                'icon'  => "/storage/media/flag-en.svg",
+            ],
+            'ru_MD' =>[
+                'name'  => "RUS",
+                'icon'  => "/storage/media/flag-rus.svg",
+
+            ],
+            "ro_MD" =>[
+                'name'  => "ROM",
+                'icon'  => "/storage/media/flag-ro.svg",
+
+            ]
+        ];
+        if($ind=='') {
+            return $locales;
+        } else {
+            return $locales[$ind];
+        }
+    }
+
+    private function getCoutries()
+    {
+        $countries = Country::all();
+        return $countries[setting('store_country')];
+    }
+
+    private function footerTagsCallback($tagIds)
     {
         return function () use ($tagIds) {
             return Tag::whereIn('id', $tagIds)
@@ -111,6 +171,11 @@ class LayoutComposer
         return $this->getMedia(setting('storefront_header_logo'))->path;
     }
 
+    private function getFooterLogo()
+    {
+
+        return $this->getMedia(setting('storefront_footer_logo'))->path;
+    }
 
     private function getNewsletterBgImage()
     {
@@ -142,13 +207,22 @@ class LayoutComposer
 
     private function getPrimaryMenu()
     {
-        return new MegaMenu(setting('storefront_primary_menu'));
+       $menu =  new MegaMenu(setting('storefront_primary_menu'));
+
+       return $menu->menus();
     }
 
+    private function getThirdBottomMenu()
+    {
+        $menu =  new MegaMenu(setting('storefront_footer_menu_tree'));
+
+        return $menu->menus();
+    }
 
     private function getCategoryMenu()
     {
-        return new MegaMenu(setting('storefront_category_menu'));
+        $menu =  new MegaMenu(setting('storefront_category_menu'));
+        return $menu;
     }
 
 
@@ -170,6 +244,7 @@ class LayoutComposer
 
     private function getFooterMenuOne()
     {
+
         return $this->getFooterMenu(setting('storefront_footer_menu_one'));
     }
 
@@ -187,7 +262,11 @@ class LayoutComposer
     {
         return $this->getFooterMenu(setting('storefront_footer_menu_two'));
     }
+    private function getFooterMenuTree()
+    {
 
+        return $this->getFooterMenu(setting('storefront_footer_menu_tree'));
+    }
 
     private function getFooterTags()
     {

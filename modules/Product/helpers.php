@@ -37,6 +37,6 @@ if (!function_exists('product_price_formatted')) {
         if (!$productOrProductVariant->hasSpecialPrice()) {
             return $price;
         }
-        return "<span class='special-price'>{$specialPrice}</span> <span class='previous-price'>{$price}</span>";
+        return "<span class='special-price color-orange '>{$specialPrice}</span> <span class='previous-price'>{$price}</span>";
     }
 }

@@ -89,6 +89,7 @@ class StorefrontTabs extends Tabs
                 'headerLogo' => $this->getMedia(setting('storefront_header_logo')),
                 'footerLogo' => $this->getMedia(setting('storefront_footer_logo')),
                 'mailLogo' => $this->getMedia(setting('storefront_mail_logo')),
+                'footerlogo' => $this->getMedia(setting('storefront_footer_logo')),
             ]);
         });
     }

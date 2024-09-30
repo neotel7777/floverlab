@@ -116,6 +116,12 @@
     justify-content: start;
     align-items: start;
 }
+.flex-column-center-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
 
 /* Font styles*/
 
@@ -132,6 +138,22 @@
 .font-12-14-bold {
     font-size: 12px;
     line-height: 14px;
+    font-weight: bold;
+}
+
+.font-13-16-normal {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: normal;
+}
+.font-13-16-500 {
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
+}
+.font-13-16-bold {
+    font-size: 13px;
+    line-height: 16px;
     font-weight: bold;
 }
 
@@ -301,6 +323,7 @@
     line-height: 11px;
     font-weight: normal;
 }
+
 /* Color styles */
 .color-white {
     color: #FFFFFF!important;
@@ -319,6 +342,12 @@
 }
 .bk-color-dark-green {
     background-color: #234034!important;
+}
+.color-dark {
+    color: #333333!important;
+}
+.bk-color-dark {
+    background-color: #333333!important;
 }
 
 .color-green {
@@ -378,6 +407,13 @@
     background-color: #4E645C;
 }
 
+.color-neutral_grey {
+    color: #8E979C!important;
+}
+.bk-color-neutral_grey {
+    background-color: #8E979C!important;
+}
+
 
 .gap-20{
     gap: 20px;
@@ -386,5 +422,5 @@
     gap: 10px;
 }
 .gap-5 {
-    gap: 20px;
+    gap: 5px;
 }

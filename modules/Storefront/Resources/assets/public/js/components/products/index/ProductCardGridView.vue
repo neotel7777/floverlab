@@ -1,7 +1,5 @@
 <template>
-    <div class="grid-view-products-item">
         <ProductCard :product="product" />
-    </div>
 </template>
 
 <script>

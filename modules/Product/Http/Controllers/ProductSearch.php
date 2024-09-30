@@ -4,6 +4,7 @@ namespace Modules\Product\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Modules\Blog\Entities\BlogPost;
 use Modules\Product\Entities\Product;
 use Modules\Category\Entities\Category;
 use Modules\Attribute\Entities\Attribute;
@@ -36,7 +37,14 @@ trait ProductSearch
 
         if (request()->filled('category')) {
             $productIds = (clone $query)->select('products.id')->resetOrders()->pluck('id');
+
             $attributes = $this->getAttributes($productIds);
+
+            $reviews = Review::getCategoryReviews($productIds);
+        } else {
+            $ids = $this->getCategoryProductsIds(Category::all());
+            $attributes = $this->getHomeAttributes($ids);
+            $reviews = Review::getHomeReviews();
         }
         if (request()->get('page') =="home") {
             $categories_home = Category::atHome($productFilter);
@@ -57,16 +65,35 @@ trait ProductSearch
             $product->medias = $item->files;
             $products[$key] = $product;
         }
-
+        //$products->total = count($products);
         event(new ShowingProductList($products));
 
         return response()->json([
             'products' => $products,
             'categories_home' => $categories_home,
             'attributes' => $attributes,
-            'reviewsList' => $reviews
+            'reviewsList' => $reviews,
+            'blogPostsList' => $this->blogPosts(),
 
         ]);
+    }
+
+    private function blogPosts()
+    {
+        $blogPosts = BlogPost::published()->with(['tags','category'])
+            ->latest()
+            ->take(setting('storefront_recent_blogs') ?? 10)
+            ->get();
+        setlocale(LC_TIME,locale());
+        foreach ($blogPosts as $blogPost) {
+            $blogPost->append('user_name');
+            $blogPost->data = strftime('%d %B %G');
+        }
+
+        return [
+            'title' => setting('storefront_blogs_section_title'),
+            'blogPosts' => $blogPosts,
+        ];
     }
     private function getCategoryProductsIds($categories){
         $ids = [];
@@ -83,10 +110,6 @@ trait ProductSearch
 
     private function getAttributes($productIds)
     {
-        if (!request()->filled('category') || $this->filteringViaRootCategory()) {
-            return collect();
-        }
-
         return Attribute::with('values')
             ->where('is_filterable', true)
             ->whereHas('categories', function ($query) use ($productIds) {

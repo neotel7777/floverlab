@@ -1,13 +1,17 @@
 <div class="filter-section-wrap">
     <div class="filter-section-header">
-        <h4 class="section-title">
+        <h4 class="section-title"
+            :class="filterOpen ? 'active' : ''"
+            @click="filterOpen = (filterOpen) ? false : true">
             {{ trans('storefront::products.filters') }}
+            <span></span>
         </h4>
 
-        <i class="las la-times sidebar-filter-close"></i>
     </div>
 
-    <div class="filter-section-inner custom-scrollbar">
+    <div class="filter-section-inner custom-scrollbar"
+         :class="filterOpen ? 'active' : ''"
+    >
         <div class="filter-section">
             <h6>{{ trans('storefront::products.price') }}</h6>
 
@@ -60,6 +64,9 @@
                     <label :for="'attribute-' + value.id" v-text="value.value"></label>
                 </div>
             </div>
+        </div>
+        <div class="clearFilterButton" ref="clearFilter">
+            {{ trans('storefront::storefront.clear_filter_button') }}
         </div>
     </div>
 </div>

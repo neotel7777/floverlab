@@ -23,11 +23,13 @@ return [
     'twitter' => 'Twitter',
     'linkedin' => 'Linkedin',
     'tumblr' => 'Tumblr',
+    'have_you_watched' => "You watched this before",
     'you_might_also_like' => 'You might also like',
     'description' => 'Description',
     'specification' => 'Specification',
     'reviews' => 'Reviews (:count)',
     'add_a_review' => 'Add a review',
+    'hide_review_form' => 'Hide form',
     'review_submitted' => 'Review submitted',
 
     'review_form' => [
@@ -41,4 +43,12 @@ return [
     'related_products' => 'Related Products',
     'show_more' => 'Show More',
     'show_less' => 'Show Less',
+    'delivery_free_title' => 'Delivery within Chisinau: Free',
+    'tabsTitles' => [
+        'Delivery'      => 'Delivery',
+        'Reviews'       => 'Reviews',
+        'Components'    => 'Сomposition',
+        'Pay'           => 'Pay types',
+        'Return'        => 'Return policy',
+    ],
 ];

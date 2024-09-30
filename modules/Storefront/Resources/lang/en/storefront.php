@@ -7,6 +7,7 @@ return [
         'favicon' => 'Favicon',
         'header_logo' => 'Header Logo',
         'mail_logo' => 'Mail Logo',
+        'footer_logo' => 'Footer logo',
         'accepted_payment_methods_image' => 'Accepted Payment Methods Image',
         'newsletter_bg_image' => 'Background Image',
         'please_select' => 'Please Select',
@@ -93,5 +94,12 @@ return [
         'twitter' => 'Twitter',
         'instagram' => 'Instagram',
         'youtube' => 'YouTube'
-    ]
+    ],
+    'footer_contacts'=>[
+        'phone_title' => 'Free. Round the clock',
+        'email_title' => 'For any questions'
+    ],
+    'footer_locales_title' => 'Interface language:',
+    'clear_filter_button' => 'Clear filter',
+    'in_cart'           => 'In cart',
 ];

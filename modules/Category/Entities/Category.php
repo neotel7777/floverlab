@@ -5,6 +5,7 @@ namespace Modules\Category\Entities;
 use Laravel\Scout\Scout;
 use Modules\Review\Entities\Review;
 use Modules\Support\Search\Builder;
+use Symfony\Component\Routing\Annotation\Route;
 use TypiCMS\NestableTrait;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Carbon;
@@ -110,7 +111,35 @@ class Category extends Model implements Sitemapable
                     });
             });
     }
+    public static function parentActive($slug='')
+    {
+       if(empty($slug)) {
 
+        return static::where('is_active', true)->where("parent_id", null)
+            ->get()
+            ->map(function ($category) {
+                return [
+                    'slug'  => $category->slug,
+                    'name'  => $category->name,
+                    'url'   => route('categories.products.index',$category->slug),
+                    'target' => '_blank'
+                ];
+            });
+        } else {
+           $category = self::findBySlug($slug);
+
+           return static::where('is_active', true)->where("parent_id", $category->id)
+               ->get()
+               ->map(function ($category) {
+                   return [
+                       'slug' => $category->slug,
+                       'name' => $category->name,
+                       'url'   => route('categories.products.index',$category->slug),
+                       'target' => '_blank'
+                   ];
+               });
+       }
+    }
     public static function searchable()
     {
         return Cache::tags('categories')

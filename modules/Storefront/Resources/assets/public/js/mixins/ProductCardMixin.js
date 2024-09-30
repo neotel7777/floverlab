@@ -31,11 +31,11 @@ export default {
         },
 
         hasAnyMedia() {
-            return this.item.medias.length !== 0;
+            return this.product.medias!==undefined && this.product.medias.length !== 0;
         },
 
         isOneMedia() {
-            return this.item.medias.length === 1;
+            return this.hasAnyMedia && this.product.medias.length === 1;
         },
         hasSpecialPrice(){
            return  (this.product.special_price !== null && (this.product.special_price.amount !==0
@@ -43,7 +43,7 @@ export default {
         },
 
         getMedia(){
-          return this.item.medias ;
+          return this.product.medias ;
         },
 
         hasBaseImage() {
@@ -68,30 +68,33 @@ export default {
         },
 
         inCompareList() {
-            return store.inCompareList(this.product.id);
+            return store.inCompareList(this.item.id);
+        },
+        inCart() {
+            return store.inCart(this.item.id);
         },
         id(){
-            return this.product.id;
+            return this.item.id;
         },
         name() {
-          return this.product.title;
+          return this.item.title;
         },
         price() {
-            return this.product.price;
+            return this.item.price;
         },
         price_formated() {
-            return store.round(this.product.price.amount) + " " + this.product.price.currency;
+            return store.round(this.item.price.amount) + " " + this.item.price.currency;
         },
         percent() {
             if(this.product.special_price!==null) {
-                return store.round(((this.product.price.amount - this.product.special_price.amount) / this.product.special_price.amount) * 100) + "%";
+                return store.round(((this.item.price.amount - this.item.special_price.amount) / this.item.special_price.amount) * 100) + "%";
             } else {
                 return '';
             }
         },
         special_price_formated(){
             if(this.product.special_price!==null) {
-                return store.round(this.product.special_price.amount) + " " + this.product.special_price.currency;
+                return store.round(this.item.special_price.amount) + " " + this.item.special_price.currency;
             } else {
                 return '';
             }

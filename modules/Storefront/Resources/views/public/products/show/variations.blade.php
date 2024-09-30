@@ -1,22 +1,12 @@
 @foreach ($product->variations as $variation)
     <div class="variant-custom-selection">
-        <div class="row">
-            <div class="col-lg-4">
-                <label class="d-none d-lg-block">
-                    {{ $variation->name }}
-                </label>
-
-                <label class="d-lg-none">
-                    {{ $variation->name }}:
-                </label>
-
-                <span class="d-lg-none" v-text="activeVariationValues['{{ $variation->uid }}']"></span>
+        <div class="flex-column-start-start gap-20">
+            <div class="variation-title font-16-20-normal color-black">
+                {{ $variation->name }}
             </div>
 
-            <div class="col-lg-14">
-                <span class="d-none d-lg-flex variation-label" v-text="activeVariationValues['{{ $variation->uid }}']"></span>
-               
-                <ul class="list-inline form-custom-radio custom-selection">
+            <div class="variationsList">
+                <ul class="list-inline form-custom-radio custom-selection flex-row-start-center">
                     @foreach ($variation->values as $value)
                         <li
                             :title="

@@ -62,6 +62,7 @@ class Builder
      */
     public function query()
     {
+        //dd($this->model->getQualifiedKeyName());
         $query = $this->model->whereIn($this->model->getQualifiedKeyName(), $this->keys());
 
         if ($this->shouldOrderByRelevance()) {

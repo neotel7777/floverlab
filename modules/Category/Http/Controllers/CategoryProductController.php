@@ -4,23 +4,19 @@ namespace Modules\Category\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Request;
-use Modules\Page\Http\Controllers\CommonController;
+use Modules\Blog\Entities\BlogPost;
 use Modules\Product\Entities\Product;
 use Modules\Category\Entities\Category;
 use Modules\Product\Filters\ProductFilter;
 use Modules\Product\Http\Controllers\ProductSearch;
 use Illuminate\Foundation\Application;
+use Modules\Review\Entities\Review;
 
-class CategoryProductController extends CommonController
+class CategoryProductController
 {
     use ProductSearch;
 
-    public function __construct(Application $app, Request $request)
-    {
 
-        parent::__construct($app, $request);
-
-    }
     /**
      * Display a listing of the resource.
      *
@@ -39,11 +35,16 @@ class CategoryProductController extends CommonController
         }
 
         $category = Category::findBySlug($slug);
+        $categories = Category::parentActive($slug);
+        $reviewsList = Review::getHomeReviews();
+        $blogPosts = BlogPost::blogPosts();
 
         return view('storefront::public.products.index', [
             'categoryName' => $category->name,
             'categoryBanner' => $category->banner->path,
-            'data'          => $this->data
+            'subcategories'    => $categories,
+            'reviewsList'      => $reviewsList,
+            'blogPosts' => $blogPosts
         ]);
     }
 }

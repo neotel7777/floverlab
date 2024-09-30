@@ -59,16 +59,95 @@ class Review extends Model
 
     public static function getHomeReviews()
     {
-        $reviews = self::with(['product','reviewer'])->where('is_approved', true)->limit(20)->get();
+        $reviews = self::with(['product','reviewer'])->where('is_approved', true)
+            ->orderBy("id","Desc")
+            ->limit(20)->get();
+
         $percent = intval((self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating / 5) * 100);
-        return [
-            'allReviews' => count(self::all()),
+        $statuses = explode(",",trans('storefront::review.stars_stats_list'));
+        $locale = locale();
+
+        foreach($reviews as &$review){
+            $review->statusRating = trim($statuses[$review->rating-1]);
+            setlocale(LC_TIME,$locale);
+            $review->data = strftime('%B %G');
+            $review->percent = ($review->rating / 5) * 100;
+        }
+
+        return [[
+            'allReviews' => count(self::where('is_approved',1)->get()),
             'avgRaitind' =>number_format(self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating,1,".",""),
             'orders'    => count(Order::all()),
             'avgPercent' => $percent,
             'reviews'   => $reviews,
             'isReviews' => count($reviews) >0,
-        ];
+        ]];
+    }
+    public static function getCategoryReviews($productids=[])
+    {
+        if(!empty($productids)){
+            $reviews = self::with(['product', 'reviewer'])->where('is_approved', true)
+                ->whereIn('product_id',$productids)
+                ->limit(20)->get();
+        } else {
+            $reviews = self::with(['product', 'reviewer'])->where('is_approved', true)->limit(20)->get();
+        }
+
+        $percent = intval((self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating / 5) * 100);
+        $statuses = explode(",",trans('storefront::review.stars_stats_list'));
+        $locale = locale();
+
+        foreach($reviews as &$review){
+            $review->statusRating = trim($statuses[$review->rating-1]);
+            setlocale(LC_TIME,$locale);
+            $review->data = strftime('%B %G');
+            $review->percent = ($review->rating / 5) * 100;
+        }
+
+        return [[
+            'allReviews' => count(self::where('is_approved',1)->get()),
+            'avgRaitind' =>number_format(self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating,1,".",""),
+            'orders'    => count(Order::all()),
+            'avgPercent' => $percent,
+            'reviews'   => $reviews,
+            'isReviews' => count($reviews) >0,
+        ]];
+    }
+
+    public static function getProductReviews($product_id)
+    {
+
+        $reviews = self::with(['product', 'reviewer'])->where('is_approved', true)
+                ->where('product_id',$product_id)
+                ->orderBy('id','desc')
+                ->limit(20)->get();
+        $allreviews = self::with(['product', 'reviewer'])->where('is_approved', true)
+            ->where('product_id',$product_id)
+            ->get();
+
+        $rating = self::select(DB::raw('avg(rating) as avg_rating'))
+            ->where('is_approved', true)
+            ->where('product_id',$product_id)
+            ->first()->avg_rating;
+        $percent = intval(($rating / 5) * 100);
+        $statuses = explode(",",trans('storefront::review.stars_stats_list'));
+        $locale = locale();
+
+        foreach($reviews as &$review){
+            $review->statusRating = trim($statuses[$review->rating-1]);
+            setlocale(LC_TIME,$locale);
+            $review->data = strftime('%B %G');
+            $review->percent = ($review->rating / 5) * 100;
+        }
+
+        return [[
+            'allReviews' => count($allreviews),
+            'avgRaitind' =>number_format($rating,1,".",""),
+            'orders'    => count(Order::all()),
+            'avgPercent' => $percent,
+            'reviews'   => $reviews,
+            'isReviews' => count($reviews) >0,
+        ]];
     }
 
     public function getAvgRatingAttribute($avgRating)

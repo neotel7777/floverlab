@@ -54,7 +54,7 @@ class QueryStringFilter
     {
         $query->join('product_translations', function (JoinClause $join) {
             $join->on('products.id', '=', 'product_translations.product_id');
-        })
+        })->where("product_translations.locale",locale())
             ->groupBy(array_merge($this->groupColumns, ['product_translations.name']))
             ->orderBy('product_translations.name');
     }

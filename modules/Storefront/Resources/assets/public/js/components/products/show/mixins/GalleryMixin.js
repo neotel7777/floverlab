@@ -33,7 +33,7 @@ export default {
                 fade: true,
                 dots: false,
                 swipe: false,
-                arrows: true,
+                arrows: false,
                 infinite: false,
                 draggable: false,
                 slidesToShow: 1,
@@ -55,7 +55,7 @@ export default {
                     dots: false,
                     arrows: true,
                     infinite: false,
-                    slidesToShow: 6,
+                    slidesToShow: 4,
                     slideToScroll: 1,
                     focusOnSelect: true,
                     rtl: window.FleetCart.rtl,
@@ -64,19 +64,19 @@ export default {
                         {
                             breakpoint: 1601,
                             settings: {
-                                slidesToShow: 5,
+                                slidesToShow: 4,
                             },
                         },
                         {
                             breakpoint: 992,
                             settings: {
-                                slidesToShow: 6,
+                                slidesToShow: 3,
                             },
                         },
                         {
                             breakpoint: 577,
                             settings: {
-                                slidesToShow: 5,
+                                slidesToShow: 2,
                                 arrows: false,
                             },
                         },
@@ -84,7 +84,7 @@ export default {
                             breakpoint: 451,
                             settings: {
                                 arrows: false,
-                                slidesToShow: 4,
+                                slidesToShow: 2,
                             },
                         },
                     ],

@@ -56,8 +56,8 @@
                     </div>
                 </div>
 
-                @if ($data['sale_products']->isNotEmpty())
-                <sale-products-home :saleproducts='@json($data['sale_products'])'></sale-products-home>
+                @if ($sale_products->isNotEmpty())
+                <sale-products-home :saleproducts='@json($sale_products)'></sale-products-home>
                 @endif
             </div>
         </div>

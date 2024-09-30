@@ -3,22 +3,22 @@
         <div class="Logo">
         <a href="{{ route('home') }}" class="header-logo">
 
-            @if (is_null($data['logo']))
+            @if (is_null($logo))
                 <h3>{{ setting('store_name') }}</h3>
             @else
-                <img src="{{ $data['logo'] }}" alt="Logo">
+                <img src="{{ $logo }}" alt="Logo">
             @endif
         </a>
         </div>
         <div class="menuWrap">
-            @include('storefront::public.layout.navigation.top_menu', ['menus'=>$data['menu'],'type' => 'primary_menu'])
+            @include('storefront::public.layout.navigation.top_menu', ['menus'=>$primaryMenu,'type' => 'primary_menu'])
         </div>
         <ul class="serviceWrap flex-row-between-center">
                 <li>
-                    <i class="locale_flag"><img src="{{ $data['current_locale']['icon'] }}"></i>
+                    <i class="locale_flag"><img src="{{ $current_locale['icon'] }}"></i>
 
                     <select class="custom-select-option arrow-black" onchange="location = this.value">
-                        @foreach ($data['locales'] as $locale => $language)
+                        @foreach ($locales as $locale => $language)
                             <option data-icon="{{ $language['icon'] }}" value="{{ localized_url($locale) }}" {{ locale() === $locale ? 'selected' : '' }}>
                                 {{ $language['name'] }}
                             </option>
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <div class="subtitle  font-16-20-normal color-ligth-grey">{{trans('storefront::layout.adress')}}</div>
-                    <div class="adressBlock font-16-20-500 color-black">{{setting('store_address_1')}}, {{$data['shop_country']}} {{$data['shop_city']}}</div>
+                    <div class="adressBlock font-16-20-500 color-black">{{setting('store_address_1')}}, {{$shop_country}} {{$shop_city}}</div>
                 </div>
             </div>
         </div>
@@ -176,25 +176,25 @@
     <div class="sectionWrap flex-row-start-start  bk-color-white">
         <div class="mainCatalogMenu bk-color-light">
             <ul class="mainMenu flex-column">
-                @foreach($data['burger_menu'] as $category)
+                @foreach($burger_menu as $category)
                 <li class="menu-item flex-row-start-center" data-group="{{$category->slug}}_{{$category->id}}">
-                    <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$data['locale'])}}</a>
+                    <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$locale)}}</a>
                 </li>
                 @endforeach
             </ul>
         </div>
         <div class="submenuWrap bk-color-white">
-            @foreach($data['burger_menu'] as $category)
+            @foreach($burger_menu as $category)
                 @if(count($category->items) > 0)
                     <ul class="subMenu" id="{{$category->slug}}_{{$category->id}}">
 
                             <li class="submenu-item flex-row-start-center">
-                                <a class="color-menu font-20-26-500" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$data['locale'])}}</a>
+                                <a class="color-menu font-20-26-500" href="{{ route("categories.products.index",$category->slug) }}">{{getTranslation($category,'name',$locale)}}</a>
                             </li>
 
                         @foreach($category->items as $subcategory)
                             <li class="submenu-item flex-row-start-center">
-                                <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$subcategory->slug) }}">{{getTranslation($subcategory,'name',$data['locale'])}}</a>
+                                <a class="color-menu font-18-24-normal" href="{{ route("categories.products.index",$subcategory->slug) }}">{{getTranslation($subcategory,'name',$locale)}}</a>
                             </li>
                         @endforeach
                     </ul>

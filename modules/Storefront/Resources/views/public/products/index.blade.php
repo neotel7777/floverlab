@@ -15,6 +15,7 @@
 @endpush
 
 @section('content')
+
     <product-index
         initial-query="{{ request('query') }}"
         initial-brand-name="{{ $brandName ?? '' }}"
@@ -29,37 +30,19 @@
         :min-price="{{ $minPrice }}"
         :max-price="{{ $maxPrice }}"
         initial-sort="{{ request('sort', 'latest') }}"
-        :initial-per-page="{{ request('perPage', 30) }}"
+        :initial-per-page="{{ request('perPage', 3) }}"
         :initial-page="{{ request('page', 1) }}"
         initial-view-mode="{{ request('viewMode', 'grid') }}"
         inline-template
     >
         <section class="product-search-wrap">
-            <div class="container">
+            <div class="sectionWrap">
                 <div class="product-search">
                     <div class="product-search-left">
-                        @if ($categories->isNotEmpty())
-                            <div class="d-none d-lg-block browse-categories-wrap">
-                                <h4 class="section-title">
-                                    {{ trans('storefront::products.browse_categories') }}
-                                </h4>
-
-                                @include('storefront::public.products.index.browse_categories')
-                            </div>
-                        @endif
-
                         @include('storefront::public.products.index.filter')
-                        @include('storefront::public.products.index.latest_products')
                     </div>
 
                     <div class="product-search-right" v-cloak>
-                        <div class="d-none d-lg-block categories-banner" v-if="brandBanner">
-                            <img :src="brandBanner" alt="Brand banner">
-                        </div>
-
-                        <div class="d-none d-lg-block categories-banner" v-else-if="categoryBanner">
-                            <img :src="categoryBanner" alt="Category banner">
-                        </div>
 
                         <div class="search-result">
                             <div class="search-result-top">
@@ -80,31 +63,9 @@
                                     </div>
 
                                     <div class="sorting-bar">
-                                        <div class="view-type">
-                                            <button
-                                                type="submit"
-                                                class="btn btn-grid-view"
-                                                :class="{ active: viewMode === 'grid' }"
-                                                title="{{ trans('storefront::products.grid_view') }}"
-                                                @click="viewMode = 'grid'"
-                                            >
-                                                <i class="las la-th-large"></i>
-                                            </button>
-
-                                            <button
-                                                type="submit"
-                                                class="btn btn-list-view"
-                                                :class="{ active: viewMode === 'list' }"
-                                                title="{{ trans('storefront::products.list_view') }}"
-                                                @click="viewMode = 'list'"
-                                            >
-                                                <i class="las la-list"></i>
-                                            </button>
-                                        </div>
-
                                         <div class="form-group m-r-20">
                                             <select
-                                                class="form-control custom-select-option right arrow-black"
+                                                class="form-control custom-select-option left special"
                                                 v-model="queryParams.sort"
                                                 ref="sortSelect"
                                             >
@@ -118,34 +79,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
-                                        <div class="form-group">
-                                            <select
-                                                class="form-control custom-select-option right arrow-black"
-                                                v-model="queryParams.perPage"
-                                                ref="perPageSelect"
-                                            >
-                                                @foreach (trans('storefront::products.per_page_options') as $key => $value)
-                                                    <option
-                                                        value="{{ $key }}"
-                                                        {{ request('perPage', 30) == $key ? 'selected' : '' }}
-                                                    >
-                                                        {{ $value }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="search-result-middle" :class="{ empty: emptyProducts, loading: fetchingProducts }">
-                                <div class="grid-view-products" v-if="!emptyProducts && viewMode === 'grid'">
-                                    <product-card-grid-view v-for="product in products.data" :key="product.id" :product="product"></product-card-grid-view>
-                                </div>
+                            @include('storefront::public.products.index.category_menu',['categories'=>$subcategories])
 
-                                <div class="list-view-products" v-if="!emptyProducts && viewMode === 'list'">
-                                    <product-card-list-view v-for="product in products.data" :key="product.id" :product="product"></product-card-list-view>
+                            <div class="search-result-middle" :class="{ empty: emptyProducts, loading: fetchingProducts }">
+                                <div class="products-list flex-row-start-start" v-if="!emptyProducts">
+                                    <product-card-grid-view v-for="product in products.data" :key="product.id" :product="product"></product-card-grid-view>
                                 </div>
 
                                 <div class="empty-message" v-if="!fetchingProducts && emptyProducts">
@@ -155,9 +97,9 @@
                                 </div>
                             </div>
 
-                            <div class="search-result-bottom" v-if="!emptyProducts">
-                                <span class="showing-results" v-text="showingResults"></span>
-
+                            <div class="search-result-bottom flex-row-center-center"
+                                 :class="!emptyProducts ? 'showPaginate' : 'hidePaginate'"
+                                >
                                 <v-pagination
                                     :total-page="totalPage"
                                     :current-page="queryParams.page"
@@ -165,11 +107,24 @@
                                     v-if="products.total > queryParams.perPage"
                                 >
                                 </v-pagination>
+                                <div class="view-all  flex-row-center-center"
+                                     :class="(products.total > queryParams.perPage) ? 'showViewAll' : 'hideViewAll'"
+                                     ref="viewAllProducts"
+                                     v-if="viewAll">
+                                    {{ trans('storefront::blog.blog_posts.view_all') }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="reviewslist" >
+                <reviews-home-list  :reviewsitems='@json($reviewsList)'></reviews-home-list>
+            </div>
+            <div class="sectionWrap">
+                    <blog-posts :data="{{ json_encode($blogPosts) }}"></blog-posts>
+            </div>
         </section>
     </product-index>
+
 @endsection

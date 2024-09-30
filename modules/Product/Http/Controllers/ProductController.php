@@ -6,7 +6,6 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
-use Modules\Page\Http\Controllers\CommonController;
 use Modules\Review\Entities\Review;
 use Illuminate\Contracts\View\View;
 use Modules\Product\Entities\Product;
@@ -17,7 +16,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Http\Middleware\SetProductSortOption;
 
-class ProductController extends CommonController
+
+class ProductController extends Controller
 {
     use ProductSearch;
 
@@ -26,10 +26,10 @@ class ProductController extends CommonController
      *
      * @return void
      */
-    public function __construct(\Illuminate\Foundation\Application $app)
+    public function __construct()
     {
 
-        parent::__construct($app);
+
         $this->middleware(SetProductSortOption::class)->only('index');
     }
 
@@ -48,7 +48,7 @@ class ProductController extends CommonController
             return $this->searchProducts($model, $productFilter);
         }
 
-        return view('storefront::public.products.index',['data'=>$this->data]);
+        return view('storefront::public.products.index');
     }
 
 
@@ -64,6 +64,7 @@ class ProductController extends CommonController
         $product = ProductRepository::findBySlug($slug);
         $relatedProducts = $product->relatedProducts()->with('variants')->forCard()->get();
         $upSellProducts = $product->upSellProducts()->with('variants')->forCard()->get();
+
         $review = $this->getReviewData($product);
 
         $product->append([
@@ -80,10 +81,16 @@ class ProductController extends CommonController
                 ->where('uid', $requestedVariant)
                 ->firstOrFail();
         }
-        $data = $this->data;
+        setVeiwed($product->id);
+
+        $viewed = session('viewed');
+        unset($viewed[$product->id]);
+
+        $viewedProducts = ProductRepository::findByIds($viewed);
+//dd($viewedProducts);
         event(new ProductViewed($product));
 
-        return view('storefront::public.products.show', compact('product','data', 'relatedProducts', 'upSellProducts', 'review'));
+        return view('storefront::public.products.show', compact('product', 'viewedProducts', 'relatedProducts', 'upSellProducts', 'review'));
     }
 
 

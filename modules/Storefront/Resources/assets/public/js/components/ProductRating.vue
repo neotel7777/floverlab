@@ -16,18 +16,24 @@
             </div>
         </div>
 
-        <span class="rating-count" v-if="hasReviewCount">({{ this.reviewCount }})</span>
+        <span class="rating-count" v-if="hasReviewCount && !isDescription">({{ this.reviewCount }})</span>
+        <span class="rating_description" v-if="isDescription">
+           {{ this.reviewCount }} {{ $trans('review::sidebar.reviews') }}
+        </span>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['ratingPercent', 'reviewCount'],
+        props: ['ratingPercent', 'reviewCount','isShowDescription'],
 
         computed: {
             hasReviewCount() {
                 return this.reviewCount !== undefined;
             },
+            isDescription(){
+                return this.isShowDescription;
+            }
         },
     };
 </script>

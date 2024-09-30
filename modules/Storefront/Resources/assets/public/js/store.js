@@ -25,7 +25,18 @@ export default {
     clearCart() {
         this.state.cart.items = {};
     },
+    inCart(product_id) {
 
+        if(!this.cartIsEmpty()){
+            for (const [key, value] of Object.entries(this.state.cart.items)) {
+                let itemid = (value.variant!==null) ? value.variant.id : value.product.id;
+                if(itemid === product_id){
+                    return true;
+                }
+            }
+        }
+        return false;
+    },
     hasShippingMethod() {
         return (
             Object.keys(this.state.cart.availableShippingMethods).length !== 0

@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 use Modules\Page\Entities\Page;
 use Modules\Media\Entities\File;
 
-class PageController  extends CommonController
+class PageController
 {
     /**
      * Display page for the slug.
@@ -20,8 +20,7 @@ class PageController  extends CommonController
 
         $logo = File::findOrNew(setting('admin_logo'))->path;
         $page = Page::where('slug', $slug)->firstOrFail();
-        $data  = $this->data;
 
-        return view('storefront::public.pages.show', compact('page', 'logo','data'));
+        return view('storefront::public.pages.show', compact('page', 'logo'));
     }
 }

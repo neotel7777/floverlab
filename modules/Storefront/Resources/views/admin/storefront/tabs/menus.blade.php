@@ -7,5 +7,7 @@
         {{ Form::select('storefront_footer_menu_one', trans('storefront::attributes.storefront_footer_menu_one'), $errors, $menus, $settings) }}
         {{ Form::text('translatable[storefront_footer_menu_two_title]', trans('storefront::attributes.storefront_footer_menu_two_title'), $errors, $settings) }}
         {{ Form::select('storefront_footer_menu_two', trans('storefront::attributes.storefront_footer_menu_two'), $errors, $menus, $settings) }}
+        {{ Form::text('translatable[storefront_footer_menu_tree_title]', trans('storefront::attributes.storefront_footer_menu_tree_title'), $errors, $settings) }}
+        {{ Form::select('storefront_footer_menu_tree', trans('storefront::attributes.storefront_footer_menu_tree'), $errors, $menus, $settings) }}
     </div>
 </div>

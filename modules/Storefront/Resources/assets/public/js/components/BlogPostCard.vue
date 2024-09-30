@@ -22,36 +22,29 @@
                 />
             </a>
 
-            <div class="blog-post-body">
+            <div class="blog-post-body gap-10 flex-column-start-start">
                 <ul class="list-inline blog-post-meta">
-                    <li class="d-flex align-items-center">
-                        <i class="las la-user"></i>
-                        {{ blogPost.user_name }}
-                    </li>
+                    <blog-post-tags
+                        v-for="tag in blogPost.tags "
+                        :key="tag.id"
+                        :tag="tag">
+                    </blog-post-tags>
 
-                    <li class="d-flex align-items-center">
-                        <i class="las la-calendar"></i>
-                        {{ dateFormat(blogPost.created_at, "dd mmm, yyyy") }}
-                    </li>
                 </ul>
 
                 <h3 class="blog-post-title">
-                    <a :href="route('blog_posts.show', blogPost.slug)">
+                    <a class="font-20-26-normal color-black" :href="route('blog_posts.show', blogPost.slug)">
                         {{ blogPost.title }}
                     </a>
                 </h3>
 
-                <p class="blog-post-short-description">
-                    {{ blogPost.short_description }}
-                </p>
-
-                <a
-                    :href="route('blog_posts.show', blogPost.slug)"
-                    class="blog-post-read-more"
-                >
-                    {{ $trans("storefront::blog.blog_posts.read_more") }}
-                    <i class="las la-arrow-right"></i>
+                <a href="route('blog_category.blog_posts.index',blogPost.category.slug)" class="blog-post-short-description font-14-16-normal color-black">
+                    {{ blogPost.category.translations[0].name }}
                 </a>
+
+                <div class="blog_data font-13-16-normal color-neutral_grey ">
+                    {{ blogPost.data }}
+                </div>
             </div>
         </div>
     </div>
@@ -59,11 +52,16 @@
 
 <script>
 import Vue from "vue";
+import BlogPostTags from "./BlogPostTags.vue";
+
 import dateFormat from "dateFormat";
 
 Vue.prototype.dateFormat = dateFormat;
 
 export default {
+    components: {
+        BlogPostTags
+    },
     props: {
         blogPost: {
             required: true,

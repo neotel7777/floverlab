@@ -1,14 +1,8 @@
 <template>
     <section class="blog-posts-wrap">
-        <div class="container">
             <div class="blog-posts-header">
-                <h5 class="section-title">{{ data.title }}</h5>
-
-                <a :href="route('blog_posts.index')" class="view-all">
-                    {{ $trans("storefront::blog.blog_posts.view_all") }}
-                </a>
+                <h5 class="reviewsTitle font-28-34-500 color-black">{{ data.title }}</h5>
             </div>
-
             <div class="blog-posts">
                 <blog-post-card
                     v-for="(blogPost, index) in data.blogPosts"
@@ -16,7 +10,11 @@
                     :blog-post="blogPost"
                 ></blog-post-card>
             </div>
-        </div>
+            <div class="buttons">
+                <a :href="route('blog_posts.index')" class="view-all color-white font-14-16-normal bk-color-dark-green">
+                    {{ $trans("storefront::blog.blog_posts.view_all") }}
+                </a>
+            </div>
     </section>
 </template>
 
@@ -29,12 +27,7 @@ export default {
         BlogPostCard,
     },
 
-    props: {
-        data: {
-            type: Object,
-            required: true,
-        },
-    },
+    props: ['data'],
 
     mounted() {
         this.initSlickSlider();
@@ -44,34 +37,32 @@ export default {
         initSlickSlider() {
             $(".blog-posts").slick({
                 rows: 0,
-                dots: true,
-                arrows: false,
+                dots: false,
+                arrows: true,
                 infinite: true,
-                slidesToShow: 5,
-                slidesToScroll: 5,
+                slidesToShow: 3,
+                slidesToScroll: 1,
                 rtl: window.FleetCart.rtl,
-                prevArrow: slickPrevArrow(),
-                nextArrow: slickNextArrow(),
                 responsive: [
                     {
                         breakpoint: 1700,
                         settings: {
-                            slidesToShow: 4,
-                            slidesToScroll: 4,
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
                         },
                     },
                     {
                         breakpoint: 1301,
                         settings: {
                             slidesToShow: 3,
-                            slidesToScroll: 3,
+                            slidesToScroll: 1,
                         },
                     },
                     {
                         breakpoint: 921,
                         settings: {
                             slidesToShow: 2,
-                            slidesToScroll: 2,
+                            slidesToScroll: 1,
                         },
                     },
                     {

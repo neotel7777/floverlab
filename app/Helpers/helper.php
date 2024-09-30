@@ -29,3 +29,10 @@ function getBaseImage($files){
         return false;
     }
 }
+function setVeiwed($product_id)
+{
+    $viewed = request()->session()->get('viewed');
+    $viewed[$product_id] = $product_id;
+    request()->session()->put('viewed',$viewed);
+
+}

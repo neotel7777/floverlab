@@ -1,15 +1,20 @@
 export default {
+    data() {
+        return {
+            reviewsList:  [],
+        }
+    },
     computed: {
         totalReviews() {
-            if (!this.reviews.total) {
-                return this.reviewCount;
+            if (this.reviewsList.length !== 0) {
+                return this.reviewsList[0].allReviews;
             }
 
-            return this.reviews.total;
+            return 0;
         },
 
         ratingPercent() {
-            return (this.avgRating / 5) * 100;
+            return (this.reviewsList.length !== 0) ? this.reviewsList[0].avgRaitind : 0 ;
         },
 
         emptyReviews() {
@@ -19,6 +24,7 @@ export default {
         totalReviewPage() {
             return Math.ceil(this.reviews.total / 5);
         },
+
     },
 
     created() {
@@ -31,20 +37,35 @@ export default {
 
             try {
                 const response = await axios.get(
-                    route("products.reviews.index", {
+                    route("products.reviews.items", {
                         productId: this.product.id,
                         page: this.currentReviewPage,
                     })
                 );
 
-                this.reviews = response.data;
+
+                this.reviewsList = response.data;
+                this.hideEmptyBlock = (response.data[0].reviews.length > 0) ? true : false;
+
             } catch (error) {
                 this.$notify(error.response.data.message);
             } finally {
                 this.fetchingReviews = false;
+
             }
         },
+        slickRewOptions() {
+            return  {
+                rows: 0,
+                dots: false,
+                arrows: true,
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                rtl: window.FleetCart.rtl,
 
+            };
+        },
         addNewReview() {
             this.addingNewReview = true;
 
@@ -60,13 +81,23 @@ export default {
                 )
                 .then((response) => {
                     this.reviewForm = {};
-                    this.reviews.total++;
-                    this.reviews.data.unshift(response.data);
-
-                    this.$notify(
-                        this.$trans("storefront::product.review_submitted")
-                    );
-
+                    //this.reviews.total++;
+                    this.showReviewForm = false;
+                    $('.reviewsSlider').slick('unslick');
+                    this.reviews.data  = response.data[0].reviews;
+                    this.reviews.total = response.data[0].allReviews;
+                    this.reviewCount = response.data[0].allReviews;
+                    this.ratindPercent = response.data[0].avgPercent;
+                    this.avgRating = response.data[0].avgPercent;
+                    this.hideEmptyBlock = response.data[0].reviews.length > 0;
+                    this.reviewsList = response.data;
+                    this.totalReviews = response.data[0].allReviews;
+                    this.$nextTick((e)=>{
+                       // $(".reviewsSlider").slick('reinit');
+                        $(".reviewsSlider:not(.slick-initialized)").slick(
+                            this.slickRewOptions()
+                        );
+                    })
                     this.errors.reset();
                 })
                 .catch(({ response }) => {

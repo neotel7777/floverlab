@@ -74,6 +74,23 @@ class BlogPost extends Model implements Sitemapable
         });
     }
 
+    public static function blogPosts()
+    {
+        $blogPosts = self::published()->with(['tags','category'])
+            ->latest()
+            ->take(setting('storefront_recent_blogs') ?? 10)
+            ->get();
+        setlocale(LC_TIME,locale());
+        foreach ($blogPosts as $blogPost) {
+            $blogPost->append('user_name');
+            $blogPost->data = strftime('%d %B %G');
+        }
+
+        return [
+            'title' => setting('storefront_blogs_section_title'),
+            'blogPosts' => $blogPosts,
+        ];
+    }
 
     public function table()
     {

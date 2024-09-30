@@ -11,6 +11,7 @@
     :initial-attribute="{{ json_encode(request('attribute', [])) }}"
     :min-price="{{ $minPrice }}"
     :max-price="{{ $maxPrice }}"
+    :reviewsList="{{ json_encode($reviewsList) }}"
     initial-sort="{{ request('sort', 'latest') }}"
     :initial-per-page="{{ request('perPage', 30) }}"
     initial-page="{{$home}}"
@@ -47,5 +48,12 @@
                     </div>
                 </div>
             </div>
+    <reviews-home-list
+        v-for="(reviewsitems, index) in reviewsList"
+        :key="index"
+        :reviewsitems='reviewsitems'>
+
+
+    </reviews-home-list>
     </section>
     </product-index>

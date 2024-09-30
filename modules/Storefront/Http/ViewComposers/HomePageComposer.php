@@ -3,6 +3,10 @@
 namespace Modules\Storefront\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Modules\Menu\MegaMenu\MegaMenu;
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductVariant;
+use Modules\Review\Entities\Review;
 use Modules\Storefront\Banner;
 use Modules\Storefront\Feature;
 use Modules\Brand\Entities\Brand;
@@ -11,6 +15,7 @@ use Modules\Blog\Entities\BlogPost;
 use Modules\Slider\Entities\Slider;
 use Illuminate\Support\Facades\Cache;
 use Modules\Category\Entities\Category;
+use Modules\Support\Money;
 
 class HomePageComposer
 {
@@ -37,10 +42,77 @@ class HomePageComposer
             'threeColumnBanners' => $this->threeColumnBanners(),
             'tabProductsTwo' => $this->tabProductsTwo(),
             'oneColumnBanner' => $this->oneColumnBanner(),
-            'blogPosts' => $this->blogPosts(),
+            'reviewsList' => Review::getHomeReviews(),
+            'sale_products' =>$this->getSales(),
+            'minPrice' => $this->minPrice(),
+            'maxPrice' => $this->maxPrice(),
+            'category_menu' => $this->getCategoryMenu(),
+            'blogPosts'         => $this->blogPosts(),
+            'feature_slider' => Slider::findWithSlides(2)
         ]);
     }
+    private function blogPosts()
+    {
+        $blogPosts = BlogPost::published()->with(['tags','category'])
+            ->latest()
+            ->take(setting('storefront_recent_blogs') ?? 10)
+            ->get();
+        setlocale(LC_TIME,locale());
+        foreach ($blogPosts as $blogPost) {
+            $blogPost->append('user_name');
+            $blogPost->data = strftime('%d %B %G');
+        }
 
+        return [
+            'title' => setting('storefront_blogs_section_title'),
+            'blogPosts' => $blogPosts,
+        ];
+    }
+    private function getCategoryMenu(){
+
+        $category_menu = new MegaMenu(2);
+
+        return $category_menu->menus();
+    }
+    private function getSales(){
+
+        $productClass = new Product();
+        $sales = Product::where('special_price',"!=",Null)->where("price","<>","special_price")->get();
+
+        foreach ($sales as &$sale){
+            $sale->media            = $productClass->getMediaForProduct($sale->id);
+            $sale->baseImage        = $sale->media[0];
+            $sale->url              = route('products.show',$sale->slug);
+            $sale->rating_percent   = 0;
+            $sale->title            = $sale->translations[0]->name;
+        }
+        return $sales;
+    }
+
+    private function minPrice()
+    {
+        $minProductPrice = Product::min('selling_price');
+        $minVariantPrice = ProductVariant::min('selling_price');
+        $minPrice = min($minProductPrice, $minVariantPrice);
+
+        return Money::inDefaultCurrency($minPrice)
+            ->convertToCurrentCurrency()
+            ->ceil()
+            ->amount();
+    }
+
+
+    private function maxPrice()
+    {
+        $maxProductPrice = Product::max('selling_price');
+        $maxVariantPrice = ProductVariant::max('selling_price');
+        $maxPrice = max($maxProductPrice, $maxVariantPrice);
+
+        return Money::inDefaultCurrency($maxPrice)
+            ->convertToCurrentCurrency()
+            ->ceil()
+            ->amount();
+    }
 
     private function featuredCategoriesSection()
     {
@@ -192,26 +264,6 @@ class HomePageComposer
     {
         if (setting('storefront_one_column_banner_enabled')) {
             return Banner::getOneColumnBanner();
-        }
-    }
-
-
-    private function blogPosts()
-    {
-        if (setting('storefront_blogs_section_enabled')) {
-            $blogPosts = BlogPost::published()
-                ->latest()
-                ->take(setting('storefront_recent_blogs') ?? 10)
-                ->get();
-
-            foreach ($blogPosts as $blogPost) {
-                $blogPost->append('user_name');
-            }
-
-            return [
-                'title' => setting('storefront_blogs_section_title'),
-                'blogPosts' => $blogPosts,
-            ];
         }
     }
 }

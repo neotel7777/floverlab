@@ -9,6 +9,11 @@ use Modules\Review\Http\Requests\StoreReviewRequest;
 
 class ProductReviewController
 {
+
+    public function index()
+    {
+        return view('storefront::public.products.index');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,9 +21,10 @@ class ProductReviewController
      *
      * @return Response
      */
-    public function index($productId)
+    public function items($productId)
     {
-        return Review::where('product_id', $productId)->latest()->paginate(5);
+        //return Review::where('product_id', $productId)->latest()->paginate(5);
+        return Review::getProductReviews($productId);
     }
 
 
@@ -36,7 +42,7 @@ class ProductReviewController
             return;
         }
 
-        return Product::findOrFail($productId)
+        Product::findOrFail($productId)
             ->reviews()
             ->create([
                 'reviewer_id' => auth()->id(),
@@ -45,5 +51,6 @@ class ProductReviewController
                 'comment' => $request->comment,
                 'is_approved' => setting('auto_approve_reviews', 0),
             ]);
+        return Review::getProductReviews($productId);
     }
 }

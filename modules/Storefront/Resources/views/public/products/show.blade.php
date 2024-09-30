@@ -47,74 +47,59 @@
 
 @section('content')
     <product-show
-        :product="{{ $product }}"
+        :product="{{ json_encode($product) }}"
+        :viewed="{{ json_encode($viewedProducts)  ?? json_encode(new stdClass) }}"
+        :recomended="{{ json_encode($relatedProducts)  ?? json_encode(new stdClass) }}"
         :variant="{{ $product->variant ?? json_encode(new stdClass) }}"
         :review-count="{{ $review->count ?? 0 }}"
         :avg-rating="{{ $review->avg_rating ?? 0 }}"
         inline-template
     >
         <section class="product-details-wrap">
-            <div class="container">
-                <div class="product-details-top">
-                    <div class="d-flex flex-column flex-lg-row flex-lg-nowrap ">
+            <div class="sectionWrap">
+                <div class="product-details-top flex-column-start-start">
+                    <div class="topProductInfo">
+                        @include('storefront::public.products.show.top_info', ['item' => $product->variant ?? $product])
+                    </div>
+                    <div class="topInfoProduct d-flex flex-column flex-lg-row flex-lg-nowrap ">
                         @if ($product->variant)
                             @include('storefront::public.products.show.variant_gallery')
                         @else
                             @include('storefront::public.products.show.gallery')
                         @endif
 
-                        @include('storefront::public.products.show.details', ['item' => $product->variant ?? $product])
+                            @include('storefront::public.products.show.details', ['item' => $product->variant ?? $product])
 
-                        @if (setting('storefront_features_section_enabled'))
-                            @include('storefront::public.products.show.right_sidebar')
-                        @endif
                     </div>
                 </div>
+            @if(!empty($relatedProducts))
+            <div class="relatedProducts sliderProductBlock  flex-column" >
+                <div class="title sliderProductTitle">{{ trans('storefront::product.you_might_also_like') }}</div>
+                <div class="relatedSlider" >
+                    <product-item-card v-for="itemproduct in recomended"
+                                       :key="itemproduct.id"
+                                       :productitem="itemproduct"
+                                       refname="relatedSlider"  >
 
-                <div class="product-details-bottom flex-column-reverse flex-lg-row">
-                    @include('storefront::public.products.show.left_sidebar')
-
-                    <div class="product-details-bottom-inner">
-                        <div class="product-details-tab clearfix">
-                            <div class="product-details-tab-overflow">
-                                <ul class="nav nav-tabs tabs">
-                                    <li class="nav-item">
-                                        <a href="#description" data-bs-toggle="tab" class="nav-link" :class="{ active: activeTab === 'description' }">
-                                            {{ trans('storefront::product.description') }}
-                                        </a>
-                                    </li>
-    
-                                    @if ($product->hasAnyAttribute())
-                                        <li class="nav-item">
-                                            <a href="#specification" data-bs-toggle="tab" class="nav-link" :class="{ active: activeTab === 'specification' }">
-                                                {{ trans('storefront::product.specification') }}
-                                            </a>
-                                        </li>
-                                    @endif
-    
-                                    @if (setting('reviews_enabled'))
-                                        <li class="nav-item">
-                                            <a href="#reviews" data-bs-toggle="tab" class="nav-link" :class="{ active: activeTab === 'reviews' }" v-cloak>
-                                                @{{ $trans('storefront::product.reviews', { count: totalReviews }) }}
-                                            </a>
-                                        </li>
-                                    @endif
-                                </ul>
-    
-                                <hr>
-                            </div>
-
-                            <div class="tab-content">
-                                @include('storefront::public.products.show.tab_description')
-                                @include('storefront::public.products.show.tab_specification')
-                                @include('storefront::public.products.show.tab_reviews')
-                            </div>
-                        </div>
-
-                        <related-products :products="{{ $relatedProducts }}"></related-products>
-                    </div>
+                    </product-item-card>
                 </div>
             </div>
+            @endif
+            @if(!empty($viewedProducts))
+            <div class="viewedProducts sliderProductBlock flex-column">
+                <div class="title sliderProductTitle">{{ trans('storefront::product.have_you_watched') }}</div>
+                <div class="viewedSlider" ref="viewedSlider">
+                    <product-item-card v-for="itemproduct in viewed"
+                                  :key="itemproduct.id"
+                                  :productitem="itemproduct"
+                                  refname="viewedSlider"  >
+
+                    </product-item-card>
+                </div>
+            </div>
+            @endif
+            </div>
+
         </section>
     </product-show>
 @endsection

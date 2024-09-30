@@ -10,7 +10,6 @@ import HeaderSearch from "./components/layout/HeaderSearch.vue";
 import HomeCategoriesList from "./components/home/HomeCategoriesList.vue";
 import HomeCategories from "./components/home/HomeCategories.vue";
 import ProductRating from "./components/ProductRating.vue";
-import ReviewsHomeListSlider from "./components/home/ReviewsHomeListSlider.vue";
 import LandscapeProducts from "./components/LandscapeProducts.vue";
 import DynamicTab from "./components/home/DynamicTab";
 import HomeFeatures from "./components/home/HomeFeatures.vue";
@@ -39,6 +38,9 @@ import MyAddresses from "./components/account/addresses/Index";
 import SaleCard from "./components/SaleCard.vue";
 import SaleProductsHome from "./components/home/SaleProductsHome.vue";
 import ReviewsHomeList from "./components/home/ReviewsHomeList.vue";
+import ReviewsProductList from "./components/home/ReviewsProductList.vue";
+import BlogPostTags from "./components/BlogPostTags.vue";
+import ProductItemCard from "./components/ProductItemCard.vue";
 
 window.Vue = Vue;
 
@@ -58,6 +60,7 @@ Vue.component("newsletter-popup", () =>
 );
 Vue.component("newsletter-subscription", NewsletterSubscription);
 Vue.component("reviews-home-list", ReviewsHomeList);
+Vue.component("reviews-product-list", ReviewsProductList);
 Vue.component("cookie-bar", () => import("./components/layout/CookieBar"));
 Vue.component('home-categories',HomeCategories);
 Vue.component("home-categories-list",HomeCategoriesList);
@@ -79,6 +82,7 @@ Vue.component("banner-three-column", BannerThreeColumn);
 Vue.component("product-tabs-two", ProductTabsTwo);
 Vue.component("banner-one-column", BannerOneColumn);
 Vue.component("blog-posts", BlogPosts);
+Vue.component('blog-post-tags',BlogPostTags);
 Vue.component("product-index", ProductIndex);
 Vue.component("product-card-grid-view", ProductCardGridView);
 Vue.component("product-card-list-view", ProductCardListView);
@@ -90,6 +94,7 @@ Vue.component("compare-index", CompareIndex);
 Vue.component("my-wishlist", MyWishlist);
 Vue.component("my-reviews", MyReviews);
 Vue.component("my-addresses", MyAddresses);
+Vue.component('product-item-card',ProductItemCard);
 
 new Vue({
     el: "#app",

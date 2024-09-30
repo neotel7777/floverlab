@@ -84,6 +84,9 @@
                 'storefront::review.Leave_Review_button': '{{ trans('storefront::review.Leave_Review_button') }}',
                 'storefront::review.stars_stats_list': '{{ trans('storefront::review.stars_stats_list') }}',
                 'storefront::review.photo_on_site': '{{ trans('storefront::review.photo_on_site') }}',
+                'storefront::storefront.clear_filter_button': '{{ trans('storefront::storefront.clear_filter_button') }}',
+                'storefront::storefront.in_cart': '{{ trans('storefront::storefront.in_cart') }}',
+                'review::sidebar.reviews': '{{ trans('review::sidebar.reviews') }}'
         },
         };
     </script>
@@ -114,12 +117,10 @@
 
         @yield('content')
 
-        @include('storefront::public.home.sections.subscribe')
         @include('storefront::public.layout.footer')
 
         <div class="overlay"></div>
 
-        @include('storefront::public.layout.sidebar_menu')
         @include('storefront::public.layout.localization')
 
         @if (!request()->routeIs('checkout.create'))

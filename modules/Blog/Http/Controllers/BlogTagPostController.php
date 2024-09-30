@@ -22,8 +22,8 @@ class BlogTagPostController extends Controller
      */
     public function index()
     {
-        $blogTag = BlogTag::find(request()->route('tag'));
-
+        $blogTag = BlogTag::where('slug',request()->route('tag'))->first();
+//dd($blogTag);
         $blogPosts = $blogTag
             ->blogPosts()
             ->published()

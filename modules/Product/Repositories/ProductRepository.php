@@ -31,4 +31,10 @@ class ProductRepository
             ->where('slug', $slug)
             ->firstOrFail();
     }
+    public static function findByIds($ids=[])
+    {
+        return Product::with(['variations', 'variations.values', 'variations.values.files', 'variants', 'variants.files', 'categories', 'tags', 'attributes.attribute.attributeSet', 'options', 'files', 'reviews'])
+            ->whereIn('id', $ids)
+            ->get();
+    }
 }

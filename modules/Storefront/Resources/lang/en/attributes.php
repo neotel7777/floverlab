@@ -18,6 +18,8 @@ return [
     'storefront_footer_menu_one' => 'Footer Menu One',
     'storefront_footer_menu_two_title' => 'Footer Menu Two Title',
     'storefront_footer_menu_two' => 'Footer Menu Two',
+    'storefront_footer_menu_tree_title' => 'Footer Menu Tree Title',
+    'storefront_footer_menu_tree' => 'Footer Menu Tree',
     'storefront_footer_tags' => 'Footer Tags',
     'storefront_copyright_text' => 'Footer Copyright Text',
     'storefront_facebook_link' => 'Facebook',

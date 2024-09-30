@@ -27,7 +27,10 @@ export default {
         return {
             isActiveFilter: [],
             reviewsList:[],
+            blogPostsList:[],
+            filterOpen: true,
             fetchingProducts: false,
+            viewAll: true,
             products: { data: [] },
             categories_home: [],
             attributeFilters: [],
@@ -54,7 +57,12 @@ export default {
         emptyProducts() {
             return this.products.data.length === 0;
         },
-
+        emptyReviews() {
+            return this.reviewsList.length === 0;
+        },
+        emptyBlogPosts() {
+            return this.blogPostsList.length === 0;
+        },
         totalPage() {
             return Math.ceil(this.products.total / this.queryParams.perPage);
         },
@@ -69,6 +77,72 @@ export default {
                 to: this.products.to,
                 total: this.products.total,
             });
+        },
+        slickReviewOptions() {
+            return  {
+                rows: 0,
+                dots: false,
+                arrows: true,
+                infinite: true,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                rtl: window.FleetCart.rtl,
+                responsive: [
+
+                    {
+                        breakpoint: 1301,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            row: 1
+                        },
+                    },
+                    {
+                        breakpoint: 1051,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 1,
+                            row: 1
+                        },
+                    },
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            row: 1
+                        },
+                    },
+                    {
+                        breakpoint: 881,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            row: 1
+                        },
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            dots: true,
+                            arrows: false,
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            row: 1
+                        },
+                    },
+                    {
+                        breakpoint: 641,
+                        settings: {
+                            dots: true,
+                            arrows: false,
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            row: 1
+                        },
+                    },
+                ]
+            };
         },
     },
 
@@ -89,8 +163,18 @@ export default {
 
             $(this.$refs.perPageSelect).on("change", (e) => {
                 this.queryParams.perPage = e.currentTarget.value;
-
                 this.fetchProducts();
+            });
+            $(this.$refs.clearFilter).on('click',(e) => {
+
+                this.queryParams.attribute = {};
+                this.updatePriceRange(this.minPrice,this.maxPrice);
+            });
+            $(this.$refs.viewAllProducts).on('click',(e) => {
+                this.queryParams.perPage = this.products.total;
+                this.viewAll = false;
+                this.fetchProducts();
+
             });
         },
 
@@ -176,8 +260,16 @@ export default {
 
                 this.products = response.data.products;
                 this.categories_home = response.data.categories_home;
-                this.reviewsList = response.data.reviewsList;
+                this.blogPostsList = response.data.blogPostsList;
 
+                this.reviewsList = response.data.reviewsList;
+                $(this.$refs.reviewsSlider).slick('unslick');
+
+                this.$nextTick((e)=> {
+                    $(this.$refs.reviewsSlider).slick(
+                        this.slickReviewOptions
+                    );
+                });
                 if (options.updateAttributeFilters) {
                     this.attributeFilters = response.data.attributes;
                 }
@@ -185,6 +277,7 @@ export default {
                 this.$notify(error.response.data.message);
             } finally {
                 this.fetchingProducts = false;
+
             }
         },
 
