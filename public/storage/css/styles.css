@@ -11,6 +11,11 @@
 
 }
 
+.logoWrap .navbar {
+    margin-bottom: 0!important;
+    padding: 0!important;
+}
+
 .sectionWrap ul {
     list-style-type: none;
     padding-left: 0;
@@ -22,6 +27,8 @@
 {
     width: 100%;
     max-width: 100%;
+    position: sticky;
+    top: 0;
 }
 .connectWrap {
     position: relative;
@@ -37,9 +44,7 @@
     display: none;
 }
 
-.nice-select .list {
-    z-index: 1000!important;
-}
+
 
 .popwrap>div {
     width: 100%;
@@ -1164,4 +1169,82 @@
 body.ltr {
     width: 100%;
 }
-
+.account-left .account-sidebar li {
+    padding: 6px 10px;
+    width: 100%;
+}
+.account-left .account-sidebar li a {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    color: black;
+}
+.account-left .account-sidebar li.active a {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    color: #499777;
+}
+.ltr .account-sidebar li a>i,.ltr .account-sidebar li a>svg {
+    margin: 5px 12px 0 0;
+}
+.ltr .account-sidebar li a>i,.ltr .account-sidebar li a>svg {
+    margin: 0!important;
+    width: 20px;
+}
+.panel .panel-header {
+    display: flex;
+    padding: 15px 0px!important;
+    background: none!important;
+    align-items: left!important;
+    justify-content: space-between;
+    border: 0!important;
+    border-radius: 0!important;
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+}
+.panel .panel-body {
+    border: 0!important;
+    border-top: none;
+    border-radius: 0!important;
+}
+.my-profile {
+    padding: 30px 0px!important;
+    max-width: 400px;
+}
+.my-profile .row {
+    display: flex!important;
+    flex-direction: column!important;
+}
+.my-profile .row>div {
+    width: 100%!important;
+    max-width: 100%;
+}
+.my-profile .row>div label {
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #8E979C;
+}
+.my-profile .row>div input {
+    width: 100%;
+    background-color: #F3F4F4;
+    border: 0;
+    color: #000;
+    border-radius:0px;
+}
+.my-profile .row>div input:focus {
+    background-color: #FFFFFF;
+    border: 1px #499777 solid;
+    color: #499777;
+    border-radius:0px;
+}
+.sorting-bar .nice-select {
+    z-index: 100!important;
+}

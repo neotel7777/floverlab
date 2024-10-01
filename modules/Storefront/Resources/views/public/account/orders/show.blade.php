@@ -10,7 +10,7 @@
 
 @section('content')
     <section class="order-details-wrap">
-        <div class="container">
+        <div class="sectionWrap">
             <div class="order-details-top">
                 <h3 class="section-title">{{ trans('storefront::account.view_order.view_order') }}</h3>
 
