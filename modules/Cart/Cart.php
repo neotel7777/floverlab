@@ -11,6 +11,7 @@ use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductVariant;
 use Modules\Shipping\Facades\ShippingMethod;
 use Darryldecode\Cart\Cart as DarryldecodeCart;
+use Modules\Variation\Entities\Variation;
 use Modules\Variation\Entities\VariationValue;
 use Modules\Product\Services\ChosenProductOptions;
 use Modules\Product\Services\ChosenProductVariations;
@@ -59,10 +60,12 @@ class Cart extends DarryldecodeCart implements JsonSerializable
     {
         $options = array_filter($options);
         $variations = [];
+        $allVariants = [];
 
         $product = Product::with('files', 'categories', 'taxClass')->findOrFail($productId);
         $variant = ProductVariant::find($variantId);
         $item = $variant ?? $product;
+
 
         if ($variant) {
             $uids = collect(explode('.', $variant->uids));
@@ -79,12 +82,12 @@ class Cart extends DarryldecodeCart implements JsonSerializable
 
         $chosenVariations = new ChosenProductVariations($product, $variations);
         $chosenOptions = new ChosenProductOptions($product, $options);
-
-        $this->add([
+        $data  = [
             'id' => md5("product_id.{$productId}.variant_id.{$variantId}:options." . serialize($options)),
             'name' => $product->name,
             'price' => $item->selling_price->amount(),
             'quantity' => (int)$qty,
+            'new' => 'new',
             'attributes' => [
                 'product' => $product,
                 'variant' => $variant,
@@ -93,9 +96,9 @@ class Cart extends DarryldecodeCart implements JsonSerializable
                 'options' => $chosenOptions->getEntities(),
                 'created_at' => time(),
             ],
-        ]);
+        ];
+        $this->add($data);
     }
-
 
     public function updateQuantity($id, $qty)
     {
@@ -104,6 +107,42 @@ class Cart extends DarryldecodeCart implements JsonSerializable
                 'relative' => false,
                 'value' => $qty,
             ],
+        ]);
+    }
+
+    public function updateVariantId($id,  $newId)
+    {
+        $item = ProductVariant::find($newId);
+        $product = Product::with('files', 'categories', 'taxClass')->findOrFail($item->product_id);
+        $cartItem = $this->get($id);
+        //dd($cartItem->toArray());
+        $newPrice =  $item->selling_price->amount();
+
+
+        $chosenOptions = new ChosenProductOptions($product, []);
+        $uids = collect(explode('.', $item->uids));
+        $rawVariations = $uids->map(function ($uid) {
+            return VariationValue::where('uid', $uid)->get()->pluck('id', 'variation.id');
+        });
+
+        foreach ($rawVariations as $variation) {
+            foreach ($variation as $variationId => $variationValueId) {
+                $variations[$variationId] = $variationValueId;
+            }
+        }
+
+        $chosenVariations = new ChosenProductVariations($product, $variations);
+
+        $this->update($id, [
+            'price' =>  $newPrice,
+            'attributes' => [
+                'product' => $product,
+                'variant' => $item,
+                'item'  => $item,
+                'options' => $chosenOptions->getEntities(),
+                'variations' => $chosenVariations->getEntities(),
+                'created_at' => time(),
+            ]
         ]);
     }
 
@@ -359,12 +398,14 @@ class Cart extends DarryldecodeCart implements JsonSerializable
 
     public function jsonSerialize(): array
     {
+
         return $this->toArray();
     }
 
 
     public function toArray(): array
     {
+
         return [
             'items' => $this->items(),
             'quantity' => $this->getTotalQuantity(),
@@ -399,7 +440,10 @@ class Cart extends DarryldecodeCart implements JsonSerializable
 
     public function subTotal()
     {
+
+
         return Money::inDefaultCurrency($this->getSubTotal())->add($this->optionsPrice());
+
     }
 
 

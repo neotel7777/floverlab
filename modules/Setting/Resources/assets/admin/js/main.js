@@ -83,7 +83,9 @@ $("#iyzico_enabled").on("change", () => {
 $("#payfast_enabled").on("change", () => {
     $("#payfast-fields").toggleClass("hide");
 });
-
+$("#paynet_enabled").on("change", () => {
+    $("#paynet-fields").toggleClass("hide");
+});
 $("#bank_transfer_enabled").on("change", () => {
     $("#bank-transfer-fields").toggleClass("hide");
 });

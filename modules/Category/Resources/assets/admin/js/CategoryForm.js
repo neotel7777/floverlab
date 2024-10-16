@@ -105,6 +105,9 @@ export default class {
 
         $('#is_searchable').prop('checked', category.is_searchable);
         $('#is_active').prop('checked', category.is_active);
+        $('#at_home').prop('checked', category.at_home);
+        $('#in_product').prop('checked', category.in_product);
+
 
         $('.logo .image-holder-wrapper').html(this.categoryImage('logo', category.logo));
         $('.banner .image-holder-wrapper').html(this.categoryImage('banner', category.banner));

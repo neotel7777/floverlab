@@ -42,6 +42,14 @@ import ReviewsProductList from "./components/home/ReviewsProductList.vue";
 import BlogPostTags from "./components/BlogPostTags.vue";
 import ProductItemCard from "./components/ProductItemCard.vue";
 import HeaderSearchNew from "./components/layout/HeaderSearchNew.vue";
+import HomeFaqList from  "./components/HomeFaqList.vue";
+import HomeFaqItem from "./components/HomeFaqItem.vue";
+import AccessoriiProduct from "./components/AccessoriiProduct.vue";
+import SubCategories from "./components/SubCategories.vue";
+import UserLogin from "./components/layout/UserLogin.vue";
+import AccessoriiCartProduct from "./components/AccessoriiCartProduct.vue";
+import localitesDelivery from "./components/LocalitesDelivery.vue";
+import LocalitesDelivery from "@modules/Storefront/Resources/assets/public/js/components/LocalitesDelivery.vue";
 
 window.Vue = Vue;
 
@@ -97,6 +105,13 @@ Vue.component("my-reviews", MyReviews);
 Vue.component("my-addresses", MyAddresses);
 Vue.component('product-item-card',ProductItemCard);
 Vue.component('header-search-new',HeaderSearchNew);
+Vue.component('home-faq-list',HomeFaqList);
+Vue.component('home-faq-item',HomeFaqItem);
+Vue.component('accessorii-product',AccessoriiProduct);
+Vue.component('sub-categories',SubCategories);
+Vue.component('user-login',UserLogin);
+Vue.component('accesorii-cart-products',AccessoriiCartProduct);
+Vue.component('localites_delivery',LocalitesDelivery);
 
 new Vue({
     el: "#app",

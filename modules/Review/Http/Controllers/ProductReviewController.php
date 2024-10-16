@@ -24,6 +24,7 @@ class ProductReviewController
     public function items($productId)
     {
         //return Review::where('product_id', $productId)->latest()->paginate(5);
+        dd(Review::getProductReviews($productId));
         return Review::getProductReviews($productId);
     }
 

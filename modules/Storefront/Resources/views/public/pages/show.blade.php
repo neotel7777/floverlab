@@ -16,12 +16,35 @@
         <meta property="og:locale:alternate" content="{{ $code }}">
     @endforeach
 @endpush
-
+@section('breadcrumb')
+    <li class="active">{{ $page->name }}</li>
+@endsection
 @section('content')
     <section class="custom-page-wrap clearfix">
-        <div class="container">
+        <div class="sectionWrap">
             <div class="custom-page-content clearfix">
-                {!! $page->body !!}
+
+                <div class="pageBody flex-row-between-start">
+                    <ul class="pageMenu flex-column-start-start">
+                        @foreach($pages as $pageItem)
+
+                            <li class="flex-row-start-center">
+                                @if(!empty($pageItem->files[0]->path))
+                                <div class="pageIcon">
+                                    <img src="{{ $pageItem->files[0]->path}}">
+                                </div>
+                                @endif
+                                <a href="{{ route('pages.show',$pageItem->page->slug) }}">
+                                    {{ $pageItem->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="page_content">
+                        <h2 class="font-30-36-500">{{ $page->name }}</h2>
+                        <div class="page_text font-16-24-normal color-black">{!! $page->body !!}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

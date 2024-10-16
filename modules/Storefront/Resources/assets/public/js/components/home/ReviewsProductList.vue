@@ -35,7 +35,7 @@
                                 </div>
                            </div>
                        </div>
-                       <div class="reviewsSlider"  ref="reviewsProdSlider">
+                       <div class="reviewsSlider"  refs="reviewsProdSlider">
                            <reviews-home-list-slider
                                 v-for="(review, index) in reviewsProductList"
                                 :key="index"

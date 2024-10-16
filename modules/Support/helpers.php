@@ -212,6 +212,20 @@ if (!function_exists('v')) {
         return "{$path}?v=" . $version;
     }
 }
+if (!function_exists('t')) {
+    /**
+     * Version a relative asset using the time its contents last changed.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    function t($path): string
+    {
+
+        return "{$path}?v=" . time();
+    }
+}
 
 if (!function_exists('fleetcart_version')) {
     /**

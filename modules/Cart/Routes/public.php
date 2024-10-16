@@ -7,6 +7,7 @@ Route::delete('cart/clear', 'CartController@clear')->name('cart.clear');
 
 Route::post('cart/items', 'CartItemController@store')->name('cart.items.store');
 Route::put('cart/items/{id}', 'CartItemController@update')->name('cart.items.update');
+Route::put('cart/items/{id}/{newid}', 'CartItemController@updateVariant')->name('cart.items.updateVariant');
 Route::delete('cart/items/{id}', 'CartItemController@destroy')->name('cart.items.destroy');
 
 Route::post('cart/taxes', 'CartTaxController@store')->name('cart.taxes.store');

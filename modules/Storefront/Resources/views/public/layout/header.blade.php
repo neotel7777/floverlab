@@ -31,21 +31,9 @@
                         <span class="title font-14-16-normal color-black">{{trans('order::orders.order_status')}}</span>
                     </div>
                 </li>
-                @auth
-                    <li class="top-nav-account">
-                        <a href="{{ route('account.dashboard.index') }}">
-                            <i class="las la-user"></i>
-                            {{ trans('storefront::layout.account') }}
-                        </a>
-                    </li>
-                @else
-                    <li>
-                        <a class='color-black font-14-16-normal' href="{{ route('login') }}">
-                            <i class="las la-sign-in-alt"></i>
-                            {{ trans('storefront::layout.login') }}
-                        </a>
-                    </li>
-                @endauth
+
+            <user-login :is-auth="{{ (auth()->id()) ? 1 : 0  }}"
+                            :user="{{ (auth()->check()) ? auth()->user() : json_encode([]) }}"></user-login>
         </ul>
     </div>
 </section>
@@ -68,13 +56,9 @@
             </div>
         </div>
         <div class="DeliveryCity ">
-            <div class="devWrapper gap-20 flex-row-start-center">
-                <img src="/storage/media/SityDeliverIcon.png">
-                <div class="devDescription flex-column-start-start">
-                    <div class="title font-14-16-normal color-neutral-500">{{trans("order::delivery.delivery_sity")}}</div>
-                    <div class="city font-16-20-normal color-white">{{trans("order::delivery.default_sity")}}</div>
-                </div>
-            </div>
+            <localites_delivery :data='@json($cities)'>
+
+            </localites_delivery>
         </div>
         <header-search-new
             :categories="{{ $categories }}"

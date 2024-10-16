@@ -6,6 +6,8 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
+use Modules\Blog\Entities\BlogPost;
+use Modules\Category\Entities\Category;
 use Modules\Review\Entities\Review;
 use Illuminate\Contracts\View\View;
 use Modules\Product\Entities\Product;
@@ -29,8 +31,7 @@ class ProductController extends Controller
     public function __construct()
     {
 
-
-        $this->middleware(SetProductSortOption::class)->only('index');
+       $this->middleware(SetProductSortOption::class)->only('index');
     }
 
 
@@ -48,7 +49,10 @@ class ProductController extends Controller
             return $this->searchProducts($model, $productFilter);
         }
 
-        return view('storefront::public.products.index');
+        $subcategories = Category::parentActive();
+        $blogPosts     = BlogPost::blogPosts();
+
+        return view('storefront::public.products.index',compact('subcategories','blogPosts'));
     }
 
 
@@ -87,10 +91,30 @@ class ProductController extends Controller
         unset($viewed[$product->id]);
 
         $viewedProducts = ProductRepository::findByIds($viewed);
-//dd($viewedProducts);
+        $accessorii = Category::getProductStartCategory();
+
+        $paymethods = trans("setting::settings.paymethods");
+        $payallowed = [];
+        foreach ($paymethods as $method){
+            if(setting($method."_enabled")){
+                $payallowed[] = [
+                    'name' => setting($method."_label"),
+                    'description' => setting($method."_description"),
+                ];
+            }
+        }
+
         event(new ProductViewed($product));
 
-        return view('storefront::public.products.show', compact('product', 'viewedProducts', 'relatedProducts', 'upSellProducts', 'review'));
+        return view('storefront::public.products.show',
+            compact('product',
+                'viewedProducts',
+                'relatedProducts',
+                'upSellProducts',
+                'accessorii',
+                'review',
+                'payallowed'
+            ));
     }
 
 

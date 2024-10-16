@@ -45,12 +45,13 @@ class StoreOrderRequest extends Request
             [
                 'customer_email' => ['required', 'email', $this->emailUniqueRule()],
                 'customer_phone' => ['required'],
-                'create_an_account' => 'boolean',
-                'password' => 'required_if:create_an_account,1',
-                'ship_to_a_different_address' => 'boolean',
-                'payment_method' => ['required', Rule::in(Gateway::names())],
-                'terms_and_conditions' => 'accepted',
-                'shipping_method' => Cart::allItemsAreVirtual() ? 'nullable' : 'required',
+                'delivery_date' => ['required']
+                //'create_an_account' => 'boolean',
+                //'password' => 'required_if:create_an_account,1',
+                //'ship_to_a_different_address' => 'boolean',
+                //'payment_method' => ['required', Rule::in(Gateway::names())],
+               // 'terms_and_conditions' => 'accepted',
+               // 'shipping_method' => Cart::allItemsAreVirtual() ? 'nullable' : 'required',
             ],
             $this->billingAddressRules(),
             $this->shippingAddressRules()
@@ -68,12 +69,14 @@ class StoreOrderRequest extends Request
     {
         return [
             'billing.first_name' => 'required',
-            'billing.last_name' => 'required',
+            //'billing.last_name' => 'required',
             'billing.address_1' => 'required',
-            'billing.city' => 'required',
-            'billing.zip' => 'required',
-            'billing.country' => ['required', Rule::in(Country::supportedCodes())],
-            'billing.state' => 'required',
+            'billing.phone' => 'required',
+            'billing.email' => 'required|email:rfc,dns',
+//            'billing.city' => 'required',
+//            'billing.zip' => 'required',
+//            'billing.country' => ['required', Rule::in(Country::supportedCodes())],
+//            'billing.state' => 'required',
         ];
     }
 
@@ -81,13 +84,14 @@ class StoreOrderRequest extends Request
     private function shippingAddressRules()
     {
         return [
-            'shipping.first_name' => 'required_if:ship_to_a_different_address,1',
-            'shipping.last_name' => 'required_if:ship_to_a_different_address,1',
-            'shipping.address_1' => 'required_if:ship_to_a_different_address,1',
-            'shipping.city' => 'required_if:ship_to_a_different_address,1',
-            'shipping.zip' => 'required_if:ship_to_a_different_address,1',
-            'shipping.country' => ['required_if:ship_to_a_different_address,1', Rule::in(Country::supportedCodes())],
-            'shipping.state' => 'required_if:ship_to_a_different_address,1',
+            'shipping.first_name' => 'required_if:ship_to_a_different_address,0',
+           // 'shipping.last_name' => 'required_if:ship_to_a_different_address,1',
+            'shipping.phone' => 'required_if:ship_to_a_different_address,0',
+          //  'shipping.email' => 'required_if:ship_to_a_different_address,0|email:rfc',
+//            'shipping.city' => 'required_if:ship_to_a_different_address,1',
+//            'shipping.zip' => 'required_if:ship_to_a_different_address,1',
+//            'shipping.country' => ['required_if:ship_to_a_different_address,1', Rule::in(Country::supportedCodes())],
+//            'shipping.state' => 'required_if:ship_to_a_different_address,1',
         ];
     }
 }

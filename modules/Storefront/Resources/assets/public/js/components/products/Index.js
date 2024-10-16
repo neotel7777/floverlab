@@ -183,6 +183,7 @@ export default {
                 connect: true,
                 direction: window.FleetCart.rtl ? "rtl" : "ltr",
                 start: [this.minPrice, this.maxPrice],
+                step: 1,
                 range: {
                     min: [this.minPrice],
                     max: [this.maxPrice],
@@ -249,10 +250,20 @@ export default {
 
             this.fetchProducts();
         },
-
+        showOverlay(){
+          $(".hidding_overlay").show();
+        },
+        hideOverlay(){
+            $(".hidding_overlay").hide();
+        },
+        goToProductsList(){
+            $('html, body').stop().animate({
+                scrollTop: $(".topContent").offset().top - 40
+            }, 300);
+        },
         async fetchProducts(options = { updateAttributeFilters: true }) {
             this.fetchingProducts = true;
-
+            this.showOverlay();
             try {
                 const response = await axios.get(
                     route("products.index", this.queryParams)
@@ -261,19 +272,39 @@ export default {
                 this.products = response.data.products;
                 this.categories_home = response.data.categories_home;
                 this.blogPostsList = response.data.blogPostsList;
-
+                $(".reviewsSlider").slick('unslick');
                 this.reviewsList = response.data.reviewsList;
-                $(this.$refs.reviewsSlider).slick('unslick');
+                $(".image-slider").slick('unslick');
 
                 this.$nextTick((e)=> {
-                    $(this.$refs.reviewsSlider).slick(
+
+                    $(".reviewsSlider:not(.slick-initialized)").slick(
                         this.slickReviewOptions
                     );
+                    $(".image-slider:not(.slick-initialized)").slick( {
+                        rows: 0,
+                        dots: true,
+                        arrows: false,
+                        infinite: true,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        rtl: window.FleetCart.rtl,
+                    });
+                    setTimeout(function (e){
+                        $(".hidding_overlay").hide();
+                    },500);
+
+
+
                 });
                 if (options.updateAttributeFilters) {
                     this.attributeFilters = response.data.attributes;
                 }
+
+                this.goToProductsList();
+
             } catch (error) {
+                this.hideOverlay();
                 this.$notify(error.response.data.message);
             } finally {
                 this.fetchingProducts = false;

@@ -22,10 +22,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="{{ v(asset('storage/css/lib.css')) }}" rel="stylesheet">
-    <link href="{{ v(asset('storage/css/styles.css')) }}" rel="stylesheet">
+    <link href="{{ t(asset('storage/css/styles.css')) }}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="{{ v(asset('storage/js/jquery.min.js')) }}"></script>
-    <script src="{{ v(asset('storage/js/bootstrap.min.js')) }}"></script>
+    <script src="{{ v(asset('storage/js/bootstrap.js')) }}"></script>
     <script src="{{ v(asset('storage/js/slick.min.js')) }}"></script>
     <script src="{{ v(asset('storage/js/scripts.js')) }}"></script>
 
@@ -86,12 +86,27 @@
                 'storefront::review.photo_on_site': '{{ trans('storefront::review.photo_on_site') }}',
                 'storefront::storefront.clear_filter_button': '{{ trans('storefront::storefront.clear_filter_button') }}',
                 'storefront::storefront.in_cart': '{{ trans('storefront::storefront.in_cart') }}',
-                'review::sidebar.reviews': '{{ trans('review::sidebar.reviews') }}'
+                'review::sidebar.reviews': '{{ trans('review::sidebar.reviews') }}',
+                'faq::public.home_block_title': '{{ trans('faq::public.home_block_title') }}',
+
+                'storefront::account.pages.my_profile': '{{ trans('storefront::account.pages.my_profile') }}',
+                'storefront::account.pages.my_orders': '{{ trans('storefront::account.pages.my_orders') }}',
+                'storefront::account.pages.logout': '{{ trans('storefront::account.pages.logout') }}',
+                'storefront::layout.login': '{{ trans('storefront::layout.login') }}',
+                'order::delivery.delivery_sity': '{{trans("order::delivery.delivery_sity") }}',
+                'order::delivery.default_sity': '{{trans("order::delivery.default_sity") }}',
+
+                'user::auth.email': '{{ trans('user::auth.email') }}',
+                'user::auth.enter_your_email': '{{ trans('user::auth.enter_your_email') }}',
+                'user::auth.password': '{{ trans('user::auth.password') }}',
         },
         };
     </script>
 
     {!! $schemaMarkup->toScript() !!}
+
+
+
 
     @stack('globals')
 
@@ -100,7 +115,7 @@
 
 <body
     dir="{{ is_rtl() ? 'rtl' : 'ltr' }}"
-    class="page-template {{ is_rtl() ? 'rtl' : 'ltr' }}"
+    class="page-template {{ is_rtl() ? 'rtl' : 'ltr' }} page_{{ $page }}"
     data-theme-color="{{ $themeColor->toHexString() }}"
     style="
         --color-primary: {{ tinycolor($themeColor->toString())->toHexString() }};
@@ -120,7 +135,7 @@
         @include('storefront::public.layout.footer')
 
         <div class="overlay"></div>
-
+        <div class="hidding_overlay"></div>
         @include('storefront::public.layout.localization')
 
         @if (!request()->routeIs('checkout.create'))

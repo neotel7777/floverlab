@@ -19,6 +19,8 @@
             </div>
 
             {{ Form::text('store_zip', trans('setting::attributes.store_zip'), $errors, $settings) }}
+            {{ Form::textarea('translatable[return_policy_text]', trans('setting::attributes.return_policy_text'), $errors, $settings) }}
+            {{ Form::textarea('translatable[delivery_text]', trans('setting::attributes.delivery_text'), $errors, $settings) }}
         </div>
 
         <div class="box-content clearfix">

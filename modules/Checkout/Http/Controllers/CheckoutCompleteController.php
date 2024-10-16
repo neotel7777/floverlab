@@ -84,11 +84,11 @@ class CheckoutCompleteController
     public function show()
     {
         $order = session('placed_order');
-
+        $blocks = make_checkout_blocks();
         if (is_null($order)) {
             return redirect()->route('home');
         }
 
-        return view('storefront::public.checkout.complete.show', compact('order'));
+        return view('storefront::public.checkout.complete.show', compact('order','blocks'));
     }
 }

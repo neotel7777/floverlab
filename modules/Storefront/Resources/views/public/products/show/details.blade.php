@@ -66,7 +66,9 @@
                  </div>
                  <div class="tabContent"
                       :class="tabs.Delivery ? 'active' : ''">
-                     {{ trans('storefront::product.tabsTitles.Delivery') }}
+                     <div class="descriptionwrap font-14-16-normal color-black">
+                         {!! transformText(setting('delivery_text')) !!}
+                     </div>
                  </div>
              </div>
              <div class="tabWrap">
@@ -122,9 +124,12 @@
                  </div>
                  <div class="tabContent"
                       :class="tabs.ComponentsList ? 'active' : ''">
-                     ComponentsListF
+                     <div class="descriptionwrap">
+                     {!!  $product->description !!}
+                     </div>
                  </div>
              </div>
+             @if(!empty($payallowed))
              <div class="tabWrap">
                  <div class="tabHeader font-18-24-500 color-black"
                       :class="tabs.PayPolicy ? 'active' : ''"
@@ -133,9 +138,20 @@
                  </div>
                  <div class="tabContent"
                       :class="tabs.PayPolicy ? 'active' : ''">
-                     {{ trans('storefront::product.tabsTitles.Pay') }}
+                     <div class="descriptionwrap">
+                         <div class="payblock flex-row-start-center">
+                         @foreach($payallowed as $item)
+                             <div class="pay_item font-14-16-normal"
+                             data-text="{{$item['description']}}"
+                             @click="showDescription('{{$item['name']}}','{{$item['description']}}')"
+                             >{{$item['name']}}</div>
+                         @endforeach
+                         </div>
+                         <div class="payblock_description"></div>
+                     </div>
                  </div>
              </div>
+             @endif
              <div class="tabWrap">
                  <div class="tabHeader font-18-24-500 color-black"
                       :class="tabs.ReturnPolicy ? 'active' : ''"
@@ -144,7 +160,9 @@
                  </div>
                  <div class="tabContent"
                       :class="tabs.ReturnPolicy ? 'active' : ''">
-                     {{ trans('storefront::product.tabsTitles.Return') }}
+                     <div class="descriptionwrap font-14-16-normal color-black">
+                         {!! transformText(setting('return_policy_text')) !!}
+                     </div>
                  </div>
              </div>
          </div>

@@ -8,6 +8,7 @@ class ShippingMethodManager extends Manager
 {
     public function available()
     {
-        return $this->all()->filter->available();
+
+       return $this->all()->filter->available();
     }
 }

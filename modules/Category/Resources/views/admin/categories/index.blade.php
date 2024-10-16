@@ -50,6 +50,7 @@
                                         {{ Form::checkbox('is_searchable', trans('category::attributes.is_searchable'), trans('category::categories.form.show_this_category_in_search_box'), $errors) }}
                                         {{ Form::checkbox('is_active', trans('category::attributes.is_active'), trans('category::categories.form.enable_the_category'), $errors) }}
                                         {{ Form::checkbox('at_home', trans('category::attributes.at_home'), trans('category::categories.form.enable_at_home_page'), $errors) }}
+                                        {{ Form::checkbox('in_product', trans('category::attributes.in_product'), trans('category::categories.form.show_in_product_page'), $errors) }}
                                     </div>
                                 </div>
                             </div>

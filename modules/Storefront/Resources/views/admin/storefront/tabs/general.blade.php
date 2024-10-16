@@ -18,6 +18,8 @@
         {{ Form::select('storefront_slider', trans('storefront::attributes.storefront_slider'), $errors, $sliders, $settings) }}
         {{ Form::select('storefront_terms_page', trans('storefront::attributes.storefront_terms_page'), $errors, $pages, $settings) }}
         {{ Form::select('storefront_privacy_page', trans('storefront::attributes.storefront_privacy_page'), $errors, $pages, $settings) }}
+        {{ Form::select('storefront_personal_data_page', trans('storefront::attributes.storefront_personal_data_page'), $errors, $pages, $settings) }}
+        {{ Form::select('storefront_return_product_page', trans('storefront::attributes.storefront_return_product_page'), $errors, $pages, $settings) }}
         {{ Form::textarea('translatable[storefront_address]', trans('storefront::attributes.storefront_address'), $errors, $settings, ['rows' => 5]) }}
         {{ Form::checkbox('storefront_most_searched_keywords_enabled', trans('storefront::attributes.storefront_most_searched_keywords'), trans('storefront::storefront.form.enable_most_searched_keywords'), $errors, $settings) }}
     </div>

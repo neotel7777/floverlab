@@ -88,6 +88,7 @@ return [
         'product_tabs_two' => 'Product Tabs Two',
         'one_column_banner' => 'One Column Banner',
         'blogs' => 'Blogs',
+        'contact_block'=> 'Contact block at home page'
     ],
     'social_links' => [
         'facebook' => 'Facebook',
@@ -102,4 +103,15 @@ return [
     'footer_locales_title' => 'Interface language:',
     'clear_filter_button' => 'Clear filter',
     'in_cart'           => 'In cart',
+    'home_contacts'=> [
+        'image' => 'Image block',
+        'data_title' => 'Title of company info block',
+        'worktime_title' => 'Title of work time block',
+        'worktime_data' => 'Data of work time block',
+        'address_title' => 'Title of address block',
+        'contact_title' => 'Title of contacts block',
+        'block_title' => 'Title of description block',
+        'block_subtitle' => 'Subtitle of description block',
+        'description' => 'Description block'
+    ]
 ];

@@ -65,12 +65,14 @@ class Review extends Model
 
         $percent = intval((self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating / 5) * 100);
         $statuses = explode(",",trans('storefront::review.stars_stats_list'));
-        $locale = locale();
-
+        //$locale = locale();
+       // dump(getLocale($locale));
+        //setlocale(LC_ALL,getLocale($locale));
         foreach($reviews as &$review){
             $review->statusRating = trim($statuses[$review->rating-1]);
-            setlocale(LC_TIME,$locale);
-            $review->data = strftime('%B %G');
+
+            $review->data = getLocaleData(date("d.m.Y",strtotime($review->created_at)));
+            //dd($review->data);
             $review->percent = ($review->rating / 5) * 100;
         }
 
@@ -95,12 +97,12 @@ class Review extends Model
 
         $percent = intval((self::select(DB::raw('avg(rating) as avg_rating'))->first()->avg_rating / 5) * 100);
         $statuses = explode(",",trans('storefront::review.stars_stats_list'));
-        $locale = locale();
+
 
         foreach($reviews as &$review){
             $review->statusRating = trim($statuses[$review->rating-1]);
-            setlocale(LC_TIME,$locale);
-            $review->data = strftime('%B %G');
+
+            $review->data = getLocaleData(date("d.m.Y",strtotime($review->created_at)));
             $review->percent = ($review->rating / 5) * 100;
         }
 
@@ -133,10 +135,10 @@ class Review extends Model
         $statuses = explode(",",trans('storefront::review.stars_stats_list'));
         $locale = locale();
 
+
         foreach($reviews as &$review){
             $review->statusRating = trim($statuses[$review->rating-1]);
-            setlocale(LC_TIME,$locale);
-            $review->data = strftime('%B %G');
+            $review->data = getLocaleData(date("d.m.Y",strtotime($review->created_at)));
             $review->percent = ($review->rating / 5) * 100;
         }
 

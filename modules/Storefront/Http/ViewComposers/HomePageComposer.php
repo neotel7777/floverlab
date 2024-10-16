@@ -3,6 +3,8 @@
 namespace Modules\Storefront\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Modules\Faq\Entities\Faq;
+use Modules\Media\Entities\File;
 use Modules\Menu\MegaMenu\MegaMenu;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductVariant;
@@ -15,7 +17,9 @@ use Modules\Blog\Entities\BlogPost;
 use Modules\Slider\Entities\Slider;
 use Illuminate\Support\Facades\Cache;
 use Modules\Category\Entities\Category;
+use Modules\Support\Country;
 use Modules\Support\Money;
+use Modules\Support\State;
 
 class HomePageComposer
 {
@@ -47,9 +51,20 @@ class HomePageComposer
             'minPrice' => $this->minPrice(),
             'maxPrice' => $this->maxPrice(),
             'category_menu' => $this->getCategoryMenu(),
-            'blogPosts'         => $this->blogPosts(),
-            'feature_slider' => Slider::findWithSlides(2)
+            'blogPosts'         => BlogPost::blogPosts(),
+            'feature_slider' => Slider::findWithSlides(2),
+            'faqs'           => Faq::getActive(),
+            'contact_block_image' => $this->getMedia(setting('storefront_home_contacts_image'))->path,
+            'countries'    => Country::all(),
+            'shop_country'  => $this->getCoutries(),
+            'shop_city'          => State::name(setting('store_country'),setting('store_state')),
         ]);
+    }
+
+    private function getCoutries()
+    {
+        $countries = Country::all();
+        return $countries[setting('store_country')];
     }
     private function blogPosts()
     {
@@ -57,15 +72,15 @@ class HomePageComposer
             ->latest()
             ->take(setting('storefront_recent_blogs') ?? 10)
             ->get();
-        setlocale(LC_TIME,locale());
+        setlocale(LC_TIME,getLocale(locale()));
         foreach ($blogPosts as $blogPost) {
             $blogPost->append('user_name');
             $blogPost->data = strftime('%d %B %G');
         }
 
-        return [
+        return  [
             'title' => setting('storefront_blogs_section_title'),
-            'blogPosts' => $blogPosts,
+            'blogPosts' => !empty($blogPosts) ? $blogPosts : [],
         ];
     }
     private function getCategoryMenu(){
@@ -265,5 +280,12 @@ class HomePageComposer
         if (setting('storefront_one_column_banner_enabled')) {
             return Banner::getOneColumnBanner();
         }
+    }
+
+    private function getMedia($fileId)
+    {
+        return Cache::rememberForever(md5("files.{$fileId}"), function () use ($fileId) {
+            return File::findOrNew($fileId);
+        });
     }
 }

@@ -21,7 +21,14 @@ class State
 
     public static function name($countryCode, $stateCode)
     {
-        return array_get(self::get($countryCode), $stateCode);
+
+        $cities = self::get($countryCode);
+
+        if(!empty($cities[locale()])){
+            return array_get($cities[locale()],$stateCode);
+        } else {
+            return array_get(self::get($countryCode), $stateCode);
+        }
     }
 
 

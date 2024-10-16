@@ -3,6 +3,7 @@
 namespace Modules\Category\Entities;
 
 use Laravel\Scout\Scout;
+use Modules\Product\Repositories\ProductRepository;
 use Modules\Review\Entities\Review;
 use Modules\Support\Search\Builder;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +36,7 @@ class Category extends Model implements Sitemapable
      *
      * @var array
      */
-    protected $fillable = ['parent_id', 'slug', 'position', 'is_searchable', 'is_active', 'at_home'];
+    protected $fillable = ['parent_id', 'slug', 'position', 'is_searchable', 'is_active', 'at_home','in_product'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -178,7 +179,7 @@ class Category extends Model implements Sitemapable
                 foreach ($resproducts as $productold) {
 
                     $product = Product::getProductsById($productold->id);
-
+                    $product->category = $category['slug'];
                     $product->reviews = $product->reviewsList->toArray();
                     $product->raitings = Review::countAndAvgRating($product);
                     $product->rating_percents = ($product->raitings->avg_rating) ? ($product->raitings->avg_rating / 5) * 100 : 0;
@@ -197,6 +198,50 @@ class Category extends Model implements Sitemapable
         }
 
         return $return;
+    }
+
+
+
+    public static function getProductStartCategory(){
+        $category =   static::where('in_product', true)->where('parent_id',Null)
+            ->get()
+            ->map(function ($category) {
+
+                return [
+                    'id'    => $category->id,
+                    'slug'  => $category->slug,
+                    'name'  => $category->name,
+                    'products' => getMedias(ProductRepository::getProductsByCategoryIds(getCategoriesIdsbyTree())),
+                    'subcategories' => static::where('in_product', true)->where('parent_id',$category->id)
+                    ->get()
+                    ->map(function ($subcategory) {
+
+                        return [
+                            'id'    => $subcategory->id,
+                            'slug'  => $subcategory->slug,
+                            'name'  => $subcategory->name,
+                        ];
+                    }),
+                ];
+            });
+
+        $categories[] = [
+            'id' => $category[0]['id'],
+            'name' => trans("category::categories.all_categories"),
+            'products' => $category[0]['products']
+        ];
+        foreach ($category[0]['subcategories'] as $subcategory){
+
+            $categories[] = [
+                'id' => $subcategory['id'],
+                'name' => $subcategory['name'],
+                'products' => getMedias(ProductRepository::getProductsByCategoryIds([$subcategory['id']]))
+            ];
+        }
+    return [
+        "data"=>$categories,
+        "products" => $category[0]['products'],
+        ];
     }
 
     /**

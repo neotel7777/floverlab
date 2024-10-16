@@ -325,6 +325,7 @@ trait HasCrudActions
      */
     protected function getEntity(int|string $id): EloquentModel
     {
+
         return $this->getModel()
             ->with($this->relations())
             ->withoutGlobalScope('active')

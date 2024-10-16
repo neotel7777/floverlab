@@ -37,4 +37,15 @@ class ProductRepository
             ->whereIn('id', $ids)
             ->get();
     }
+
+    public static function getProductsByCategoryIds($ids=[])
+    {
+        if(empty($ids)) return false;
+
+        return Product::with(['variations', 'variations.values', 'variations.values.files', 'variants', 'variants.files', 'categories', 'tags', 'attributes.attribute.attributeSet', 'options', 'files', 'reviews'])
+            ->whereRaw("id in (select product_id from product_categories where category_id IN (".implode(",",$ids)."))")
+            ->limit(20)
+            ->get();
+    }
+
 }

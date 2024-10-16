@@ -56,12 +56,14 @@ abstract class Request extends FormRequest
     {
         $attributesAndRules = $this->parseRules($this->rules());
 
+//dd($attributesAndRules);
         $messages = [];
-
         foreach ($attributesAndRules as $attributeAndRule) {
-            $rule = last(explode('.', $attributeAndRule));
 
-            $messages[$attributeAndRule] = trans("core::validation.{$rule}");
+            $rule = last(explode('.', $attributeAndRule));
+            $newtemp = str_replace(".","_",$attributeAndRule);
+            $messages[$attributeAndRule] = (trans("core::validation.{$newtemp}") != "core::validation.".$newtemp) ? trans("core::validation.".$newtemp) : trans("core::validation.{$rule}");
+
         }
 
         return $messages;

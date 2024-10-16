@@ -101,7 +101,7 @@ class UpdateSettingRequest extends Request
             'translatable.flat_rate_label' => 'required_if:flat_rate_enabled,1',
             'flat_rate_cost' => ['required_if:flat_rate_enabled,1', 'nullable', 'numeric'],
 
-            'paypal_enabled' => 'required|boolean',
+            /*'paypal_enabled' => 'required|boolean',
             'translatable.paypal_label' => 'required_if:paypal_enabled,1',
             'translatable.paypal_description' => 'required_if:paypal_enabled,1',
             'paypal_test_mode' => 'required|boolean',
@@ -177,7 +177,15 @@ class UpdateSettingRequest extends Request
             'payfast_test_mode' => 'required|boolean',
             'payfast_merchant_id' => 'required_if:payfast_enabled,1',
             'payfast_merchant_key' => 'required_if:payfast_enabled,1',
-            'payfast_passphrase' => 'required_if:payfast_enabled,1',
+            'payfast_passphrase' => 'required_if:payfast_enabled,1', */
+
+            'paynet_enabled' => 'required|boolean',
+            'translatable.paynet_label' => 'required_if:paynet_enabled,1',
+            'translatable.paynet_description' => 'required_if:paynet_enabled,1',
+            'paynet_test_mode' => 'required|boolean',
+            'paynet_merchant_id' => 'required_if:paynet_enabled,1',
+            'paynet_merchant_key' => 'required_if:paynet_enabled,1',
+            'paynet_passphrase' => 'required_if:paynet_enabled,1',
 
             'cod_enabled' => 'required|boolean',
             'translatable.cod_label' => 'required_if:cod_enabled,1',

@@ -9,6 +9,8 @@ return [
     'storefront_slider' => 'Slider',
     'storefront_terms_page' => 'Terms & Conditions Page',
     'storefront_privacy_page' => 'Privacy Policy Page',
+    'storefront_personal_data_page' => 'Personal data Policy page',
+    'storefront_return_product_page' => 'Return orders Policy page',
     'storefront_address' => 'Address',
     'storefront_most_searched_keywords' => 'Most Searched Keywords',
     'storefront_navbar_text' => 'Navbar Text',

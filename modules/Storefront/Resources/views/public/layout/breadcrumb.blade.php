@@ -1,5 +1,5 @@
 @hasSection('breadcrumb')
-    <div class="container">
+    <div class="breadcrumbWrap">
         <div class="sectionWrap">
             <div class="breadcrumb">
                 <ul class="list-inline">

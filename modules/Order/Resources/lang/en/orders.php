@@ -39,4 +39,8 @@ return [
     'coupon' => 'Coupon',
     'tax' => 'Tax',
     'total' => 'Total',
+    'delivery_information' => 'Delivery information',
+    'delivery_time'=>'Delivery time',
+    'action_on_delivery' => 'Action on delivery',
+    'action_on_change_order' => 'Action on change order'
 ];

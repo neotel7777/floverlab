@@ -37,6 +37,7 @@ class Locale
      */
     public static function all()
     {
+
         if (is_null(self::$locales)) {
             self::$locales = require self::RESOURCE_PATH;
         }

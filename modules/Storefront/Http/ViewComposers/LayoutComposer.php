@@ -77,7 +77,9 @@ class LayoutComposer
             'locale'            => locale(),
             'current_locale'    => $this->getLocales(locale()),
             'search'            => request('search'),
-            'blogPosts'         => $this->blogPosts(),
+            'blogPosts'         => BlogPost::blogPosts(),
+            'page'              => $this->getPage(),
+            'cities'            => $this->getCities(),
         ]);
     }
 
@@ -87,10 +89,10 @@ class LayoutComposer
                 ->latest()
                 ->take(setting('storefront_recent_blogs') ?? 10)
                 ->get();
-            setlocale(LC_TIME,locale());
+            setlocale(LC_TIME,$this->getLocales(locale()));
             foreach ($blogPosts as $blogPost) {
                 $blogPost->append('user_name');
-                $blogPost->data = strftime('%d %B %G');
+                $blogPost->data = strftime('%d %B %G',strtotime($blogPost->created_at));
             }
 
             return [
@@ -98,18 +100,23 @@ class LayoutComposer
                 'blogPosts' => $blogPosts,
             ];
     }
+    private function getPage()
+    {
+        $path= explode("/",request()->path());
+        return (!empty($path[1])) ? $path[1] : 'home';
+    }
     private function getLocales($ind = ''){
         $locales    = [
             'en'    =>[
                 'name'  => "ENG",
                 'icon'  => "/storage/media/flag-en.svg",
             ],
-            'ru_MD' =>[
+            'ru' =>[
                 'name'  => "RUS",
                 'icon'  => "/storage/media/flag-rus.svg",
 
             ],
-            "ro_MD" =>[
+            "ro" =>[
                 'name'  => "ROM",
                 'icon'  => "/storage/media/flag-ro.svg",
 
@@ -126,6 +133,16 @@ class LayoutComposer
     {
         $countries = Country::all();
         return $countries[setting('store_country')];
+    }
+
+    private function getCities()
+    {
+        $cities = State::get(setting('store_country'));
+        if(isset($cities[locale()])){
+            return $cities[locale()];
+        } else {
+            return $cities;
+        }
     }
 
     private function footerTagsCallback($tagIds)

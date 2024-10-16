@@ -4,7 +4,7 @@ import CartItemHelpersMixin from "../../mixins/CartItemHelpersMixin";
 
 export default {
     mixins: [CartHelpersMixin, CartItemHelpersMixin],
-
+    props: ['item'],
     data() {
         return {
             controller: null,
@@ -12,6 +12,7 @@ export default {
             crossSellProducts: [],
         };
     },
+
 
     computed: {
         hasAnyCrossSellProduct() {
@@ -41,6 +42,37 @@ export default {
                     {
                         qty: qty || 1,
                     },
+                    {
+                        signal: this.controller.signal,
+                    }
+                )
+                .then((response) => {
+                    store.updateCart(response.data);
+                })
+                .catch((error) => {
+                    if (error.code !== "ERR_CANCELED") {
+                        store.updateCart(error.response.data.cart);
+
+                        this.$notify(error.response.data.message);
+                    }
+                })
+                .finally(() => {
+                    this.loadingOrderSummary = false;
+                });
+        },
+
+        updateVariant(cartItem,  newId) {
+            this.loadingOrderSummary = true;
+
+            if (this.controller) {
+                this.controller.abort();
+            }
+
+            this.controller = new AbortController();
+
+            axios
+                .put(
+                    route("cart.items.updateVariant", { id: cartItem.id, newid: newId }),
                     {
                         signal: this.controller.signal,
                     }

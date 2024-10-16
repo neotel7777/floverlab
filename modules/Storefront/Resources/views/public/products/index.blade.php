@@ -15,7 +15,7 @@
 @endpush
 
 @section('content')
-
+    <div class="topContent"></div>
     <product-index
         initial-query="{{ request('query') }}"
         initial-brand-name="{{ $brandName ?? '' }}"
@@ -30,7 +30,7 @@
         :min-price="{{ $minPrice }}"
         :max-price="{{ $maxPrice }}"
         initial-sort="{{ request('sort', 'latest') }}"
-        :initial-per-page="{{ request('perPage', 3) }}"
+        :initial-per-page="{{ request('perPage', 30) }}"
         :initial-page="{{ request('page', 1) }}"
         initial-view-mode="{{ request('viewMode', 'grid') }}"
         inline-template
@@ -50,9 +50,7 @@
                                     <h4 v-if="queryParams.query">
                                         {{ trans('storefront::products.search_results_for') }} <span>"@{{ queryParams.query }}"</span>
                                     </h4>
-                                    <h4 v-else-if="queryParams.brand" v-text="initialBrandName"></h4>
                                     <h4 v-else-if="queryParams.category" v-text="categoryName"></h4>
-                                    <h4 v-else-if="queryParams.tag" v-text="initialTagName"></h4>
                                     <h4 v-else>{{ trans('storefront::products.shop') }}</h4>
                                 </div>
 
@@ -125,10 +123,7 @@
 
 
             </reviews-home-list>
-{{--            <div class="reviewslist" >--}}
-{{--                <reviews-home-list    :reviewsitems='@json($reviewsList)'--}}
-{{--                                    ></reviews-home-list>--}}
-{{--            </div>--}}
+
             <div class="sectionWrap">
                     <blog-posts :data="{{ json_encode($blogPosts) }}"></blog-posts>
             </div>

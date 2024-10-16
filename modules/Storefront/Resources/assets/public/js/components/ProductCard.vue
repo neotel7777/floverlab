@@ -11,7 +11,7 @@
                 </a>
             </div>
             <div class="mediaWrapper" v-else>
-                <div class="image-slider">
+                <div class="image-slider" :class="getcardimageref">
                     <a :href="productUrl" class="product-image" v-for="image in getMedia">
                         <img
                             :src="image.path"
@@ -74,7 +74,7 @@
                 <div class="product-card_old-price_block flex-row " >
                     <div class="prices_block flex-row-start-center">
                         <div class="product-card-price font-24-26-normal color-orange" v-html="special_price_formated"></div>
-                        <div class="product-card-old-price font-14-16-normal color-ligth-grey" v-html="special_price_formated"></div>
+                        <div class="product-card-old-price font-14-16-normal color-ligth-grey" v-html="price_formated"></div>
                     </div>
                     <div class="product-card-mini__badge-discount font-14-16-normal color-white bk-color-orange" v-html="percent"></div>
                 </div>
@@ -129,12 +129,16 @@ export default {
                 ...(this.product.variant ? this.product.variant : this.product),
             };
         },
+        getcardimageref(){
+            return "image-slider_" + this.product.category + "_" + this.product.id;
+        },
         review_percent(){
             return (this.product.rating_percents) ? this.product.rating_percent : this.product.rating_percent;
         },
     },
     mounted() {
-        $(this.$el).find('.image-slider').slick({
+
+        $(".image-slider:not(.slick-initialized)").slick( {
             rows: 0,
             dots: true,
             arrows: false,
@@ -142,7 +146,7 @@ export default {
             slidesToShow: 1,
             slidesToScroll: 1,
             rtl: window.FleetCart.rtl,
-        });
-    }
+            });
+    },
 };
 </script>

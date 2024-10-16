@@ -3,3 +3,7 @@
     flex-direction: row!important;
     position: relative!important;
 }
+.delivery_information-wrapper {
+    position: relative;
+    margin-bottom: 40px;
+}

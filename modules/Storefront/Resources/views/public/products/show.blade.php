@@ -50,6 +50,7 @@
         :product="{{ json_encode($product) }}"
         :viewed="{{ json_encode($viewedProducts)  ?? json_encode(new stdClass) }}"
         :recomended="{{ json_encode($relatedProducts)  ?? json_encode(new stdClass) }}"
+        :accessorii="{{ json_encode($accessorii)  ?? json_encode(new stdClass) }}"
         :variant="{{ $product->variant ?? json_encode(new stdClass) }}"
         :review-count="{{ $review->count ?? 0 }}"
         :avg-rating="{{ $review->avg_rating ?? 0 }}"
@@ -72,6 +73,14 @@
 
                     </div>
                 </div>
+            @if(!empty($accessorii))
+            <div class="accessoriiProducts sliderProductBlock  flex-column" >
+                <div class="title sliderProductTitle">{{ trans('storefront::product.you_might_also_like') }}</div>
+                <div class="accessoriiBlock">
+                    <accessorii-product :accessorii="accessorii"></accessorii-product>
+                </div>
+            </div>
+            @endif
             @if(count($relatedProducts)>0)
             <div class="relatedProducts sliderProductBlock  flex-column" >
                 <div class="title sliderProductTitle">{{ trans('storefront::product.you_might_also_like') }}</div>

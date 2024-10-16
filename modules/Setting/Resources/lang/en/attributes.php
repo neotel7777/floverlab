@@ -24,6 +24,8 @@ return [
     'store_country' => 'Store Country',
     'store_state' => 'Store State',
     'store_zip' => 'Store Zip',
+    'return_policy_text' => 'Return policy',
+    'delivery_text' => 'Description delivery in product',
     'store_phone_hide' => 'Hide Store Phone',
     'store_email_hide' => 'Hide Store Email',
 
@@ -176,6 +178,14 @@ return [
     'payfast_merchant_id' => 'Merchant ID',
     'payfast_merchant_key' => 'Merchant Key',
     'payfast_passphrase' => 'Passphrase',
+
+    'paynet_enabled' => 'Status',
+    'translatable.paynet_label' => 'Label',
+    'translatable.paynet_description' => 'Description',
+    'paynet_test_mode' => 'Sandbox',
+    'paynet_merchant_id' => 'Merchant ID',
+    'paynet_merchant_key' => 'Merchant Key',
+    'paynet_passphrase' => 'Passphrase',
 
     'cod_enabled' => 'Status',
     'translatable.cod_label' => 'Label',

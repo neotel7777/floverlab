@@ -20,6 +20,8 @@ return [
         'enable_the_category' => 'Enable the category',
         'logo' => 'Logo',
         'banner' => 'Banner',
-        'enable_at_home_page' => "Enable at home page"
+        'enable_at_home_page' => 'Enable at home page',
+        'show_in_product_page' => 'Show in product page',
     ],
+    'all_categories' => 'All categories'
 ];

@@ -17,12 +17,12 @@ class SuggestionController
      */
     public function index(Product $model): SuggestionsResponse
     {
+
         $products = $this->getProducts($model);
 
         return new SuggestionsResponse(
             request('query'),
             $products,
-            $products->pluck('categories')->flatten(),
             $this->getTotalResults($model)
         );
     }
@@ -50,10 +50,7 @@ class SuggestionController
                 'products.manage_stock',
                 'products.qty',
             ])
-            ->with(['files', 'categories' => function ($query) {
-                $query->limit(5);
-            }])
-            ->when(request()->filled('category'), $this->categoryQuery())
+            ->with(['files'])
             ->get();
     }
 
@@ -86,5 +83,11 @@ class SuggestionController
             ->query()
             ->when(request()->filled('category'), $this->categoryQuery())
             ->count();
+    }
+
+
+    public function newindex()
+    {
+        dd('hi');
     }
 }

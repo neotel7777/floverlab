@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->boolean('at_home');
             $table->boolean('is_searchable');
             $table->boolean('is_active');
+            $table->boolean('in_product');
             $table->timestamps();
 
             $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');

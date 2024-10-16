@@ -3,6 +3,7 @@
         FleetCart.langs['storefront::products.showing_results'] = '{{ trans("storefront::products.showing_results") }}';
     </script>
 @endpush
+
 <product-index
     initial-query="{{ request('query') }}"
     initial-category-slug="{{ request('category') }}"
@@ -11,7 +12,7 @@
     :initial-attribute="{{ json_encode(request('attribute', [])) }}"
     :min-price="{{ $minPrice }}"
     :max-price="{{ $maxPrice }}"
-    :reviewsList="{{ json_encode($reviewsList) }}"
+    :reviewsList="{{ (!empty($reviewsList)) ? json_encode($reviewsList) : [] }}"
     initial-sort="{{ request('sort', 'latest') }}"
     :initial-per-page="{{ request('perPage', 30) }}"
     initial-page="{{$home}}"

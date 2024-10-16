@@ -80,10 +80,10 @@ class BlogPost extends Model implements Sitemapable
             ->latest()
             ->take(setting('storefront_recent_blogs') ?? 10)
             ->get();
-        setlocale(LC_TIME,locale());
+        setlocale(LC_TIME,getLocale(locale()));
         foreach ($blogPosts as $blogPost) {
             $blogPost->append('user_name');
-            $blogPost->data = strftime('%d %B %G');
+            $blogPost->data = getLocaleData(date("d.m.Y",strtotime($blogPost->created_at)),true);
         }
 
         return [

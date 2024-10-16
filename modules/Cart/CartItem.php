@@ -2,6 +2,7 @@
 
 namespace Modules\Cart;
 
+use Modules\Variation\Entities\Variation;
 use stdClass;
 use JsonSerializable;
 use Modules\Support\Money;
@@ -65,6 +66,7 @@ class CartItem implements JsonSerializable
      */
     public function __construct($item)
     {
+
         $this->id = $item->id;
         $this->qty = $item->quantity;
         $this->product = $item->attributes['product'];
@@ -72,6 +74,7 @@ class CartItem implements JsonSerializable
         $this->item = $item->attributes['item'];
         $this->variations = $item->attributes['variations'];
         $this->options = $item->attributes['options'];
+
     }
 
 
@@ -155,12 +158,14 @@ class CartItem implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
+
         return [
             'id' => $this->id,
             'qty' => $this->qty,
             'product' => $this->product->clean(),
             'variant' => $this->variant?->clean(),
             'item' => $this->refreshStock()->item,
+            'all_variants' => ProductVariant::where('product_id',$this->product->id)->get(),
             'variations' => $this->variations->isNotEmpty() ? $this->variations->keyBy('position') : new stdClass,
             'options' => $this->options->isNotEmpty() ? $this->options->keyBy('position') : new stdClass,
             'unitPrice' => $this->unitPrice(),
@@ -210,6 +215,7 @@ class CartItem implements JsonSerializable
      */
     private function calculateOptionsPrice()
     {
+
         return (float)$this->options
             ->sum(
                 fn ($option) => $this->sumOfThePricesOfTheValuesOf($option)

@@ -26,6 +26,9 @@ class SettingTabs extends Tabs
         $this->group('general_settings', trans('setting::settings.tabs.group.general_settings'))
             ->active()
             ->add($this->general())
+            ->add($this->checkout_variants())
+            ->add($this->checkout_actions())
+            ->add($this->checkout_success_blocks())
             ->add($this->logo())
             ->add($this->maintenance())
             ->add($this->store())
@@ -47,17 +50,19 @@ class SettingTabs extends Tabs
             ->add($this->flatRate());
 
         $this->group('payment_methods', trans('setting::settings.tabs.group.payment_methods'))
-            ->add($this->paypal())
-            ->add($this->stripe())
-            ->add($this->paytm())
-            ->add($this->razorpay())
-            ->add($this->instamojo())
-            ->add($this->authorizenet())
-            ->add($this->paystack())
-            ->add($this->mercadopago())
-            ->add($this->flutterwave())
-            ->add($this->payfast())
-            ->add($this->iyzico())
+          //  ->add($this->paypal())
+          //  ->add($this->stripe())
+          //  ->add($this->paytm())
+          //  ->add($this->razorpay())
+          //  ->add($this->instamojo())
+           // ->add($this->authorizenet())
+           // ->add($this->paystack())
+          //  ->add($this->mercadopago())
+          //  ->add($this->flutterwave())
+          //  ->add($this->payfast())
+          //->add($this->iyzico())
+
+            ->add($this->paynet())
             ->add($this->cod())
             ->add($this->bankTransfer())
             ->add($this->checkPayment());
@@ -93,6 +98,36 @@ class SettingTabs extends Tabs
         });
     }
 
+    private function checkout_variants()
+    {
+        return tap(new Tab('checkout_variants', trans('setting::settings.tabs.checkout_variants')), function (Tab $tab) {
+            $tab->weight(10);
+
+            $tab->view('setting::admin.settings.tabs.checkout', [
+                'variants' => trans('storefront::checkout.check_data'),
+            ]);
+        });
+    }
+    private function checkout_actions()
+    {
+        return tap(new Tab('checkout_actions', trans('setting::settings.tabs.checkout_actions')), function (Tab $tab) {
+            $tab->weight(10);
+
+            $tab->view('setting::admin.settings.tabs.checkout_actions', [
+                'actions' => trans('storefront::checkout.check_actions'),
+            ]);
+        });
+    }
+    private function checkout_success_blocks()
+    {
+        return tap(new Tab('checkout_success_blocks', trans('setting::settings.tabs.checkout_success_blocks')), function (Tab $tab) {
+            $tab->weight(10);
+
+            $tab->view('setting::admin.settings.tabs.checkout_success_blocks', [
+                'blocks' => trans('storefront::checkout.check_success_blocks'),
+            ]);
+        });
+    }
 
     private function maintenance()
     {
@@ -475,6 +510,17 @@ class SettingTabs extends Tabs
     }
 
 
+    private function paynet()
+    {
+        return tap(new Tab('payfast', trans('setting::settings.tabs.paynet')), function (Tab $tab) {
+            $tab->weight(70);
+
+            $tab->fields(['paynet_enabled', 'translatable.paynet_label', 'translatable.paynet_description', 'paynet_test_mode', 'paynet_merchant_id', 'paynet_merchant_key', 'paynet_passphrase']);
+
+            $tab->view('setting::admin.settings.tabs.paynet');
+        });
+    }
+
     private function payfast()
     {
         return tap(new Tab('payfast', trans('setting::settings.tabs.payfast')), function (Tab $tab) {
@@ -485,8 +531,6 @@ class SettingTabs extends Tabs
             $tab->view('setting::admin.settings.tabs.payfast');
         });
     }
-
-
     private function cod()
     {
         return tap(new Tab('cod', trans('setting::settings.tabs.cod')), function (Tab $tab) {

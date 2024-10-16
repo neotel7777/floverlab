@@ -11,12 +11,13 @@
     <div class="order-wrapper box">
         @include('order::admin.orders.partials.order_and_account_information')
         @include('order::admin.orders.partials.address_information')
+        @include('order::admin.orders.partials.delivery_information')
         @include('order::admin.orders.partials.items_ordered')
         @include('order::admin.orders.partials.order_totals')
     </div>
 @endsection
 
-@push('globals') 
+@push('globals')
     @vite([
         'modules/Order/Resources/assets/admin/sass/main.scss',
         'modules/Order/Resources/assets/admin/js/main.js',

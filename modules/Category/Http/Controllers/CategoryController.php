@@ -32,6 +32,7 @@ class CategoryController
             return $this->searchProducts($model, $productFilter);
         }
 
+
         return view('storefront::public.products.index', [
             'categoryName' => trans('storefront::categories.all_categories'),
             'categories' => Category::all()->nest(),

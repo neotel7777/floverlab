@@ -35,5 +35,6 @@
     "Transaction": true,
     "Translation": true,
     "User": true,
-    "Variation": true
+    "Variation": true,
+    "Faq": true
 }

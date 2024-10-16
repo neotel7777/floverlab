@@ -256,7 +256,7 @@ import { throttle } from "lodash";
 
 export default {
     props: [
-        "categories",
+
         "mostSearchedKeywords",
         "isMostSearchedKeywordsEnabled",
         "initialQuery",
@@ -269,10 +269,8 @@ export default {
             showSuggestions: false,
             form: {
                 query: this.initialQuery,
-                category: this.initialCategory,
             },
             suggestions: {
-                categories: [],
                 products: [],
                 remaining: 0,
             },

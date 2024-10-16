@@ -1,17 +1,30 @@
 @extends('storefront::public.layout')
-
+@section('breadcrumb')
+    <li class="active">{{ trans('storefront::cart.order_complete') }}</li>
+@endsection
 @section('content')
     <section class="order-complete-wrap">
-        <div class="container">
-            <div class="order-complete-wrap-inner">
+        <div class="sectionWrap">
+            <div class="order-complete-wrap-inner flex-row-start-start">
                 <div class="order-complete">
-                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-                        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                    </svg>
-
-                    <h2>{{ trans('storefront::order_complete.order_placed') }}</h2>
-                    <span>{!! trans('storefront::order_complete.your_order_has_been_placed', ['id' => $order->id]) !!}</span>
+                    <h2 class="font-28-34-500">{{ trans('storefront::order_complete.order_placed') }}</h2>
+                    <span class="font-18-20-normal color-neutral_grey">
+                        {!! trans('storefront::order_complete.your_order_has_been_placed', ['id' => $order->id,'total'=>$order->total." MDL"]) !!}
+                    </span>
+                </div>
+                <div class="blocksWrap">
+                    @if(!empty($blocks))
+                        @foreach($blocks as $ind=>$item)
+                            <div class="block_wrapper white_box flex-column-start-start">
+                                <div class="block_title font-20-26-500 color-black">
+                                    {{ $item['title'] }}
+                                </div>
+                                <div class="block_description font-18-20-normal color-neutral_grey">
+                                    {{ $item['description'] }}
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

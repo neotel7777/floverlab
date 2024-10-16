@@ -70,6 +70,21 @@ class CartItemController extends Controller
         return Cart::instance();
     }
 
+    /**
+     * Update the variant data in storage.
+     *
+     * @param string $id
+     *
+     * @return \Modules\Cart\Cart
+     */
+    public function updateVariant(string $id, $newid)
+    {
+
+        Cart::updateVariantId($id, $newid);
+
+        return Cart::instance();
+    }
+
 
     /**
      * Remove the specified resource from storage.

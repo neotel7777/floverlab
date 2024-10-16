@@ -3,6 +3,7 @@
 namespace Modules\Cart\Http\Controllers;
 
 use Modules\Cart\Facades\Cart;
+use Modules\Category\Entities\Category;
 
 class CartController
 {
@@ -13,7 +14,9 @@ class CartController
      */
     public function index()
     {
-        return view('storefront::public.cart.index');
+
+        $accessorii = Category::getProductStartCategory();
+        return view('storefront::public.cart.index',compact('accessorii'));
     }
 
 

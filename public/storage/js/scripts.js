@@ -2,7 +2,8 @@ $(document).ready(function (){
     $(".catalog_button").on('click',function (){
             let state = $(this).attr('data-state'),
                 top = parseInt($(".sectionWrap.header").height())  + parseInt($(".sectionWrap.headerSearch").height())
-        $(".burgerOverlay").css("top",top);
+            $(".burgerOverlay").css("top",top);
+            
             if(state === 'closed'){
                 $(this).find('.burger').hide();
                 $(this).find('.burger.Active').css('display',"flex");
@@ -42,5 +43,14 @@ $(document).ready(function (){
             $(this).addClass('active');
         }
     });
-    //$(".product-search-left").css('top',$(".product-search-left").offset().top);
+    $(".profileLink").on('click',function (){
+        $('.popup_account').slideToggle();
+    });
+    $(document).mouseup(function (e){
+        let div = $(".top-nav-account");
+        if (!div.is(e.target)
+            && div.has(e.target).length === 0) {
+            $('.popup_account').hide();
+        }
+    });
 })

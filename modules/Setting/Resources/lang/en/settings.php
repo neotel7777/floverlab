@@ -11,6 +11,9 @@ return [
         ],
         'general' => 'General',
         'logo' => 'Logo',
+        'checkout_variants' => 'Checkout variants after delivery',
+        'checkout_actions' => 'Checkout actions after changing components',
+        'checkout_success_blocks' => 'Checkout success blocks',
         'maintenance' => 'Maintenance',
         'store' => 'Store',
         'pwa' => 'PWA',
@@ -39,6 +42,7 @@ return [
         'cod' => 'Cash On Delivery',
         'bank_transfer' => 'Bank Transfer',
         'check_payment' => 'Check / Money Order',
+        'paynet'    => 'Paynet'
     ],
     'form' => [
         'logo' => 'Logo',
@@ -111,6 +115,7 @@ return [
         'enable_flutterwave' => 'Enable Flutterwave',
         'enable_iyzico' => 'Enable Iyzico',
         'enable_payfast' => 'Enable PayFast',
+        'enable_paynet' => 'Enable Paynet',
         'enable_cod' => 'Enable Cash On Delivery',
         'enable_bank_transfer' => 'Enable Bank Transfer',
         'enable_check_payment' => 'Enable Check / Money Order',
@@ -118,4 +123,11 @@ return [
     'validation' => [
         'sqlite_is_not_installed' => 'SQLite is not installed',
     ],
+    'paymethods'=>[
+        'paynet' => 'paynet',
+        'cod'   => 'cod',
+        'bank_transfer' => 'bank_transfer',
+        'check_payment' => 'check_payment',
+    ],
+
 ];

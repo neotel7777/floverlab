@@ -24,7 +24,7 @@ export default {
         ProductCardMixin,
     ],
 
-    props: ["product", "variant", "reviewCount", "avgRating","viewed","recomended"],
+    props: ["product", "variant", "reviewCount", "avgRating","viewed","recomended","accessorii"],
 
     data() {
         return {
@@ -106,6 +106,10 @@ export default {
                 media: [],
                 base_image: [],
             };
+        },
+        showDescription(title,description) {
+            let  text = "<b>" + title + "</b> -- <span>" + description + "</span>";
+            $(".payblock_description").html(text);
         },
 
         tabClick(tab) {

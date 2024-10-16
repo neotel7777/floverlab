@@ -65,7 +65,7 @@ trait ProductSearch
             $product->medias = $item->files;
             $products[$key] = $product;
         }
-        //$products->total = count($products);
+
         event(new ShowingProductList($products));
 
         return response()->json([
@@ -84,10 +84,11 @@ trait ProductSearch
             ->latest()
             ->take(setting('storefront_recent_blogs') ?? 10)
             ->get();
-        setlocale(LC_TIME,locale());
+
         foreach ($blogPosts as $blogPost) {
             $blogPost->append('user_name');
-            $blogPost->data = strftime('%d %B %G');
+            setlocale(LC_ALL,getLocale(locale()));
+            $blogPost->data = strftime('%d %B %G',strtotime($blogPost->created_at));
         }
 
         return [

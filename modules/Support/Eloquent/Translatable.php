@@ -38,6 +38,7 @@ trait Translatable
      */
     public function scopeWhereTranslationIn($query, $key, array $values, $locale = null)
     {
+
         return $query->whereHas('translations', function ($query) use ($key, $values, $locale) {
             $query->whereIn($key, $values)
                 ->when(!is_null($locale), function ($query) use ($locale) {

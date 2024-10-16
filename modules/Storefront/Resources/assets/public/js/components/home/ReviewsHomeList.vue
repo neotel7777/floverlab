@@ -8,18 +8,23 @@
         <div class="reviewsWrapper">
             <ul class="nav nav-tabs tabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a href="#reviews" data-bs-toggle="tab" class="nav-link active font-20-26-normal color-grey" aria-selected="true" role="tab">
+                    <div href="#" data-bs-toggle="tab" class="nav-link font-20-26-normal color-grey" aria-selected="true" role="tab"
+                            :class="openedtab=='reviews' ? 'active' : ''"
+                            @click="openedtab='reviews'">
                         {{ $trans("storefront::review.reviews_title") }}
-                    </a>
+                    </div>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#google" data-bs-toggle="tab" class="nav-link  font-20-26-normal color-grey" aria-selected="false" tabindex="-1" role="tab">
+                    <div href="#" data-bs-toggle="tab" class="nav-link  font-20-26-normal color-grey" aria-selected="false" tabindex="-1" role="tab"
+                       :class="openedtab=='google' ? 'active' : ''"
+                       @click="openedtab='google'">
                     Google
-                    </a>
+                    </div>
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="reviews" class="tab-pane description active" role="tabpanel">
+                <div id="reviews" class="tab-pane description" role="tabpanel"
+                     :class="openedtab=='reviews' ? 'active' : ''">
                     <div class="content less-content">
                        <div class="stateBar flex-row">
                            <div class="statesReviews flex-row-start-center">
@@ -67,7 +72,8 @@
                        </div>
                     </div>
                 </div>
-                <div id="google" class="tab-pane description" role="tabpanel">
+                <div id="google" class="tab-pane description" role="tabpanel"
+                     :class="openedtab=='google' ? 'active' : ''">
                     <div class="content less-content">
                         google
                     </div>
@@ -80,6 +86,11 @@
     </div>
 </div>
 </template>
+<style>
+.nav-link{
+    cursor:pointer;
+}
+</style>
 
 <script>
 import {trans} from "../../functions";
@@ -89,6 +100,12 @@ export default {
     components: { productRating,ReviewsHomeListSlider },
 
     props: ["reviewsitems"],
+
+    data(){
+        return{
+            openedtab: 'reviews',
+        }
+    },
 
     computed:{
         averageRaiting(){

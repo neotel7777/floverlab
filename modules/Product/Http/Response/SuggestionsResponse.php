@@ -25,11 +25,10 @@ class SuggestionsResponse implements Responsable
      * @param Collection $products
      * @param Collection $categories
      */
-    public function __construct(string $query, Collection $products, Collection $categories, int $totalResults)
+    public function __construct(string $query, Collection $products,  int $totalResults)
     {
         $this->query = $query;
         $this->products = $products;
-        $this->categories = $categories;
         $this->totalResults = $totalResults;
     }
 
@@ -44,7 +43,6 @@ class SuggestionsResponse implements Responsable
     public function toResponse($request): JsonResponse
     {
         return response()->json([
-            'categories' => $this->transformCategories(),
             'products' => $this->transformProducts(),
             'remaining' => $this->getRemainingCount(),
         ]);

@@ -85,22 +85,6 @@
         </div>
 
         <div class="form-group">
-            <label for="tax-class-id" class="col-sm-3 control-label text-left">
-                {{ trans('product::attributes.tax_class_id') }}
-            </label>
-
-            <div class="col-sm-5">
-                <select name="tax_class_id" id="tax-class-id" class="form-control custom-select-black" v-model="form.tax_class_id">
-                    @foreach ($taxClasses as $id => $label)
-                        <option value="{{ $id }}">{{ $label }}</option>
-                    @endforeach
-                </select>
-
-                <span class="help-block text-red" v-if="errors.has('tax_class_id')" v-text="errors.get('tax_class_id')"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="tags" class="col-sm-3 control-label text-left">
                 {{ trans('product::attributes.tags') }}
             </label>

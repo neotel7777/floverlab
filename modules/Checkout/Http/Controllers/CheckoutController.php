@@ -66,17 +66,9 @@ class CheckoutController extends Controller
         }
 
         $order = $orderService->create($request);
-        $gateway = Gateway::get($request->payment_method);
-
-        try {
-            $response = $gateway->purchase($order, $request);
-        } catch (Exception $e) {
-            $orderService->delete($order);
-
-            return response()->json([
-                'message' => $e->getMessage(),
-            ], 403);
-        }
+        session(['placed_order'=>$order]);
+        Cart::clear();
+        $response = ['redirectUrl'=>route('checkout.complete.show')];
 
         return response()->json($response);
     }
@@ -98,6 +90,8 @@ class CheckoutController extends Controller
             'defaultAddress' => auth()->user()->defaultAddress ?? new DefaultAddress,
             'addresses' => $this->getAddresses(),
             'termsPageURL' => Page::urlForPage(setting('storefront_terms_page')),
+            'variants' => make_checkout_variants(),
+            'actions' => make_checkout_actions(),
         ]);
     }
 

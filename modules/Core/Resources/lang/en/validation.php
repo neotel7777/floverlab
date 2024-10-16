@@ -1,6 +1,18 @@
 <?php
 
 return [
+
+    'billing_first_name_required' => 'Name of sender is required',
+    'billing_address_1_required' => 'Address of delivery is required',
+    'billing_phone_required' => 'Phone of sender is required',
+    'billing_email_required' => 'Email of sender is required',
+    'billing_email_email' => 'Email of sender must be a valid email address',
+    'shipping_first_name_required_if' => 'Name of recipient is required',
+    'shipping_address_1_required_if' => 'Address of delivery is required',
+    'shipping_phone_required_if' => 'Phone of recipient is required',
+    'shipping_email_required_if' => 'Email of recipient is required',
+    'shipping_email_email' => 'Email of recipient must be a valid email address',
+    'delivery_date_required' => 'Date of delivery is required',
     'redis' => 'Could not connect to the redis server',
     'accepted' => 'The :attribute must be accepted',
     'active_url' => 'The :attribute is not a valid URL',

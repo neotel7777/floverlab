@@ -2,6 +2,13 @@
 
 @section('title', trans('storefront::checkout.checkout'))
 
+@section('breadcrumb')
+    <li>
+        <a href="{{ route('cart.index') }}">{{ trans('storefront::cart.cart') }}</a>
+    </li>
+    <li class="active">{{ trans('storefront::cart.checkout') }}</li>
+@endsection
+
 @section('content')
     <checkout-create
         customer-email="{{ auth()->user()->email ?? null }}"
@@ -10,26 +17,29 @@
         :default-address="{{ $defaultAddress }}"
         :gateways="{{ $gateways }}"
         :countries="{{ json_encode($countries) }}"
+        :variants="{{ json_encode($variants) }}"
+        :actions="{{ json_encode($actions) }}"
+        :from="'{{ trans('storefront::checkout.from') }}'"
+        :to="'{{ trans('storefront::checkout.to') }}'"
+        :locale="'{{ locale() }}'"
+        :shipping_default="'free_shipping'"
         inline-template
     >
         <section class="checkout-wrap">
-            <div class="container">
+            <div class="sectionWrap">
+                <h3 class="checkout-title font-28-34-500 color-black">{{ trans('storefront::cart.checkout') }}</h3>
                 <template v-if="cartIsNotEmpty">
-                    @include('storefront::public.cart.index.steps')
 
                     <form class="checkout-form" @input="errors.clear($event.target.name)">
-                        <div class="checkout-inner">
-                            <div class="checkout-left">
-                                @include('storefront::public.checkout.create.form.account_details')
-                                @include('storefront::public.checkout.create.form.billing_details')
-                                @include('storefront::public.checkout.create.form.shipping_details')
-                                @include('storefront::public.checkout.create.form.order_note')
-                            </div>
-
-                            <div class="checkout-right">
-                                @include('storefront::public.checkout.create.payment')
-                                @include('storefront::public.checkout.create.shipping')
-                            </div>
+                        <div class="checkout-inner flex-column-start-start">
+                            @include('storefront::public.checkout.create.new_checkout.who_send')
+                            @include('storefront::public.checkout.create.new_checkout.time_send')
+                            @include('storefront::public.checkout.create.new_checkout.change_actions')
+{{--                                @include('storefront::public.checkout.create.form.billing_details')--}}
+{{--                                @include('storefront::public.checkout.create.form.shipping_details')--}}
+{{--                                @include('storefront::public.checkout.create.form.order_note')--}}
+{{--                                @include('storefront::public.checkout.create.payment')--}}
+{{--                                @include('storefront::public.checkout.create.shipping')--}}
                         </div>
 
                         @include('storefront::public.checkout.create.order_summary')
@@ -60,39 +70,5 @@
 @endsection
 
 @push('pre-scripts')
-    @if (setting('paypal_enabled'))
-        <script
-            src="https://www.paypal.com/sdk/js?client-id={{ setting('paypal_client_id') }}&currency={{ setting('default_currency') }}&disable-funding=credit,card,venmo,sepa,bancontact,eps,giropay,ideal,mybank,p24,p24">
-        </script>
-    @endif
 
-    @if (setting('paytm_enabled'))
-        @if (setting('paytm_test_mode'))
-            <script src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/{{ setting('paytm_merchant_id') }}.js">
-            </script>
-        @else
-            <script src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/{{ setting('paytm_merchant_id') }}.js">
-            </script>
-        @endif
-    @endif
-
-    @if (setting('razorpay_enabled'))
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    @endif
-
-    @if (setting('mercadopago_enabled'))
-        <script src="https://sdk.mercadopago.com/js/v2"></script>
-    @endif
-
-    @if (setting('flutterwave_enabled'))
-        <script src="https://checkout.flutterwave.com/v3.js"></script>
-    @endif
-
-    @if (setting('paystack_enabled'))
-        <script src="https://js.paystack.co/v1/inline.js"></script>
-    @endif
-
-    @if (setting('payfast_enabled'))
-        <script src="https://www.payfast.co.za/onsite/engine.js"></script>
-    @endif
 @endpush

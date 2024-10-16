@@ -1,5 +1,5 @@
 @guest
-    <div class="account-details">
+    <div class="account-details white_box">
         <h4 class="section-title">{{ trans('storefront::checkout.account_details') }}</h4>
 
         <div class="row">
